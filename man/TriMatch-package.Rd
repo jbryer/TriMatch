@@ -1,0 +1,22 @@
+\docType{package}
+\name{TriMatch-package}
+\alias{TriMatch}
+\alias{TriMatch-package}
+\title{Propensity Score Analysis for Non-Binary Treatments}
+\description{
+  This packages provides functions to estimate and
+  visualize propensity score analyses including matching
+  for non-binary treatments.
+}
+\author{
+  Jason Bryer \email{jason@bryer.org}
+}
+\seealso{
+  \code{PSAgraphics} \code{multilevelPSA}
+}
+\keyword{analysis}
+\keyword{matching}
+\keyword{propensity}
+\keyword{psa}
+\keyword{score}
+

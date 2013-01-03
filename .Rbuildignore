@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+DataPrep.r
+pscore
+pscore.tar.gz
+studentsHS.rda
+TriMatch.dev.r

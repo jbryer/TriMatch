@@ -1,0 +1,36 @@
+\name{distance.euclid}
+\alias{distance.euclid}
+\title{Euclidean distance calculation.}
+\usage{
+  distance.euclid(x, grouping, id, groups, caliper,
+    nmatch = Inf)
+}
+\arguments{
+  \item{x}{vector of propensity scores.}
+
+  \item{grouping}{vector or factor identifying group
+  membership.}
+
+  \item{id}{vector corresponding to unique identifer for
+  each element in \code{x} and \code{grouping}.}
+
+  \item{groups}{vector of length two indicating the unique
+  groups to calculate the distance between. The first
+  element will be the rows, the second columns.}
+
+  \item{caliper}{a scaler indicating the caliper to use for
+  matching within each step.}
+
+  \item{nmatch}{number of smallest distances to retain.}
+}
+\value{
+  a list of length equal to \code{x}. Each element of the
+  list is a named numeric vector where the values
+  correspond to the distance and the name to the \code{id}.
+}
+\description{
+  This method uses a simple Euclidean distance caluclation
+  for determining the distances between two matches. That
+  is, |ps1 - ps2|.
+}
+
