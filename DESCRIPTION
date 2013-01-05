@@ -12,6 +12,7 @@ Depends:
     psych,
     reshape,
     stats,
+    ez,
     R (>= 2.14)
 Suggests:
     MASS

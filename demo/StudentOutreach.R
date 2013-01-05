@@ -43,8 +43,8 @@ plot.distances(tmatch, caliper=c(.15, .2, .25))
 
 tmatch[tmatch$Dtotal > .11,]
 
-tmatch[128,]
-plot(tmatch, rows=c(128), line.alpha=1, draw.segments=TRUE)
+tmatch[838,]
+plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
 
 #Add in the outcome variable
 #Can add one variable...
@@ -58,32 +58,44 @@ names(tmatch.out)
 plot.parallel(tmatch.out)
 
 outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
-#tmatch.out <- tmatch.out[tmatch.out$Dtotal < .2 * total.sd,]
 tmatch.out$id <- 1:nrow(tmatch.out)
-out <- melt(tmatch.out[,c(outcomes, ncol(tmatch.out))],id.vars='id')
+out <- melt(tmatch.out[,c(outcomes, which(names(tmatch.out) == 'id'))],id.vars='id')
 names(out) <- c('ID','Treatment','Outcome')
 head(out)
 set.seed(2112)
-friedman.test.with.post.hoc(Outcome ~ Treatment | ID, out)
-friedman.test(Outcom ~ Treatment | ID, out)
+friedman.test(Outcome ~ Treatment | ID, out)
 
 #Repeated measures ANOVA
 rmanova <- ezANOVA(data=out, dv=Outcome, wid=ID, within=Treatment)
 ls(rmanova)
 print(rmanova)
 
-#Boxplot of differences
-tmatch$Control_Treat1 <- tmatch$Control - tmatch$Treat1
-tmatch$Control_Treat2 <- tmatch$Control - tmatch$Treat2
-tmatch$Treat2_Treat1 <- tmatch$Treat2 - tmatch$Treat1
-out.box <- melt(tmatch[,c('id','Control_Treat1','Control_Treat2','Treat2_Treat1')], id.vars='id')
-names(out.box) <- c('Student','Treatment','Difference')
-ggplot(out.box, aes(x=Treatment, y=Difference)) + geom_boxplot() + geom_hline(yintercept=0)
+#Individual t-tests
+t1 <- t.test(x=tmatch.out$Treatment1.out, y=tmatch.out$Control.out, paired=TRUE)
+t2 <- t.test(x=tmatch.out$Treatment2.out, y=tmatch.out$Control.out, paired=TRUE)
+t3 <- t.test(x=tmatch.out$Treatment2.out, y=tmatch.out$Treatment1.out, paired=TRUE)
 
+ci <- as.data.frame(rbind(t1$conf.int, t2$conf.int, t3$conf.int))
+ci$Treatment <- names(tmatch.out)[12:14]
+ci$estimate <- c(t1$estimate, t2$estimate, t3$estimate)
+
+#Boxplot of differences
+tmatch.out$Treat1_Control <- tmatch.out$Treatment1.out - tmatch.out$Control.out
+tmatch.out$Treat2_Control <- tmatch.out$Treatment2.out - tmatch.out$Control.out
+tmatch.out$Treat2_Treat1 <- tmatch.out$Treatment2.out - tmatch.out$Treatment1.out
+out.box <- melt(tmatch.out[,c('id','Treat1_Control','Treat2_Control','Treat2_Treat1')], id.vars='id')
+names(out.box) <- c('Student','Treatment','Difference')
+ggplot(out.box, aes(x=Treatment, y=Difference)) + geom_boxplot() + geom_hline(yintercept=0) +
+	geom_crossbar(data=ci, aes(x=Treatment, ymin=V1, ymax=V2, y=estimate), 
+				  color='green', fill='green', width=.72, alpha=.6) +
+	scale_x_discrete(NULL, labels=c(Treat1_Control='Treat1 - Control', 
+									Treat2_Control='Treat2 - Control',
+									Treat2_Treat1='Treat2 - Treat1')) +
+	xlab(NULL)
 
 #Possible approach for post-hoc test
-?pairwise.wilcox.test
-pairwise.wilcox.test()
+pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.method='bonferroni')
+
 
 #Loess plots
 tpsa$credits <- students$ECHOURS_ATTEMPTED_COURSES_CALC
