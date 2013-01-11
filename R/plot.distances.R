@@ -20,7 +20,7 @@ plot.distances <- function(tmatch, caliper=.25) {
 	p <- ggplot(tmp, aes(x=ID, y=Distance)) + geom_bar(aes(fill=Model)) + coord_flip() + 
 		geom_hline(yintercept=l*caliper, color='black') +
 		theme(axis.text.y=element_blank()) +
-		xlab(NULL)
+		xlab(NULL) + xlim(tmatch[order(tmatch$Dtotal),'id'])
 	if(length(which(tmatch$Dtotal > (l * min(caliper)))) > 0) {
 		p <- p + geom_text(data=tmatch[tmatch$Dtotal > (l * min(caliper)),], 
 						   aes(x=id, y=0, label=id),
