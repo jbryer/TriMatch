@@ -19,14 +19,14 @@ nmes <- na.omit(nmes[,c(cols.model, 'smoke', 'TOTALEXP')])
 treat <- nmes$smoke
 table(treat, useNA='ifany')
 
-tpsa <- triangle.psa(nmes[,cols.model], treat, ids=1:nrow(nmes))
+tpsa <- trips(nmes[,cols.model], treat, ids=1:nrow(nmes))
 head(tpsa)
 (p <- plot(tpsa[sample(1:nrow(tpsa), 500),], edge.alpha=.1))
 
 if(file.exists('tmatch.nmes.rda')) {
 	load('tmatch.nmes.rda')
 } else {
-	tmatch <- triangle.match(tpsa, M=1, nmatch=c(10,10))
+	tmatch <- trimatch(tpsa, M=1, nmatch=c(10,10))
 	save(tmatch, file='tmatch.nmes.rda')
 }
 

@@ -1,18 +1,18 @@
-\name{triangle.match}
-\alias{triangle.match}
+\name{trimatch}
+\alias{trimatch}
 \title{Creates matched triplets.}
 \usage{
-  triangle.match(tpsa, caliper = 0.25, nmatch = c(Inf),
+  trimatch(tpsa, caliper = 0.25, nmatch = c(Inf),
     match.order, M = 1, ...)
 }
 \arguments{
-  \item{tpsa}{the results from \code{\link{triangle.psa}}}
+  \item{tpsa}{the results from \code{\link{trips}}}
 
-  \item{caliper}{a scaler indicating the caliper to use for
-  matching within each step. This is expressed in
-  standardized units such that .25 means that matches must
-  be within .25 of one standard deviation to be kept,
-  otherwise the match is dropped.}
+  \item{caliper}{a vector of length one or three indicating
+  the caliper to use for matching within each step. This is
+  expressed in standardized units such that .25 means that
+  matches must be within .25 of one standard deviation to
+  be kept, otherwise the match is dropped.}
 
   \item{nmatch}{number of closest matches to retain before
   moving to next edge. This can be \code{Inf} in which case
@@ -34,7 +34,7 @@
   \item{...}{currently unused.}
 }
 \description{
-  The \code{\link{triangle.psa}} function will estimate the
+  The \code{\link{trips}} function will estimate the
   propensity scores for three models. This method will then
   find the best matched triplets based upon minimizing the
   summed differences between propensity scores across the

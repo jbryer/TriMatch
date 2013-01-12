@@ -1,8 +1,8 @@
-\name{triangle.psa}
-\alias{triangle.psa}
+\name{trips}
+\alias{trips}
 \title{Estimates propensity scores for three groups (e.g. two treatments and one control).}
 \usage{
-  triangle.psa(thedata, treat, ids, groups = unique(treat),
+  trips(thedata, treat, ids, groups = unique(treat),
     nstrata = 5, ...)
 }
 \arguments{

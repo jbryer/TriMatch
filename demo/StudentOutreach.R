@@ -1,5 +1,4 @@
 require(TriMatch)
-require(ez)
 
 data(students)
 
@@ -14,7 +13,7 @@ cols.model <- c('Military','Income', 'Employment', 'NativeEnglish','EdLevelMothe
 treat <- students$TreatBy
 table(treat, useNA='ifany')
 
-tpsa <- triangle.psa(students[,cols.model], treat, ids=1:nrow(students))
+tpsa <- trips(students[,cols.model], treat, ids=1:nrow(students))
 head(tpsa)
 (p <- plot(tpsa))
 
@@ -24,8 +23,8 @@ cor(tpsa$ps1, tpsa$ps3, use='pairwise.complete.obs')
 cor(tpsa$ps3, tpsa$ps2, use='pairwise.complete.obs')
 
 #Match triplets
-tmatch <- triangle.match(tpsa)
-#tmatch <- triangle.match(tpsa, match.order=c("Treatment2", "Treatment1", "Control"))
+tmatch <- trimatch(tpsa)
+#tmatch <- trimatch(tpsa, match.order=c("Treatment2", "Treatment1", "Control"))
 head(tmatch); tail(tmatch); nrow(tmatch)
 names(attributes(tmatch))
 
@@ -35,6 +34,9 @@ nrow(unmatched) / nrow(tpsa) * 100
 #Percentage of each group not matched
 table(unmatched$treat) / table(tpsa$treat) * 100 
 unmatched[unmatched$treat != 'Control',]
+
+#Triangle plot of only the unmatched students
+plot(tpsa[tpsa$id %in% unmatched$id,])
 
 plot(tmatch, rows=c(2), line.alpha=1, draw.segments=TRUE)
 
@@ -96,12 +98,18 @@ ggplot(out.box, aes(x=Treatment, y=Difference)) + geom_boxplot() + geom_hline(yi
 #Possible approach for post-hoc test
 pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.method='bonferroni')
 
-
 #Loess plots
-tpsa$credits <- students$ECHOURS_ATTEMPTED_COURSES_CALC
+
+tpsa$credits <- students$CreditsAttempted
+#tpsa$credits <- log(tpsa$credits)
+#tpsa[tpsa$credits < 0, ]$credits <- 0
 pscores <- melt(tpsa[,c('treat','ps1','ps2','ps3','credits')], id.vars=c('treat','credits'))
 pscores$variable <- factor(pscores$variable, levels=c('ps1','ps2','ps3'), 
 						   labels=c('Model 1', 'Model 2', 'Model 3'))
-ggplot(pscores, aes(x=value, y=credits, color=treat)) + geom_point(alpha=.3) + geom_smooth() +
+ggplot(pscores, aes(x=value, y=credits, color=treat)) + 
+	geom_point(alpha=.3) + geom_smooth() +
 	facet_wrap(~ variable, ncol=1)
 
+ggplot(pscores[pscores$credits > 0,], aes(x=value, y=credits, color=treat)) + 
+	geom_point(alpha=.3) + geom_smooth() +
+	facet_wrap(~ variable, ncol=1)

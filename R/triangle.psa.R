@@ -11,7 +11,7 @@
 #' @param nstrata the number of strata marks to plot on the edge.
 #' @param ... other parameters passed to \code{\link{glm}}.
 #' @export
-triangle.psa <- function(thedata, treat, ids, groups=unique(treat), nstrata=5, ...) {
+trips <- function(thedata, treat, ids, groups=unique(treat), nstrata=5, ...) {
 	if(length(groups) != 3) stop('Sorry, exactly three groups are required.')
 	if(nrow(thedata) != length(treat)) stop('length(treat) does not equal nrow(thedata)')
 	if(missing(ids)) {

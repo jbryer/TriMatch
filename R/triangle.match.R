@@ -43,7 +43,7 @@ distance.euclid <- function(x, grouping, id, groups, caliper, nmatch=Inf) {
 
 #' Creates matched triplets.
 #' 
-#' The \code{\link{triangle.psa}} function will estimate the propensity scores
+#' The \code{\link{trips}} function will estimate the propensity scores
 #' for three models. This method will then find the best matched triplets based
 #' upon minimizing the summed differences between propensity scores across the
 #' three models. That is, the algorithm works as follows:
@@ -62,8 +62,8 @@ distance.euclid <- function(x, grouping, id, groups, caliper, nmatch=Inf) {
 #' -The three distances are summed.
 #' -The triplet with the smallest overall distance is selected and returned.
 #' 
-#' @param tpsa the results from \code{\link{triangle.psa}}
-#' @param caliper a scaler indicating the caliper to use for matching within
+#' @param tpsa the results from \code{\link{trips}}
+#' @param caliper a vector of length one or three indicating the caliper to use for matching within
 #'        each step. This is expressed in standardized units such that .25 means
 #'        that matches must be within .25 of one standard deviation to be kept,
 #'        otherwise the match is dropped.
@@ -79,11 +79,14 @@ distance.euclid <- function(x, grouping, id, groups, caliper, nmatch=Inf) {
 #'        to the first two groups in the matching order.
 #' @param ... currently unused.
 #' @export
-triangle.match <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, ...) {
+trimatch <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, ...) {
 	distance.fun <- distance.euclid
 
 	if(length(nmatch) == 1) {
 		nmatch <- c(nmatch, nmatch)
+	}
+	if(length(caliper) == 1) {
+		caliper <- rep(caliper, 3)
 	}
 	
 	groups <- attr(tpsa, 'groups')
@@ -127,24 +130,26 @@ triangle.match <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, .
 	ps2 <- getPS(ordering[2], ordering[3])
 	ps3 <- getPS(ordering[3], ordering[1])
 	
-	t <- (length(ps1) * length(ps2))
-	dstep <- t * .03
-	t <- t + 3 * dstep
+	#t <- (length(ps1) * length(ps2))
+	t <- length(ps1) + 3
+	#dstep <- t * .03
+	#t <- t + 3 * dstep
 	pb <- txtProgressBar(min=0, max=t, style=3)
 	
 	#Calculate the distances
 	d1 <- distance.fun(ps1, grouping=tpsa$treat, 
 					   id=tpsa$id, groups=match.order[c(1,2)],
-					   caliper=caliper, nmatch=nmatch[1])
-	setTxtProgressBar(pb, dstep)
+					   caliper=caliper[1], nmatch=nmatch[1])
+	setTxtProgressBar(pb, 1)
 	d2 <- distance.fun(ps2, grouping=tpsa$treat, 
 					   id=tpsa$id, groups=match.order[c(2,3)],
-					   caliper=caliper, nmatch=nmatch[2])
-	setTxtProgressBar(pb, 2 * dstep)
+					   caliper=caliper[2], nmatch=nmatch[2])
+	setTxtProgressBar(pb, 2)
 	d3 <- distance.fun(ps3, grouping=tpsa$treat, 
 					   id=tpsa$id, groups=match.order[c(3,1)],
-					   caliper=caliper)
-	setTxtProgressBar(pb, 3 * dstep)
+					   caliper=caliper[3])
+	
+	setTxtProgressBar(pb, 3)
 	
 	results <- data.frame(g1=character(), g2=character(), g3=character(), 
 						  D1=numeric(), D2=numeric(), D3=numeric(),
@@ -173,8 +178,9 @@ triangle.match <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, .
 					))
 				}
 			}
-			setTxtProgressBar(pb, (3 * dstep) + ((counter.i-1)*length(d2)) + counter.j)
+			#setTxtProgressBar(pb, (3 * dstep) + ((counter.i-1)*length(d2)) + counter.j)
 		}
+		setTxtProgressBar(pb, 3 + counter.i)
 	}
 	setTxtProgressBar(pb, t)
 	close(pb)

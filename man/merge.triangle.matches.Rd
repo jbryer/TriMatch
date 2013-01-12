@@ -5,7 +5,7 @@
   merge.triangle.matches(x, y, ...)
 }
 \arguments{
-  \item{x}{the result of \code{\link{triangle.match}}}
+  \item{x}{the result of \code{\link{trimatch}}}
 
   \item{y}{another data frame or vetor to merge with.}
 
