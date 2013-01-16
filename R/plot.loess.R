@@ -25,6 +25,8 @@
 #' @param points.alpha number between 0 and 1 representing the alpha level for the points.
 #' @param points.palette the color palette to use. See \code{\link{scale_colour_brewer}}
 #'        and \url{http://colorbrewer2.org/} for more information.
+#' @return a \code{ggplot2} figure.
+#' @export
 plot.loess3 <- function(tmatch, outcome, model,
 						ylab='Outcome', 
 						smooth.method='auto',
