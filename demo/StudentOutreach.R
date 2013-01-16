@@ -55,6 +55,10 @@ tmatch.out <- merge(x=tmatch, y=students[,c('CreditsAttempted')])
 #students$LogCredits <- log(students$ECHOURS_ATTEMPTED_COURSES_CALC)
 #tmatch.out <- merge(x=tmatch, y=students[,c('LogCredits', 'ECHOURS_ATTEMPTED_COURSES_CALC')])
 
+plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
+plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
+			points.alpha=.5, plot.connections=TRUE)
+
 names(tmatch.out)
 
 plot.parallel(tmatch.out)
