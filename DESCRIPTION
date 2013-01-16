@@ -10,7 +10,7 @@ URL: http://jbryer.github.com/TriMatch
 Depends:
     ggplot2,
     psych,
-    reshape,
+    reshape2,
     stats,
     ez,
     R (>= 2.14)
@@ -28,3 +28,5 @@ Collate:
     'triangle.match.R'
     'triangle.psa.R'
     'TriMatch-package.R'
+    'balance.R'
+    'plot.loess.R'
