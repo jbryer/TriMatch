@@ -1,0 +1,31 @@
+\name{plot.balance}
+\alias{plot.balance}
+\title{Balance plot for the given covariate.}
+\usage{
+  plot.balance(tmatch, covar, model,
+    nstrata = attr(attr(tmatch, "triangle.psa"), "nstrata"),
+    label = "Covariate", ylab = "")
+}
+\arguments{
+  \item{tmatch}{results from \code{\link{trimatch}}.}
+
+  \item{covar}{vector of the covaraite to check balance
+  of.}
+
+  \item{model}{an integer between 1 and 3 indicating from
+  which model the propensity scores will be used.}
+
+  \item{nstrata}{number of strata to use.}
+
+  \item{ylab}{label of the y-axis.}
+}
+\value{
+  a \code{ggplot2} figure.
+}
+\description{
+  If the covariate is numeric, boxplots will be drawn with
+  red points for the mean and green error bars for the
+  standard error. For non-numeric covariates a barplot will
+  be drawn.
+}
+

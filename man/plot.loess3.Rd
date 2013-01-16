@@ -41,6 +41,9 @@
   \code{\link{scale_colour_brewer}} and
   \url{http://colorbrewer2.org/} for more information.}
 }
+\value{
+  a \code{ggplot2} figure.
+}
 \description{
   This function will create a \code{ggplot2} figure with
   propensity scores on the x-axis and the outcome on the

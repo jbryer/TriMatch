@@ -1,6 +1,8 @@
 S3method(merge,triangle.matches)
 export(merge.triangle.matches)
+export(plot.balance)
 export(plot.distances)
+export(plot.loess3)
 export(plot.parallel)
 export(plot.triangle.matches)
 export(plot.triangle.psa)
