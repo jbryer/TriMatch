@@ -48,6 +48,17 @@ tmatch[tmatch$Dtotal > .11,]
 tmatch[838,]
 plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
 
+#Check balance
+plot.balance(tmatch, students$Age, label='Age')
+plot.balance(tmatch, students$Age, label='Age', nstrata=8)
+
+plot.balance(tmatch, students$Military, label='Military')
+plot.balance(tmatch, students$Military, label='Military', model=1)
+plot.balance(tmatch, students$Military, label='Military', model=2)
+
+plot.balance(tmatch, students$Gender, label='Gender')
+plot.balance(tmatch, students$Ethnicity, label='Ethnicity')
+
 #Add in the outcome variable
 #Can add one variable...
 tmatch.out <- merge(x=tmatch, y=students[,c('CreditsAttempted')])
