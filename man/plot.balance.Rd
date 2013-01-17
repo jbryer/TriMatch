@@ -4,7 +4,7 @@
 \usage{
   plot.balance(tmatch, covar, model,
     nstrata = attr(attr(tmatch, "triangle.psa"), "nstrata"),
-    label = "Covariate", ylab = "")
+    label = "Covariate", ylab = "", se.ratio = 2)
 }
 \arguments{
   \item{tmatch}{results from \code{\link{trimatch}}.}
@@ -18,6 +18,9 @@
   \item{nstrata}{number of strata to use.}
 
   \item{ylab}{label of the y-axis.}
+
+  \item{se.ratio}{a multiplier for how large standard error
+  bars will be.}
 }
 \value{
   a \code{ggplot2} figure.
