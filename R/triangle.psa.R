@@ -49,9 +49,9 @@ trips <- function(thedata, treat, ids, groups=unique(treat), nstrata=5, ...) {
 	breaks2 <- quantile(treats$ps2, probs=seq(0,1,1/nstrata), na.rm=TRUE)
 	breaks3 <- quantile(treats$ps3, probs=seq(0,1,1/nstrata), na.rm=TRUE)
 	
-	treats$strata1 <- cut(treats$ps1, breaks=breaks1, labels=1:nstrata)
-	treats$strata2 <- cut(treats$ps2, breaks=breaks2, labels=1:nstrata)
-	treats$strata3 <- cut(treats$ps3, breaks=breaks3, labels=1:nstrata)
+	treats$strata1 <- cut(treats$ps1, breaks=breaks1, labels=1:nstrata, include.lowest=TRUE)
+	treats$strata2 <- cut(treats$ps2, breaks=breaks2, labels=1:nstrata, include.lowest=TRUE)
+	treats$strata3 <- cut(treats$ps3, breaks=breaks3, labels=1:nstrata, include.lowest=TRUE)
 	
 	class(treats) <- c('triangle.psa', 'data.frame')
 	attr(treats, 'nstrata') <- nstrata
