@@ -10,12 +10,14 @@
 #'        scores will be used.
 #' @param nstrata number of strata to use.
 #' @param ylab label of the y-axis.
+#' @param se.ratio a multiplier for how large standard error bars will be.
 #' @return a \code{ggplot2} figure.
 #' @export
 plot.balance <- function(tmatch, covar, model,
 					     nstrata=attr(attr(tmatch, 'triangle.psa'), 'nstrata'),
 					     label='Covariate',
-					     ylab='') {
+					     ylab='',
+						 se.ratio = 2) {
 	if(!is.numeric(covar)) {
 		covar <- as.character(covar)
 	}
@@ -34,6 +36,23 @@ plot.balance <- function(tmatch, covar, model,
 		if(model == 0) {
 			stop('Could not find model. There are missing propensity scores in all models.')
 		}
+		message(paste('Using propensity scores from model ', model, ' for evaluating balance.', sep=''))
+	} else {
+		#Need to determine which groups these models represent
+		if(length(which(is.na(tpsa[tpsa$treat %in% groups[1:2],
+								paste('model', model, sep='')]))) == 0) {
+			groups <- groups[c(1,2,3)]
+		} else if(length(which(is.na(tpsa[tpsa$treat %in% groups[2:3],
+								paste('model', model, sep='')]))) == 0) {
+			groups <- groups[c(2,3,1)]
+			
+		} else if(length(which(is.na(tpsa[tpsa$treat %in% groups[c(1,3)],
+								paste('model', model, sep='')]))) == 0) {
+			groups <- groups[c(1,3,2)]			
+		} else {
+			stop(paste('Could not use model ', model, 
+					   '. There is are unexpected missing propensity scores', sep=''))
+		}
 	}
 
 	tmatch2 <- merge(tmatch2, tpsa[which(tpsa$treat == groups[1]), c('id',paste('ps', model, sep=''))], 
@@ -51,7 +70,8 @@ plot.balance <- function(tmatch, covar, model,
 	
 	badrows <- which(is.na(tmatch2$strata))
 	if(length(badrows) > 0) {
-		warning(paste('Could not determine strata for the following rows: ', badrows, collapse=', '))
+		warning(paste('Could not determine strata for the following rows: ', 
+					  paste(badrows, collapse=', '), sep=''))
 		tmatch2 <- tmatch2[-badrows,] 
 	}
 	
@@ -65,14 +85,22 @@ plot.balance <- function(tmatch, covar, model,
 		df <- describeBy(out$Covariate, group=list(out$Treatment, out$Strata), 
 						 mat=TRUE, skew=FALSE)[,c('group1','group2','mean','sd','se')]
 		names(df) <- c('Treatment','Strata','Mean','SD','SE')
+		df$ymin <- (df$Mean - se.ratio * df$SE)
+		df$ymax <- (df$Mean + se.ratio * df$SE)
 		p <- p + geom_boxplot(aes(y=Covariate)) + ylab(label) +
 			geom_point(data=df, aes(y=Mean), color='red', size=3) +
 			geom_line(data=df, aes(y=Mean, group=Strata)) +
-			geom_errorbar(data=df, aes(ymin=(Mean-SE), ymax=(Mean+SE)), color='green', width=.5)
+			geom_errorbar(data=df, aes(ymin=ymin, ymax=ymax), color='green', width=.5)
 	} else { #Categorical varaible
-		p <- p + geom_histogram(aes(fill=factor(Covariate)))  +
-			scale_fill_hue(label) + ylab('Count')
+		require(scales)
+		p <- p + geom_bar(aes(fill=factor(Covariate), y=(..count..)/sum(..count..)), 
+						  position='fill')  +
+			scale_fill_hue(label) + ylab('Percent') +
+			scale_y_continuous(labels = percent)
 	}
+	
+	p <- p + theme(axis.text.x=element_text(angle=-45, vjust=.5),
+				   panel.background=element_rect(color='black', fill='#F9F3FD'))
 	
 	#Probably not the best statistic to use here.
 	ft <- friedman.test(Covariate ~ Treatment | ID, out)
