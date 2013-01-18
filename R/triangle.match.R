@@ -33,8 +33,9 @@ distance.euclid <- function(x, grouping, id, groups, caliper, nmatch=Inf) {
 		dist <- abs(tmp.1[i,]$ps - tmp.2$ps)
 		names(dist) <- tmp.2$id
 		dist <- dist[order(dist)]
+		dist <- dist / sd #Convert to standized units
 		dist <- dist[1:min(length(dist), nmatch)]
-		dist <- dist[dist < caliper * sd]
+		dist <- dist[dist < caliper]
 		d.list[[i]] <- dist
 	}
 	names(d.list) <- as.character(tmp.1$id)
@@ -131,7 +132,7 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, ...) {
 	ps3 <- getPS(ordering[3], ordering[1])
 	
 	#t <- (length(ps1) * length(ps2))
-	t <- length(ps1) + 3
+	t <- length(which(tpsa$treat == match.order[1])) + 3
 	#dstep <- t * .03
 	#t <- t + 3 * dstep
 	pb <- txtProgressBar(min=0, max=t, style=3)

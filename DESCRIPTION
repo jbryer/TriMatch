@@ -14,6 +14,7 @@ Depends:
     reshape2,
     stats,
     ez,
+    PSAgraphics,
     R (>= 2.14)
 Suggests:
     MASS
@@ -31,3 +32,5 @@ Collate:
     'TriMatch-package.R'
     'plot.loess.R'
     'plot.balance.R'
+    'covariateBalance.R'
+    'plot.multibalance.R'

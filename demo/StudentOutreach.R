@@ -22,6 +22,11 @@ cor(tpsa$ps1, tpsa$ps2, use='pairwise.complete.obs')
 cor(tpsa$ps1, tpsa$ps3, use='pairwise.complete.obs')
 cor(tpsa$ps3, tpsa$ps2, use='pairwise.complete.obs')
 
+#Look at the summary of the three logistic regression models
+summary(attr(tpsa, 'model1'))
+summary(attr(tpsa, 'model2'))
+summary(attr(tpsa, 'model3'))
+
 #Match triplets
 tmatch <- trimatch(tpsa)
 #tmatch <- trimatch(tpsa, match.order=c("Treatment2", "Treatment1", "Control"))
@@ -58,6 +63,16 @@ plot.balance(tmatch, students$Military, label='Military', model=2)
 
 plot.balance(tmatch, students$Gender, label='Gender')
 plot.balance(tmatch, students$Ethnicity, label='Ethnicity')
+
+#Effect size balance plot
+covs <- students[,c('Military','NativeEnglish','Gender','Age',
+					'Income','Employment','EdLevelMother','EdLevelFather')]
+covs$Gender <- as.integer(covs$Gender)
+covs$Income <- as.integer(covs$Income)
+covs$Employment <- as.integer(covs$Employment)
+covs$EdLevelMother <- as.integer(covs$EdLevelMother)
+covs$EdLevelFather <- as.integer(covs$EdLevelFather)
+plot.multibalance(tpsa, covs, grid=TRUE)
 
 #Add in the outcome variable
 #Can add one variable...
@@ -112,19 +127,3 @@ ggplot(out.box, aes(x=Treatment, y=Difference)) + geom_boxplot() + geom_hline(yi
 
 #Possible approach for post-hoc test
 pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.method='bonferroni')
-
-#Loess plots
-
-tpsa$credits <- students$CreditsAttempted
-#tpsa$credits <- log(tpsa$credits)
-#tpsa[tpsa$credits < 0, ]$credits <- 0
-pscores <- melt(tpsa[,c('treat','ps1','ps2','ps3','credits')], id.vars=c('treat','credits'))
-pscores$variable <- factor(pscores$variable, levels=c('ps1','ps2','ps3'), 
-						   labels=c('Model 1', 'Model 2', 'Model 3'))
-ggplot(pscores, aes(x=value, y=credits, color=treat)) + 
-	geom_point(alpha=.3) + geom_smooth() +
-	facet_wrap(~ variable, ncol=1)
-
-ggplot(pscores[pscores$credits > 0,], aes(x=value, y=credits, color=treat)) + 
-	geom_point(alpha=.3) + geom_smooth() +
-	facet_wrap(~ variable, ncol=1)
