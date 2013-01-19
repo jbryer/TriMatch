@@ -48,7 +48,7 @@ plot(tmatch, rows=c(2), line.alpha=1, draw.segments=TRUE)
 plot.distances(tmatch)
 plot.distances(tmatch, caliper=c(.15, .2, .25))
 
-tmatch[tmatch$Dtotal > .11,]
+tmatch[tmatch$Dtotal > .60,]
 
 tmatch[838,]
 plot(tmatch, rows=c(838), line.alpha=1, draw.segments=TRUE)
