@@ -1,6 +1,7 @@
-
 #' Internal method for plotting.
 #' Position along the left side segement
+#' 
+#' @param d the distance
 segment1 <- function(d) {
 	x <- cos((60 * pi) / 180) * d
 	y <- x * (sqrt(.75) / .5)
@@ -9,6 +10,8 @@ segment1 <- function(d) {
 
 #' Internal method for plotting.
 #' Position along the right side segement
+#' 
+#' @param d the distance
 segment2 <- function(d) {
 	x <- 1 - (cos((60 * pi) / 180) * d)
 	y <- -(sqrt(.75) / .5) * x + sqrt(.75) / .5
@@ -17,6 +20,10 @@ segment2 <- function(d) {
 
 #' Internal method for plotting.
 #' Finds a point d distance from x, y
+#' 
+#' @param x x coordinate
+#' @param y y coordinate
+#' @param d the distance
 perpPt <- function(x, y, d=.05) {
 	x2 <- cos( (30*pi) / 180) * d
 	y2 <- sin( (30*pi) / 180) * d

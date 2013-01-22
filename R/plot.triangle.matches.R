@@ -16,7 +16,9 @@
 #'        triplets to draw.
 #' @param rows an integer vector corresponding to the rows in \code{tmatch} to draw.
 #' @param line.color the line color.
-#' @param line.alhpa the alpha for the lines.
+#' @param line.alpha the alpha for the lines.
+#' @param point.color color of matched triplet points.
+#' @param point.size point size for matched triplets.
 #' @param p a ggplot to add the match lines. If NULL, then \code{\link{plot.triangle.psa}}.
 #' @param ... other parameters passed to \code{\link{plot.triangle.psa}}.
 #' @return a \code{ggplot2} graphic.

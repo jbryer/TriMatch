@@ -4,8 +4,26 @@
 #' package. This graphic plots the effect sizes for multiple covariated before and
 #' after propensity score andjustement.
 #' 
+#' @param tpsa results of \code{\link{trips}}.
+#' @param covs a vector or data frame of covariates.
+#' @param grid if TRUE, then a grid of three plots for each model will be displayed.
+#' @return a \code{ggplot2} figure.
 #' @export
-plot.multibalance <- function(tpsa, covs, grid=FALSE) {	
+plot.multibalance <- function(tpsa, covs, grid=TRUE) {	
+	#Recode factors. First we'll covert logicals and factors with two levels to integers
+	for(i in 1:ncol(covs)) {
+		if(class(covs[,i]) == 'logical') {
+			covs[,i] <- as.integer(covs[,i])
+		} else if(class(covs[,i]) == 'factor' & length(levels(covs[,i])) == 2) {
+			covs[,i] <- as.integer(covs[,i])
+		}
+	}
+	if('factor' %in% sapply(covs, class)) {
+		#Convert remaining factors using cv.trans.psa from PSAgraphics
+		covs <- as.data.frame(cv.trans.psa(covs))
+		names(covs) <- gsub('covariates.transformed.', '', names(covs))
+	}
+	
 	tpsa2 <- cbind(tpsa, (covs))
 	
 	results <- data.frame(covariate=character(), model=integer(), unadjusted=numeric(),

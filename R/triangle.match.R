@@ -1,10 +1,3 @@
-#' Mahalanobis distance cacluation.
-#' 
-#' @seealso mahalanobis
-distance.mahalanobis <- function(x, grouping, id, groups, caliper, nmatch=Inf) {
-	#TODO: Implement	
-}
-
 #' Euclidean distance calculation.
 #' 
 #' This method uses a simple Euclidean distance caluclation for determining the
@@ -76,11 +69,13 @@ distance.euclid <- function(x, grouping, id, groups, caliper, nmatch=Inf) {
 #'        which the matching algorithm will processes. The default is to use start
 #'        with the group the middle number of subjects, followed by the smallest,
 #'        and then the largest. 
-#' @param M a scaler indicating the number of unique matches to retain. This applies
+#' @param M1 a scaler indicating the number of unique subjects in group one to
+#'        retain. This applies only to the first group in the matching order.
+#' @param M2 a scaler indicating the number of unique matches to retain. This applies
 #'        to the first two groups in the matching order.
 #' @param ... currently unused.
 #' @export
-trimatch <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, ...) {
+trimatch <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M1=2, M2=1, ...) {
 	distance.fun <- distance.euclid
 
 	if(length(nmatch) == 1) {
@@ -195,10 +190,8 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, ...) {
 	results$Dtotal <- results$D.m1 + results$D.m2 + results$D.m3
 	results <- results[order(results$Dtotal),]
 	
-	unmatched <- tpsa[!(tpsa$id %in% c(results[,1], results[,2], results[,3])),]
-	
 	retain <- data.frame()
-	for(i in 1:M) {
+	for(i in 1:M2) {
 		keep <- which(!duplicated(results[, 1:2]))
 		if(length(keep) > 0) {
 			retain <- rbind(retain, results[keep,])
@@ -208,6 +201,21 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(Inf), match.order, M=1, ...) {
 	results <- retain
 	row.names(results) <- 1:nrow(results)
 	
+	if(!missing(M1)) {
+		retain <- data.frame()
+		for(i in 1:M1) {
+			keep <- which(!duplicated(results[,1]))
+			if(length(keep) > 0) {
+				retain <- rbind(retain, results[keep,])
+				results <- results[-keep,]
+			}
+		}
+		results <- retain
+		row.names(results) <- 1:nrow(results)
+	}
+	
+	unmatched <- tpsa[!(tpsa$id %in% c(results[,1], results[,2], results[,3])),]
+
 	class(results) <- c('triangle.matches','data.frame')
 	attr(results, 'triangle.psa') <- tpsa
 	attr(results, 'match.order') <- match.order

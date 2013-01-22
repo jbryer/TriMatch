@@ -1,7 +1,13 @@
 #' Parallel coordinate plot for the three groups and dependent variable.
 #' 
+#' Creates a \code{ggplot2} figure of a parallel coordinate plot.
+#' 
+#' @param tmatch results from \code{\link{trimatch}}.
+#' @param outcome vector of the outcome
 #' @export
-plot.parallel <- function(tmatch, outcomes=grep("*.out", names(tmatch))) {
+plot.parallel <- function(tmatch, outcome) {
+	tmatch <- merge(tmatch, outcome)
+	outcomes <- grep("*.out", names(tmatch))
 	tmatch$id <- 1:nrow(tmatch)
 	out <- melt(tmatch[,c(outcomes, ncol(tmatch))],id.vars='id')
 	names(out) <- c('ID','Treatment','Outcome')

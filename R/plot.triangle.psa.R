@@ -1,7 +1,20 @@
+#' Triangle plot.
+#' 
 #' Triangle plot showing the fitted values (propensity scores) for three different
 #' models.
 #' 
-#' @param tpsa the results from 
+#' @param tpsa the results from \code{\link{trips}}.
+#' @param point.alpha alpha level for points.
+#' @param point.size point size.
+#' @param legend.title title for the legend.
+#' @param text.size text size.
+#' @param draw.edges draw edges of the triangle.
+#' @param draw.segments draw segments connecting points across two models.
+#' @param edge.alpha alpha level for edges if drawn.
+#' @param edge.color the color for edges if drawn.
+#' @param edge.labels the labels to use for each edge of the triangle.
+#' @param ... currently unused.
+#' @return ggplot2 figure
 #' @seealso triangle.psa
 #' @export
 plot.triangle.psa <- function(tpsa, 	
@@ -12,7 +25,7 @@ plot.triangle.psa <- function(tpsa,
 							  draw.edges = FALSE,
 							  draw.segments = TRUE,
 							  edge.alpha = .2,
-							  edge.colour = 'grey',
+							  edge.color = 'grey',
 							  edge.labels = c('Model 1', 'Model 2', 'Model 3'),
 							  ...) {
 	expand <- .2
@@ -88,9 +101,9 @@ plot.triangle.psa <- function(tpsa,
 	
 	if(draw.edges) {
 		p <- p +
-			geom_segment(x=0, y=0, xend=.5, yend=m, alpha=edge.alpha, colour=edge.colour) +
-			geom_segment(x=.5, y=m, xend=1, yend=0, alpha=edge.alpha, colour=edge.colour) +
-			geom_segment(x=0, y=0, xend=1, yend=0, alpha=edge.alpha, colour=edge.colour)
+			geom_segment(x=0, y=0, xend=.5, yend=m, alpha=edge.alpha, colour=edge.color) +
+			geom_segment(x=.5, y=m, xend=1, yend=0, alpha=edge.alpha, colour=edge.color) +
+			geom_segment(x=0, y=0, xend=1, yend=0, alpha=edge.alpha, colour=edge.color)
 	}
 	
 	#TODO: draw grid

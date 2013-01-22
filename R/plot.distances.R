@@ -1,6 +1,6 @@
 #' Barplot for the sum of distances.
 #' 
-#' @param tmatch the results of \code{\link{triangle.match}}.
+#' @param tmatch the results of \code{\link{trimatch}}.
 #' @param caliper a vector indicating where vertical lines should be drawn as a
 #'        factor of the standard deviation. Rosenbaum and Rubin (1985) suggested
 #'        one quarter of one standard deviation.

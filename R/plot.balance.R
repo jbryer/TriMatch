@@ -4,6 +4,11 @@
 #' and green error bars for the standard error. For non-numeric covariates a barplot
 #' will be drawn.
 #' 
+#' A Friedman rank sum test will be performed for all covariate types, printed,
+#' and stored as an attribute to the returned object named \code{friedman}. If
+#' a continuous covariate a repeated measures ANOVA will also be performed, printed,
+#' and returned as an attribute named \code{rmanova}.
+#' 
 #' @param tmatch results from \code{\link{trimatch}}.
 #' @param covar vector of the covaraite to check balance of.
 #' @param model an integer between 1 and 3 indicating from which model the propensity
@@ -11,6 +16,7 @@
 #' @param nstrata number of strata to use.
 #' @param ylab label of the y-axis.
 #' @param se.ratio a multiplier for how large standard error bars will be.
+#' @param label label for the legend.
 #' @return a \code{ggplot2} figure.
 #' @export
 plot.balance <- function(tmatch, covar, model,
@@ -64,7 +70,7 @@ plot.balance <- function(tmatch, covar, model,
 	tmatch2[,'mean.ps'] <- apply(tmatch2[,(ncol(tmatch2)-1):ncol(tmatch2)], 1, mean)
 
 	breaks <- quantile(tmatch2$mean.ps, probs=seq(0,1,1/nstrata), na.rm=TRUE)
-	tmatch2$strata <- cut(tmatch2$mean.ps, breaks=breaks, labels=1:nstrata)
+	tmatch2$strata <- cut(tmatch2$mean.ps, breaks=breaks, labels=1:nstrata, include.lowest=TRUE)
 	
 	tmatch2$id <- 1:nrow(tmatch2)
 	
@@ -102,9 +108,19 @@ plot.balance <- function(tmatch, covar, model,
 	p <- p + theme(axis.text.x=element_text(angle=-45, vjust=.5),
 				   panel.background=element_rect(color='black', fill='#F9F3FD'))
 	
-	#Probably not the best statistic to use here.
 	ft <- friedman.test(Covariate ~ Treatment | ID, out)
 	print(ft)
+	attr(p, 'friedman') <- ft
+	
+	if(is.numeric(out$Covariate)) {
+		#We can also use repeated measure ANOVA for continuous covariates
+		out$Treatment <- as.factor(out$Treatment)
+		out$ID <- as.factor(out$ID)
+		rmanova <- ezANOVA(data=out, dv=Covariate, wid=ID, within=Treatment)
+		cat(' Repeated measures ANOVA\n\n')
+		print(rmanova$ANOVA)	
+		attr(p, 'rmanova') <- rmanova
+	}
 	
 	return(p)
 }
