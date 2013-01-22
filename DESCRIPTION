@@ -20,7 +20,6 @@ Suggests:
     MASS
 Date: 2013-01-02
 Collate:
-    'friedman.r'
     'merge.triangle.matches.R'
     'plot.distances.R'
     'plot.parallel.R'
@@ -34,3 +33,6 @@ Collate:
     'plot.balance.R'
     'covariateBalance.R'
     'plot.multibalance.R'
+    'plot.boxdiff.R'
+    'merge.triangle.psa.R'
+    'unmatched.R'

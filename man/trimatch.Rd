@@ -3,7 +3,7 @@
 \title{Creates matched triplets.}
 \usage{
   trimatch(tpsa, caliper = 0.25, nmatch = c(Inf),
-    match.order, M = 1, ...)
+    match.order, M1 = 2, M2 = 1, ...)
 }
 \arguments{
   \item{tpsa}{the results from \code{\link{trips}}}
@@ -27,9 +27,13 @@
   middle number of subjects, followed by the smallest, and
   then the largest.}
 
-  \item{M}{a scaler indicating the number of unique matches
-  to retain. This applies to the first two groups in the
-  matching order.}
+  \item{M1}{a scaler indicating the number of unique
+  subjects in group one to retain. This applies only to the
+  first group in the matching order.}
+
+  \item{M2}{a scaler indicating the number of unique
+  matches to retain. This applies to the first two groups
+  in the matching order.}
 
   \item{...}{currently unused.}
 }

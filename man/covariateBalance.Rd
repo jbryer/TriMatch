@@ -54,6 +54,13 @@
 
   \item{verbose}{logical, controls output that is visibly
   returned.}
+
+  \item{xlim}{limits for the x-axis.}
+
+  \item{plot.strata}{logical indicating whether to print
+  strata.}
+
+  \item{...}{currently unused.}
 }
 \description{
   This function is modified from the

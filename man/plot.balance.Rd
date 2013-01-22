@@ -21,6 +21,8 @@
 
   \item{se.ratio}{a multiplier for how large standard error
   bars will be.}
+
+  \item{label}{label for the legend.}
 }
 \value{
   a \code{ggplot2} figure.

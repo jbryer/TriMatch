@@ -5,6 +5,13 @@ Finds a point d distance from x, y}
 \usage{
   perpPt(x, y, d = 0.05)
 }
+\arguments{
+  \item{x}{x coordinate}
+
+  \item{y}{y coordinate}
+
+  \item{d}{the distance}
+}
 \description{
   Internal method for plotting. Finds a point d distance
   from x, y

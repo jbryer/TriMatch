@@ -5,8 +5,7 @@
   plot.distances(tmatch, caliper = 0.25, label = FALSE)
 }
 \arguments{
-  \item{tmatch}{the results of
-  \code{\link{triangle.match}}.}
+  \item{tmatch}{the results of \code{\link{trimatch}}.}
 
   \item{caliper}{a vector indicating where vertical lines
   should be drawn as a factor of the standard deviation.

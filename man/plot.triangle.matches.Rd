@@ -19,7 +19,11 @@
 
   \item{line.color}{the line color.}
 
-  \item{line.alhpa}{the alpha for the lines.}
+  \item{line.alpha}{the alpha for the lines.}
+
+  \item{point.color}{color of matched triplet points.}
+
+  \item{point.size}{point size for matched triplets.}
 
   \item{p}{a ggplot to add the match lines. If NULL, then
   \code{\link{plot.triangle.psa}}.}
