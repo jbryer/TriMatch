@@ -33,4 +33,12 @@
   standard error. For non-numeric covariates a barplot will
   be drawn.
 }
+\details{
+  A Friedman rank sum test will be performed for all
+  covariate types, printed, and stored as an attribute to
+  the returned object named \code{friedman}. If a
+  continuous covariate a repeated measures ANOVA will also
+  be performed, printed, and returned as an attribute named
+  \code{rmanova}.
+}
 
