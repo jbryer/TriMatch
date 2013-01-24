@@ -15,6 +15,7 @@ Depends:
     stats,
     ez,
     PSAgraphics,
+    compiler,
     R (>= 2.14)
 Suggests:
     MASS
