@@ -42,14 +42,15 @@ plot.boxdiff <- function(tmatch, out, plot.mean=TRUE) {
 		geom_boxplot() + 
 		geom_crossbar(data=ci, aes(x=Treatments, ymin=V1, ymax=V2, y=estimate), 
 					  color='green', fill='green', width=.72, alpha=.6) +
-		geom_hline(color='blue', yintercept=0) +
-		geom_point(data=ci, aes(x=Treatments, y=estimate), color='red', size=3)
+		geom_hline(color='blue', yintercept=0)
 	if(plot.mean) {
-		p <- p + geom_text(data=ci, aes(x=Treatments, y=estimate, 
-							label=prettyNum(estimate, digits=2)), vjust=-1)
+		p <- p + 
+			geom_point(data=ci, aes(x=Treatments, y=estimate), color='red', size=3) +
+			geom_text(data=ci, aes(x=Treatments, y=estimate, 
+					  label=prettyNum(estimate, digits=2)), vjust=-1)
 	}
-	p <- p + scale_x_discrete(NULL, labels=labels) +
-		xlab(NULL)
+	
+	p <- p + scale_x_discrete(NULL, labels=labels) + xlab(NULL)
 	
 	return(p)
 }
