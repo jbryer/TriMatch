@@ -2,8 +2,8 @@
 \alias{trimatch}
 \title{Creates matched triplets.}
 \usage{
-  trimatch(tpsa, caliper = 0.25, nmatch = c(Inf),
-    match.order, M1 = 2, M2 = 1, ...)
+  trimatch(tpsa, caliper = 0.25, nmatch = c(25),
+    match.order, M1 = 2, M2 = 1, exact, ...)
 }
 \arguments{
   \item{tpsa}{the results from \code{\link{trips}}}
@@ -34,6 +34,11 @@
   \item{M2}{a scaler indicating the number of unique
   matches to retain. This applies to the first two groups
   in the matching order.}
+
+  \item{exact}{a vector or data frame of representing
+  covariates for exact matching.  That is, matched triplets
+  will first be matched exactly on these covariates before
+  evalutating distances.}
 
   \item{...}{currently unused.}
 }
