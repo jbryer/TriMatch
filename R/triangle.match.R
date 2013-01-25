@@ -126,71 +126,47 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, M1=2, M2=1, e
 	ps1 <- getPS(ordering[1], ordering[2])
 	ps2 <- getPS(ordering[2], ordering[3])
 	ps3 <- getPS(ordering[3], ordering[1])
-	
-	t <- length(which(tpsa$treat == match.order[1])) + 3
-	pb <- txtProgressBar(min=0, max=t, style=3)
-	
+		
 	#Calculate the distances
+	message('Calculating distances...')
 	d1 <- sapply(ps1[tpsa$treat == match.order[2]],
 				 FUN=function(x) { abs(x - ps1[tpsa$treat == match.order[1]]) / sd(ps1, na.rm=TRUE) })		
 	dimnames(d1) <- list(
 		tpsa[tpsa$treat == match.order[1],'id'],
 		tpsa[tpsa$treat == match.order[2],'id']	)
-	setTxtProgressBar(pb, 1)
 	d2 <- sapply(ps2[tpsa$treat == match.order[3]],
 				 FUN=function(x) { abs(x - ps2[tpsa$treat == match.order[2]]) / sd(ps2, na.rm=TRUE) })		
 	dimnames(d2) <- list(
 		tpsa[tpsa$treat == match.order[2],'id'],
 		tpsa[tpsa$treat == match.order[3],'id']	)
-	setTxtProgressBar(pb, 2)
 	d3 <- sapply(ps3[tpsa$treat == match.order[1]],
 				 FUN=function(x) { abs(x - ps3[tpsa$treat == match.order[3]]) / sd(ps3, na.rm=TRUE) })		
 	dimnames(d3) <- list(
 		tpsa[tpsa$treat == match.order[3],'id'],
 		tpsa[tpsa$treat == match.order[1],'id']	)
-	setTxtProgressBar(pb, 3)
 	
 	if(!missing(exact)) {
+		message('Determing exact matches...')
 		if(class(exact) %in% c('matrix','data.frame')) {
-			exact.g1 <- exact[tpsa$treat == match.order[1],]
-			exact.g2 <- exact[tpsa$treat == match.order[2],]
-			exact.g3 <- exact[tpsa$treat == match.order[3],]
-			m1 <- t(as.matrix(exact.g1))
-			m2 <- as.matrix(exact.g2)
-			exact1 <- apply(m2, 1, FUN=function(x) { apply(m1, 2, FUN=function(y) { all(x == y) } ) })
-			setTxtProgressBar(pb, 4)
-			m2 <- t(as.matrix(exact.g2))
-			m3 <- as.matrix(exact.g3)
-			exact2 <- apply(m3, 1, FUN=function(x) { apply(m2, 2, FUN=function(y) { all(x == y) } ) })
-			setTxtProgressBar(pb, 5)
-			m3 <- t(as.matrix(exact.g3))
-			m1 <- as.matrix(exact.g1)
-			exact3 <- apply(m1, 1, FUN=function(x) { apply(m3, 2, FUN=function(y) { all(x == y) } ) })
-			setTxtProgressBar(pb, 6)
-		} else {
-			exact1 <- sapply(exact[tpsa$treat == match.order[2]],
-						     FUN=function(x) { x == exact[tpsa$treat == match.order[1]] })
-			setTxtProgressBar(pb, 4)
-			exact2 <- sapply(exact[tpsa$treat == match.order[3]],
-							 FUN=function(x) { x == exact[tpsa$treat == match.order[2]] })
-			setTxtProgressBar(pb, 5)
-			exact3 <- sapply(exact[tpsa$treat == match.order[1]],
-							 FUN=function(x) { x == exact[tpsa$treat == match.order[3]] })
-			setTxtProgressBar(pb, 6)
+			exact <- apply(exact, 1, paste, collapse='.')
 		}
+	
+		e1 <- exact[tpsa$treat == match.order[1]]
+		e2 <- exact[tpsa$treat == match.order[2]]
+		e3 <- exact[tpsa$treat == match.order[3]]
+		exact1 <- sapply(e2, FUN=function(x) { x == e1 })
+		exact2 <- sapply(e3, FUN=function(x) { x == e2 })
+		exact3 <- sapply(e1, FUN=function(x) { x == e3 })
 	} else {
 		exact1 <- matrix(TRUE, 
 						 nrow=length(which(treat == match.order[1])),
 						 ncol=length(which(treat == match.order[2])))
-		setTxtProgressBar(pb, 4)
 		exact2 <- matrix(TRUE, 
 						 nrow=length(which(treat == match.order[2])),
 						 ncol=length(which(treat == match.order[3])))
-		setTxtProgressBar(pb, 5)
 		exact3 <- matrix(TRUE, 
 						 nrow=length(which(treat == match.order[3])),
 						 ncol=length(which(treat == match.order[1])))
-		setTxtProgressBar(pb, 6)
 	}
 	dimnames(exact1) <- list(
 		tpsa[tpsa$treat == match.order[1],'id'],
@@ -202,6 +178,9 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, M1=2, M2=1, e
 		tpsa[tpsa$treat == match.order[3],'id'],
 		tpsa[tpsa$treat == match.order[1],'id'] )
 	
+	t <- length(which(tpsa$treat == match.order[1]))
+	pb <- txtProgressBar(min=0, max=t, style=3)
+
 	results <- data.frame(g1=character(), g2=character(), g3=character(), 
 						  D1=numeric(), D2=numeric(), D3=numeric(),
 						  stringsAsFactors=FALSE)
@@ -214,7 +193,6 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, M1=2, M2=1, e
 		row1 <- row1[order(row1)][min(length(row1), 1):min(length(row1), nmatch[1])]
 		counter.j <- 0
 		for(j in names(row1)) {
-			counter.j <- counter.j + 1
 			row2 <- d2[j,]
 			row2 <- row2[exact2[j,] & row2 < caliper[2]]
 			row2 <- row2[order(row2)][min(length(row2), 1):min(length(row2), nmatch[2])]
@@ -231,11 +209,11 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, M1=2, M2=1, e
 						D2 = row2[k],
 						D3 = t3,
 						stringsAsFactors=FALSE
-					))
+					), deparse.levels=0, stringsAsFactors=FALSE)
 				}
 			}
 		}
-		setTxtProgressBar(pb, 6 + counter.i)
+		setTxtProgressBar(pb, counter.i)
 	}
 	setTxtProgressBar(pb, t)
 	close(pb)
