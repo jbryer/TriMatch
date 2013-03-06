@@ -1,4 +1,12 @@
-#' Estimates propensity scores for three groups (e.g. two treatments and one control).
+#' Estimates propensity scores for three groups
+#' 
+#' The propensity score is \eqn{e(X)=P({ W }=1|X)}
+#' This function will estimate the propensity scores for each pair of groups
+#' (e.g. two treatments and one control).
+#' 
+#' \deqn{{ PS }_{ 1 }=e({ X }_{ { T }_{ 1 }C })=Pr(z=1|{ X }_{ { T }_{ 1 }C })}
+#' \deqn{{ PS }_{ 2 }=e({ X }_{ { T }_{ 2 }C })=Pr(z=1|{ X }_{ { T }_{ 2 }C })}
+#' \deqn{{ PS }_{ 3 }=e({ X }_{ { T }_{ 2 }{ T }_{ 1 } })=Pr(z=1|{ X }_{ { T }_{ 2 }{ T }_{ 1 } })}
 #' 
 #' @param thedata the data frame.
 #' @param treat vector or factor indicating the treatment/control assignment for
@@ -10,6 +18,17 @@
 #' @param nstrata the number of strata marks to plot on the edge.
 #' @param ... other parameters passed to \code{\link{glm}}.
 #' @export
+#' @examples
+#'        data(students)
+#' 	      students$Income <- as.integer(students$Income)
+#' 	      students$Employment <- as.integer(students$Employment)
+#' 	      students$EdLevelMother <- as.integer(students$EdLevelMother)
+#' 	      students$EdLevelFather <- as.integer(students$EdLevelFather)
+#' 	      form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
+#' 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
+#' 	      tpsa <- trips(students, students$TreatBy, form)
+#' 	      head(tpsa)
+
 trips <- function(thedata, treat, formu = ~ ., groups=unique(treat), nstrata=5, ...) {
 	if(length(groups) != 3) stop('Sorry, exactly three groups are required.')
 	if(nrow(thedata) != length(treat)) stop('length(treat) does not equal nrow(thedata)')
