@@ -6,4 +6,7 @@
 /pscore.tar.gz
 /DataPrep.r
 /.dropbox
-/Icon
+/Icon
+.Rproj.user
+
+/Nested Loops.R

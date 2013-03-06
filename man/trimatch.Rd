@@ -3,7 +3,7 @@
 \title{Creates matched triplets.}
 \usage{
   trimatch(tpsa, caliper = 0.25, nmatch = c(25),
-    match.order, M1 = 2, M2 = 1, exact, ...)
+    match.order, M1 = 2, M2 = 1, exact, status = TRUE, ...)
 }
 \arguments{
   \item{tpsa}{the results from \code{\link{trips}}}
@@ -41,26 +41,45 @@
   evalutating distances.}
 
   \item{...}{currently unused.}
+
+  \item{status}{whether to print a status bar while
+  executing.}
 }
 \description{
+  Create matched triplets by minimizing the total distance
+  between matched triplets within a specified caliper.
+}
+\details{
   The \code{\link{trips}} function will estimate the
   propensity scores for three models. This method will then
   find the best matched triplets based upon minimizing the
   summed differences between propensity scores across the
   three models. That is, the algorithm works as follows:
+
+  \itemize{ \item The first subject from model 1 is
+  selected. \item The \code{nmatch} smallest distances are
+  selected using propensity scores from model 1. \item For
+  each of the matches identified, the subjects propensity
+  score from model 2 is retrieved. \item The \code{nmatch}
+  smallest distances are selected using propensity score
+  from model 3. \item For each of those matches identified,
+  the subjects propensity score from model 2 is retrieved.
+  \item The distances is calculated from the first and last
+  subjects propensity scores from model 2. \item The three
+  distances are summed. \item The triplet with the smallest
+  overall distance is selected and returned. }
 }
-\details{
-  -The first subject from model 1 is selected. -The
-  \code{nmatch} smallest distances are selected using
-  propensity scores from model 1. -For each of the matches
-  identified, the subjects propensity score from model 2 is
-  retrieved. -The \code{nmatch} smallest distances are
-  selected using propensity score from model 3. -For each
-  of those matches identified, the subjects propensity
-  score from model 2 is retrieved. -The distances is
-  calculated from the first and last subjects propensity
-  scores from model 2. -The three distances are summed.
-  -The triplet with the smallest overall distance is
-  selected and returned.
+\examples{
+data(students)
+	      students$Income <- as.integer(students$Income)
+	      students$Employment <- as.integer(students$Employment)
+	      students$EdLevelMother <- as.integer(students$EdLevelMother)
+	      students$EdLevelFather <- as.integer(students$EdLevelFather)
+	      form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother +
+	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
+	      tpsa <- trips(students, students$TreatBy, form)
+	      tmatch <- trimatch(tpsa, M1=3, M2=1, status=FALSE)
+	      head(tmatch)
+	      plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
 }
 

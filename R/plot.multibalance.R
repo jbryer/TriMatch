@@ -20,8 +20,9 @@ plot.multibalance <- function(tpsa, covs, grid=TRUE) {
 	}
 	if('factor' %in% sapply(covs, class)) {
 		#Convert remaining factors using cv.trans.psa from PSAgraphics
-		covs <- as.data.frame(cv.trans.psa(covs))
-		names(covs) <- gsub('covariates.transformed.', '', names(covs))
+		#covs <- as.data.frame(cv.trans.psa(covs))
+		covs <- cv.trans.psa(covs)[[1]]
+		#names(covs) <- gsub('covariates.transformed.', '', names(covs))
 	}
 	
 	tpsa2 <- cbind(tpsa, (covs))

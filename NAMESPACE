@@ -1,6 +1,8 @@
+S3method(as.data.frame,list)
 S3method(merge,triangle.matches)
 S3method(merge,triangle.psa)
 S3method(summary,unmatched)
+export(as.data.frame.list)
 export(covariateBalance)
 export(merge.triangle.matches)
 export(merge.triangle.psa)

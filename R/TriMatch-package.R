@@ -25,7 +25,8 @@ NULL
 #' reports on December 8, 2007 that the resulting numbers closely
 #' match with those reported in the published article. It was later modified by
 #' Jason Bryer (jason@@bryer.org) to an R data object to be included in this 
-#' package.
+#' package. See \url{http://imai.princeton.edu/research/pscore.html} for more
+#' information
 #'
 #' @name nmes
 #' @docType data

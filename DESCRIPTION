@@ -37,3 +37,6 @@ Collate:
     'plot.boxdiff.R'
     'merge.triangle.psa.R'
     'unmatched.R'
+    'as.data.frame.list.R'
+    'trimatch.apply.R'
+    'trimatch.loop.R'

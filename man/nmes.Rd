@@ -12,7 +12,9 @@
   that the resulting numbers closely match with those
   reported in the published article. It was later modified
   by Jason Bryer (jason@bryer.org) to an R data object to
-  be included in this package.
+  be included in this package. See
+  \url{http://imai.princeton.edu/research/pscore.html} for
+  more information
 }
 \author{
   United States Department of Health and Human Services.

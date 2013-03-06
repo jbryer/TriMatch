@@ -1,5 +1,4 @@
 require(TriMatch)
-
 data(students)
 
 #Unadjusted results
@@ -17,11 +16,10 @@ students$EdLevelFather <- as.integer(students$EdLevelFather)
 form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
 	      EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
 
-treat <- students$TreatBy
-table(treat, useNA='ifany')
+table(students$TreatBy, useNA='ifany')
 
 #Estimate propensity scores for three models for each pair of treatments/control
-tpsa <- trips(students, treat, form)
+tpsa <- trips(students, students$TreatBy, form)
 head(tpsa)
 (p <- plot(tpsa))
 
@@ -32,6 +30,8 @@ summary(attr(tpsa, 'model3'))
 
 #Match triplets
 tmatch <- trimatch(tpsa, M1=3, M2=1)
+tmatch <- trimatch(tpsa, M1=3, M2=1, exact=students[,c('Military')])
+tmatch <- trimatch(tpsa, M1=3, M2=1, exact=students[,c('Military','Gender')])
 #tmatch <- trimatch(tpsa, match.order=c("Treatment2", "Treatment1", "Control"))
 head(tmatch); tail(tmatch); nrow(tmatch)
 names(attributes(tmatch))
@@ -43,7 +43,7 @@ summary(unmatched)
 #Triangle plot of only the unmatched students
 plot(unmatched)
 
-plot(tmatch, rows=c(1), line.alpha=1, draw.segments=TRUE)
+plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
 
 #This will use the caliper used by trimatch
 plot.distances(tmatch) 
@@ -55,8 +55,8 @@ plot.distances(tmatch, caliper=c(.1, .15, .2))
 tmatch[tmatch$Dtotal > .30,]
 
 #Plot the matched triplet of the largest distance
-tmatch[234,]
-plot(tmatch, rows=c(234), line.alpha=1, draw.segments=TRUE)
+tmatch[233,]
+plot(tmatch, rows=c(233), line.alpha=1, draw.segments=TRUE)
 
 #Check balance
 plot.balance(tmatch, students$Age, label='Age')
