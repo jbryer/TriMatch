@@ -13,6 +13,11 @@
 #' @param edge.alpha alpha level for edges if drawn.
 #' @param edge.color the color for edges if drawn.
 #' @param edge.labels the labels to use for each edge of the triangle.
+#' @param sample a vector of length 1 or 3 representing the sample of points to plot.
+#'        The position of each element corresponds to the groups as returned
+#'        by \code{attr(tpsa,'groups')}. If equal to one, all points will be plotted.
+#'        Values less than one will plot a percentage of points. Values greater
+#'        than one exactly that number of points will be plotted.
 #' @param ... currently unused.
 #' @return ggplot2 figure
 #' @seealso triangle.psa
@@ -27,13 +32,32 @@ plot.triangle.psa <- function(tpsa,
 							  edge.alpha = .2,
 							  edge.color = 'grey',
 							  edge.labels = c('Model 1', 'Model 2', 'Model 3'),
+							  sample = c(1),
 							  ...) {
+	if(length(sample) == 1) {
+		sample <- rep(sample,3)
+	}
+	
 	expand <- .2
 	axis.offset <- .1
 	
 	groups <- attr(tpsa, 'groups')
 	nstrata <- attr(tpsa, 'nstrata')
 	m <- sqrt(.75)
+	
+	sampleRows <- function(rows, size) {
+		if(size <= 1) {
+			rows <- sample(rows, size * length(rows))
+		} else {
+			rows <- sample(rows, min(size, length(rows)))
+		}
+		return(rows)
+	}
+	
+	rows1 <- sampleRows(which(tpsa$treat == groups[1]), sample[1])
+	rows2 <- sampleRows(which(tpsa$treat == groups[2]), sample[2])
+	rows3 <- sampleRows(which(tpsa$treat == groups[3]), sample[3])
+	tpsa <- tpsa[c(rows1, rows2, rows3),]
 	
 	pts1 <- as.data.frame(matrix(unlist(lapply(tpsa$ps1, segment1)), ncol=2, byrow=TRUE))
 	pts2 <- data.frame(x=tpsa$ps2, y=ifelse(is.na(tpsa$ps2), NA, 0))

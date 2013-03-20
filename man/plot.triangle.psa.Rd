@@ -7,7 +7,8 @@
     text.size = 4, draw.edges = FALSE,
     draw.segments = TRUE, edge.alpha = 0.2,
     edge.color = "grey",
-    edge.labels = c("Model 1", "Model 2", "Model 3"), ...)
+    edge.labels = c("Model 1", "Model 2", "Model 3"),
+    sample = c(1), ...)
 }
 \arguments{
   \item{tpsa}{the results from \code{\link{trips}}.}
@@ -31,6 +32,14 @@
 
   \item{edge.labels}{the labels to use for each edge of the
   triangle.}
+
+  \item{sample}{a vector of length 1 or 3 representing the
+  sample of points to plot.  The position of each element
+  corresponds to the groups as returned by
+  \code{attr(tpsa,'groups')}. If equal to one, all points
+  will be plotted.  Values less than one will plot a
+  percentage of points. Values greater than one exactly
+  that number of points will be plotted.}
 
   \item{...}{currently unused.}
 }
