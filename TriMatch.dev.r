@@ -1,5 +1,6 @@
 require(devtools)
 setwd('~/Dropbox/Projects')
+setwd("C:/Dropbox/Projects")
 
 document('TriMatch')
 check_doc('TriMatch')
@@ -10,6 +11,22 @@ check('TriMatch')
 require(TriMatch)
 data(nmes)
 data(students)
+
+##### Rd2markdown ##############################################################
+
+frontMatter <- "---
+layout: mathjax	
+title: TriMatch
+subtitle: Propensity Score Matching for Non-Binary Treatments
+published: true
+status: publish
+submenu: trimatch
+---
+"
+outdir <- '~/Dropbox/Projects/jbryer.github.com/TriMatch/docs/'
+pkg <- 'TriMatch'
+results <- Rd2markdown(pkg, outdir=outdir, front.matter=frontMatter)
+names(results)
 
 ##### nmes data prep ###########################################################
 require(tools)

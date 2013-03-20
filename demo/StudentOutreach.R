@@ -23,6 +23,8 @@ tpsa <- trips(students, students$TreatBy, form)
 head(tpsa)
 (p <- plot(tpsa))
 
+plot(tpsa, sample=c(50)) #Plot 50 of each group
+
 #Look at the summary of the three logistic regression models
 summary(attr(tpsa, 'model1'))
 summary(attr(tpsa, 'model2'))
