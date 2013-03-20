@@ -19,6 +19,14 @@ NA
 #' @keywords datasets
 NULL
 
+#' Results from a study examining the effects of tutoring services on course grades.
+#'
+#' @name tutoring
+#' @docType data
+#' @format a data frame with 1,381 ovservations of 17 variables.
+#' @keywords datasets
+NULL
+
 #' Results from the 1987 National Medical Expenditure Study
 #' 
 #' This file was originally prepared by Anders Corr (corr@@fas.harvard.edu) who

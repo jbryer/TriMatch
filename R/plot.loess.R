@@ -27,7 +27,7 @@
 #'        and \url{http://colorbrewer2.org/} for more information.
 #' @return a \code{ggplot2} figure.
 #' @export
-plot.loess3 <- function(tmatch, outcome, model,
+loess3.plot <- function(tmatch, outcome, model,
 						ylab='Outcome', 
 						smooth.method='auto',
 						plot.connections=FALSE,

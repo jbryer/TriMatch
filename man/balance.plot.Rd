@@ -1,8 +1,8 @@
-\name{plot.balance}
-\alias{plot.balance}
+\name{balance.plot}
+\alias{balance.plot}
 \title{Balance plot for the given covariate.}
 \usage{
-  plot.balance(tmatch, covar, model,
+  balance.plot(tmatch, covar, model,
     nstrata = attr(attr(tmatch, "triangle.psa"), "nstrata"),
     label = "Covariate", ylab = "", se.ratio = 2)
 }

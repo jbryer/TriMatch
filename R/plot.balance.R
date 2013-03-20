@@ -19,7 +19,7 @@
 #' @param label label for the legend.
 #' @return a \code{ggplot2} figure.
 #' @export
-plot.balance <- function(tmatch, covar, model,
+balance.plot <- function(tmatch, covar, model,
 					     nstrata=attr(attr(tmatch, 'triangle.psa'), 'nstrata'),
 					     label='Covariate',
 					     ylab='',

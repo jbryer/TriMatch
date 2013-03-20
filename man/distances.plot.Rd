@@ -1,8 +1,8 @@
-\name{plot.distances}
-\alias{plot.distances}
+\name{distances.plot}
+\alias{distances.plot}
 \title{Barplot for the sum of distances.}
 \usage{
-  plot.distances(tmatch, caliper = 0.25, label = FALSE)
+  distances.plot(tmatch, caliper = 0.25, label = FALSE)
 }
 \arguments{
   \item{tmatch}{the results of \code{\link{trimatch}}.}

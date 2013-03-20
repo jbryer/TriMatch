@@ -5,7 +5,7 @@
 #' @param tmatch results from \code{\link{trimatch}}.
 #' @param outcome vector of the outcome
 #' @export
-plot.parallel <- function(tmatch, outcome) {
+parallel.plot <- function(tmatch, outcome) {
 	tmatch <- merge(tmatch, outcome)
 	outcomes <- grep("*.out", names(tmatch))
 	tmatch$id <- 1:nrow(tmatch)

@@ -7,7 +7,7 @@
 #' @param plot.mean logical indicating whether the means should be plotted.
 #' @return a \code{ggplot2} boxplot of the differences.
 #' @export
-plot.boxdiff <- function(tmatch, out, plot.mean=TRUE) {
+boxdiff.plot <- function(tmatch, out, plot.mean=TRUE) {
 	tmatch.out <- merge(tmatch, out)
 	outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
 	tmatch.out$id <- 1:nrow(tmatch.out)

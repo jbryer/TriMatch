@@ -1,8 +1,8 @@
-\name{plot.boxdiff}
-\alias{plot.boxdiff}
+\name{boxdiff.plot}
+\alias{boxdiff.plot}
 \title{Returns a \code{ggplot2} box plot of the differences.}
 \usage{
-  plot.boxdiff(tmatch, out, plot.mean = TRUE)
+  boxdiff.plot(tmatch, out, plot.mean = TRUE)
 }
 \arguments{
   \item{tmatch}{the results from \code{\link{trimatch}}.}

@@ -1,8 +1,8 @@
-\name{plot.parallel}
-\alias{plot.parallel}
+\name{parallel.plot}
+\alias{parallel.plot}
 \title{Parallel coordinate plot for the three groups and dependent variable.}
 \usage{
-  plot.parallel(tmatch, outcome)
+  parallel.plot(tmatch, outcome)
 }
 \arguments{
   \item{tmatch}{results from \code{\link{trimatch}}.}

@@ -48,41 +48,41 @@ plot(unmatched)
 plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
 
 #This will use the caliper used by trimatch
-plot.distances(tmatch) 
+distances.plot(tmatch) 
 #We can also explore how many matches we would loose if we used a smaller caliper
-plot.distances(tmatch, caliper=c(.1, .15, .2))
+distances.plot(tmatch, caliper=c(.1, .15, .2))
 
 #List those with a total distance greater than .3 (equivelent to a caliper of .1
 #within each model).
 tmatch[tmatch$Dtotal > .30,]
 
 #Plot the matched triplet of the largest distance
-tmatch[233,]
-plot(tmatch, rows=c(233), line.alpha=1, draw.segments=TRUE)
+rn <- row.names(tmatch[tmatch$Dtotal > .30,][1,])
+tmatch[rn,]
+plot(tmatch, rows=c(rn), line.alpha=1, draw.segments=TRUE)
 
 #Check balance
-plot.balance(tmatch, students$Age, label='Age')
-plot.balance(tmatch, students$Age, label='Age', nstrata=8)
+balance.plot(tmatch, students$Age, label='Age')
+balance.plot(tmatch, students$Age, label='Age', nstrata=8)
 
-plot.balance(tmatch, students$Military, label='Military')
-plot.balance(tmatch, students$Military, label='Military', model=1)
-plot.balance(tmatch, students$Military, label='Military', model=2)
+balance.plot(tmatch, students$Military, label='Military')
+balance.plot(tmatch, students$Military, label='Military', model=1)
+balance.plot(tmatch, students$Military, label='Military', model=2)
 
-plot.balance(tmatch, students$Gender, label='Gender')
-plot.balance(tmatch, students$Ethnicity, label='Ethnicity')
+balance.plot(tmatch, students$Gender, label='Gender')
+balance.plot(tmatch, students$Ethnicity, label='Ethnicity')
 
 #Effect size balance plot
-covs <- students[,all.vars(form)]
-plot.multibalance(tpsa, covs, grid=TRUE)
+multibalance.plot(tpsa, grid=TRUE)
 
 #Analysis of outcome of interest. Credits attempted here.
-plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
-plot.loess3(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
+loess3.plot(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
+loess3.plot(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
 			points.alpha=.5, plot.connections=TRUE)
 
-plot.parallel(tmatch, students$CreditsAttempted)
+boxdiff.plot(tmatch, students$CreditsAttempted)
 
-plot.boxdiff(tmatch, students$CreditsAttempted)
+boxdiff.plot(tmatch, students$CreditsAttempted)
 
 #Add in the outcome variable
 tmatch.out <- merge(tmatch, students$CreditsAttempted)
@@ -91,7 +91,6 @@ outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
 tmatch.out$id <- 1:nrow(tmatch.out)
 out <- melt(tmatch.out[,c(outcomes, which(names(tmatch.out) == 'id'))],id.vars='id')
 names(out) <- c('ID','Treatment','Outcome')
-head(out)
 set.seed(2112)
 friedman.test(Outcome ~ Treatment | ID, out)
 
@@ -100,3 +99,4 @@ friedman.test(Outcome ~ Treatment | ID, out)
 
 #Possible approach for post-hoc test
 pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.method='bonferroni')
+

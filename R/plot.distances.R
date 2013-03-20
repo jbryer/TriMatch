@@ -7,7 +7,7 @@
 #' @param label label the bars that exceed the minimum caliper.
 #' @seealso triangle.match
 #' @export
-plot.distances <- function(tmatch, caliper=.25, label=FALSE) {
+distances.plot <- function(tmatch, caliper=.25, label=FALSE) {
 	tpsa <- attr(tmatch, 'triangle.psa')
 	tmatch$id <- row.names(tmatch)
 	tmp <- melt(tmatch[,c('id','D.m1','D.m2','D.m3')], id.vars=1)

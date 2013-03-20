@@ -5,11 +5,15 @@
 #' after propensity score andjustement.
 #' 
 #' @param tpsa results of \code{\link{trips}}.
-#' @param covs a vector or data frame of covariates.
 #' @param grid if TRUE, then a grid of three plots for each model will be displayed.
 #' @return a \code{ggplot2} figure.
 #' @export
-plot.multibalance <- function(tpsa, covs, grid=TRUE) {	
+multibalance.plot <- function(tpsa, grid=TRUE) {
+	covs <- attr(tpsa, 'data')
+	m1 <- attr(tpsa, 'model1')
+	cols <- attr(m1$terms, 'term.labels')
+	covs <- covs[,cols]
+	
 	#Recode factors. First we'll covert logicals and factors with two levels to integers
 	for(i in 1:ncol(covs)) {
 		if(class(covs[,i]) == 'logical') {

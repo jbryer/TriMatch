@@ -34,8 +34,8 @@ table(treat, useNA='ifany')
 
 tpsa <- trips(nmes, treat, formu)
 head(tpsa)
-#We'll plot 500 random triplets to get a sence of matches
-(p <- plot(tpsa[sample(1:nrow(tpsa), 500),], edge.alpha=.1))
+#We'll plot 5% random triplets to get a sence of matches
+(p <- plot(tpsa, sample=c(.05), edge.alpha=.1))
 
 if(file.exists('tmatch.nmes.rda')) {
 	load('tmatch.nmes.rda')
@@ -48,18 +48,15 @@ table(duplicated(tmatch[,c('Smoker')]))
 table(duplicated(tmatch[,c('Smoker','Former')]))
 
 #Effect size balance plot
-plot.multibalance(tpsa, nmes[,all.vars(formu)], grid=TRUE)
+multibalance.plot(tpsa, grid=TRUE)
 
+loess3.plot(tmatch, nmes$TOTALEXP, plot.points=NULL, ylab='Total Expenditures')
 
-plot.loess3(tmatch, nmes$TOTALEXP, plot.points=NULL, ylab='Total Expenditures')
+boxdiff.plot(tmatch, nmes$TOTALEXP) #Not very useful with this many points
 
+boxdiff.plot(tmatch, nmes$LogTotalExp)
 
-plot.parallel(tmatch, nmes$TOTALEXP) #Not very useful with this many points
-
-plot.boxdiff(tmatch, nmes$TOTALEXP)
-
-plot.boxdiff(tmatch, nmes$LogTotalExp)
-
+tmatch.out <- merge(x=tmatch, y=nmes[,c('LogTotalExp')])
 tmatch.out <- merge(x=tmatch, y=nmes[,c('TOTALEXP')])
 outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
 tmatch.out$id <- 1:nrow(tmatch.out)
@@ -71,4 +68,7 @@ friedman.test(Outcome ~ Treatment | ID, out)
 
 #Possible approach for post-hoc test
 pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.method='bonferroni')
+
+mean(tmatch.out$Never.out); mean(tmatch.out$Former.out); mean(tmatch.out$Smoker.out);
+t.test(tmatch.out$Smoker.out, tmatch.out$Never.out, paired=TRUE)
 

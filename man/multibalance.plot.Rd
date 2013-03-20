@@ -1,13 +1,11 @@
-\name{plot.multibalance}
-\alias{plot.multibalance}
+\name{multibalance.plot}
+\alias{multibalance.plot}
 \title{Multiple covariate blance assessment plot.}
 \usage{
-  plot.multibalance(tpsa, covs, grid = TRUE)
+  multibalance.plot(tpsa, grid = TRUE)
 }
 \arguments{
   \item{tpsa}{results of \code{\link{trips}}.}
-
-  \item{covs}{a vector or data frame of covariates.}
 
   \item{grid}{if TRUE, then a grid of three plots for each
   model will be displayed.}
