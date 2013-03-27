@@ -193,18 +193,16 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order,
 	results <- retain
 	row.names(results) <- 1:nrow(results)
 	
-	if(!missing(M1)) {
-		retain <- data.frame()
-		for(i in 1:M1) {
-			keep <- which(!duplicated(results[,1]))
-			if(length(keep) > 0) {
-				retain <- rbind(retain, results[keep,])
-				results <- results[-keep,]
-			}
+	retain <- data.frame()
+	for(i in 1:M1) {
+		keep <- which(!duplicated(results[,1]))
+		if(length(keep) > 0) {
+			retain <- rbind(retain, results[keep,])
+			results <- results[-keep,]
 		}
-		results <- retain
-		row.names(results) <- 1:nrow(results)
 	}
+	results <- retain
+	row.names(results) <- 1:nrow(results)
 	
 	unmatched <- tpsa[!(tpsa$id %in% c(results[,1], results[,2], results[,3])),]
 
