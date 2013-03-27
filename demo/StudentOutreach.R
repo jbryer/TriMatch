@@ -14,7 +14,7 @@ students$EdLevelFather <- as.integer(students$EdLevelFather)
 
 #Logistic regression formula used by trips (and ultimately by glm)
 form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
-	      EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
+	      EdLevelFather + Ethnicity + Gender + Age
 
 table(students$TreatBy, useNA='ifany')
 
@@ -38,6 +38,7 @@ tmatch <- trimatch(tpsa, M1=3, M2=1, exact=students[,c('Military','Gender')])
 head(tmatch); tail(tmatch); nrow(tmatch)
 names(attributes(tmatch))
 
+
 #Look at the subjects that could not be matched
 unmatched <- unmatched(tmatch)
 summary(unmatched)
@@ -46,6 +47,9 @@ summary(unmatched)
 plot(unmatched)
 
 plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
+
+tmatch[which(tmatch$Treatment2 == '10'),]
+plot(tmatch, rows=which(tmatch$Treatment2 == '10'), line.alpha=1, draw.segments=TRUE)
 
 #This will use the caliper used by trimatch
 distances.plot(tmatch) 
@@ -79,8 +83,6 @@ multibalance.plot(tpsa, grid=TRUE)
 loess3.plot(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted')
 loess3.plot(tmatch, students$CreditsAttempted, plot.points=geom_jitter, ylab='Credits Attempted', 
 			points.alpha=.5, plot.connections=TRUE)
-
-boxdiff.plot(tmatch, students$CreditsAttempted)
 
 boxdiff.plot(tmatch, students$CreditsAttempted)
 
