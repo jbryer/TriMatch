@@ -1,0 +1,28 @@
+\name{OneToN}
+\alias{OneToN}
+\title{This method will use a M1-to-M2-to-1 matching.}
+\usage{
+  OneToN(tmatch, M1 = 2, M2 = 1, ...)
+}
+\arguments{
+  \item{tmatch}{initial results from \code{\link{trimatch}}
+  that contains all possible matches within the specified
+  caliper.}
+
+  \item{M1}{a scaler indicating the number of unique
+  subjects in group one to retain. This applies only to the
+  first group in the matching order.}
+
+  \item{M2}{a scaler indicating the number of unique
+  matches to retain. This applies to the first two groups
+  in the matching order.}
+
+  \item{...}{currently unused.}
+}
+\description{
+  In this method, \code{M2} corresponds to the number of
+  times a treat1 unit can be matched with a treat2 unit.
+  The \code{M1} parameter corresponds to the number of
+  times a treat1 unit can be used in total.
+}
+

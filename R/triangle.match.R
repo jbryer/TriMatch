@@ -10,11 +10,11 @@
 #' 
 #' \itemize{
 #' \item The first subject from model 1 is selected.
-#' \item The \code{nmatch} smallest distances are selected using propensity scores from
+#' \item The \code{nmatch[1]} smallest distances are selected using propensity scores from
 #'  model 1.
 #' \item For each of the matches identified, the subjects propensity score from model
 #'  2 is retrieved.
-#' \item The \code{nmatch} smallest distances are selected using propensity score from
+#' \item The \code{nmatch[2]} smallest distances are selected using propensity score from
 #'  model 3.
 #' \item For each of those matches identified, the subjects propensity score from model
 #'  2 is retrieved.
@@ -26,9 +26,9 @@
 #' 
 #' @param tpsa the results from \code{\link{trips}}
 #' @param caliper a vector of length one or three indicating the caliper to use 
-#'        for matching within each step. This is expressed in standardized units such that .25 means
-#'        that matches must be within .25 of one standard deviation to be kept,
-#'        otherwise the match is dropped.
+#'        for matching within each step. This is expressed in standardized units such 
+#'        that .25 means that matches must be within .25 of one standard deviation 
+#'        to be kept, otherwise the match is dropped.
 #' @param nmatch number of closest matches to retain before moving to next edge. This can
 #'        be \code{Inf} in which case all matches within the caliper will be retained
 #'        through to the next step. For large datasets, evaluating all possible
@@ -37,30 +37,34 @@
 #'        which the matching algorithm will processes. The default is to use start
 #'        with the group the middle number of subjects, followed by the smallest,
 #'        and then the largest. 
-#' @param M1 a scaler indicating the number of unique subjects in group one to
-#'        retain. This applies only to the first group in the matching order.
-#' @param M2 a scaler indicating the number of unique matches to retain. This applies
-#'        to the first two groups in the matching order.
 #' @param exact a vector or data frame of representing covariates for exact matching.
 #'        That is, matched triplets will first be matched exactly on these covariates
 #'        before evalutating distances.
+#' @param method This is a function that specifies which matched triplets will be
+#'        retained. If \code{NULL}, all matched triplets within the specified
+#'        caliper will be returned. The default is \code{\link{maximumTreat}} that
+#'        uses all treatments within a caliper. Other option is \code{\link{OneToN}}
+#'        which mimicks the one-to-n matching where treatments are matched to
+#'        multiple control units.
 #' @param ... currently unused.
 #' @param status whether to print a status bar while executing.
 #' @export
 #' @examples
-#'        data(students)
-#' 	      students$Income <- as.integer(students$Income)
-#' 	      students$Employment <- as.integer(students$Employment)
-#' 	      students$EdLevelMother <- as.integer(students$EdLevelMother)
-#' 	      students$EdLevelFather <- as.integer(students$EdLevelFather)
-#' 	      form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
+#' \dontrun{
+#' data(students)
+#' students$Income <- as.integer(students$Income)
+#' students$Employment <- as.integer(students$Employment)
+#' students$EdLevelMother <- as.integer(students$EdLevelMother)
+#' students$EdLevelFather <- as.integer(students$EdLevelFather)
+#' form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
 #' 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
-#' 	      tpsa <- trips(students, students$TreatBy, form)
-#' 	      tmatch <- trimatch(tpsa, M1=3, M2=1, status=FALSE)
-#' 	      head(tmatch)
-#' 	      plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
-trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, 
-					 M1=2, M2=1, exact, status=TRUE, ...) {
+#' tpsa <- trips(students, students$TreatBy, form)
+#' tmatch <- trimatch(tpsa, M1=3, M2=1, status=FALSE)
+#' head(tmatch)
+#' plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
+#' }
+trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, exact,
+					 method=maximumTreat, status=TRUE, ...) {
 	if(length(nmatch) == 1) {
 		nmatch <- c(nmatch, nmatch)
 	}
@@ -182,6 +186,67 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order,
 	results$Dtotal <- results$D.m1 + results$D.m2 + results$D.m3
 	results <- results[order(results$Dtotal),]
 	
+	if(!is.null(method)) {
+		results <- method(results, ...)
+		row.names(results) <- 1:nrow(results)
+	}
+	
+	unmatched <- tpsa[!(tpsa$id %in% c(results[,1], results[,2], results[,3])),]
+
+	class(results) <- c('triangle.matches','data.frame')
+	attr(results, 'triangle.psa') <- tpsa
+	attr(results, 'match.order') <- match.order
+	attr(results, 'unmatched') <- unmatched
+	attr(results, getModel(match.order[1],match.order[2])) <- c(match.order[1],match.order[2])
+	attr(results, getModel(match.order[2],match.order[3])) <- c(match.order[2],match.order[3])
+	attr(results, getModel(match.order[3],match.order[1])) <- c(match.order[3],match.order[1])
+	
+	message(paste(prettyNum(nrow(unmatched) / nrow(tpsa) * 100, digits=2), 
+				  '% of data points could not be matched.', sep=''))
+	return(results)
+}
+
+#' This method will return at least one treatment from groups one and two within
+#' the caliper.
+#' 
+#' This method will attempt to return enough rows to use each treatment (the first
+#' two groups in the matching order) at least once. Assuming treat1 is the first
+#' group in the match order and treat2 the second, all duplicate treat1 rows
+#' are removed. Next, all treat2 units not in present in after removing duplicate
+#' treat1 units are identified. For each of those treat2 units, the matched
+#' triplet with the smallest overall distances where treat2 is one of the mathched
+#' units is retained.
+#' 
+#' @param tmatch initial results from \code{\link{trimatch}} that contains all
+#'        possible matches within the specified caliper.
+#' @param ... currently unused.
+#' @export
+maximumTreat <- function(tmatch, ...) {
+	keep <- which(!duplicated(tmatch[,1]))
+	t2.ids <- unique(tmatch[keep,2])
+	retain <- tmatch[keep,]
+	keep.t2 <- tmatch[-which(tmatch[,2] %in% t2.ids),]
+	keep.t2 <- keep.t2[!duplicated(keep.t2[,2]),]
+	retain <- rbind(retain, keep.t2)
+	return(retain)
+}
+
+#' This method will use a M1-to-M2-to-1 matching.
+#' 
+#' In this method, \code{M2} corresponds to the number of times a treat1 unit can be
+#' matched with a treat2 unit. The \code{M1} parameter corresponds to the number of
+#' times a treat1 unit can be used in total.
+#' 
+#' @param tmatch initial results from \code{\link{trimatch}} that contains all
+#'        possible matches within the specified caliper.
+#' @param M1 a scaler indicating the number of unique subjects in group one to
+#'        retain. This applies only to the first group in the matching order.
+#' @param M2 a scaler indicating the number of unique matches to retain. This applies
+#'        to the first two groups in the matching order.
+#' @param ... currently unused.
+#' @export
+OneToN <- function(tmatch, M1=2, M2=1, ...) {
+	results <- tmatch
 	retain <- data.frame()
 	for(i in 1:M2) {
 		keep <- which(!duplicated(results[, 1:2]))
@@ -201,22 +266,7 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order,
 			results <- results[-keep,]
 		}
 	}
-	results <- retain
-	row.names(results) <- 1:nrow(results)
-	
-	unmatched <- tpsa[!(tpsa$id %in% c(results[,1], results[,2], results[,3])),]
-
-	class(results) <- c('triangle.matches','data.frame')
-	attr(results, 'triangle.psa') <- tpsa
-	attr(results, 'match.order') <- match.order
-	attr(results, 'unmatched') <- unmatched
-	attr(results, getModel(match.order[1],match.order[2])) <- c(match.order[1],match.order[2])
-	attr(results, getModel(match.order[2],match.order[3])) <- c(match.order[2],match.order[3])
-	attr(results, getModel(match.order[3],match.order[1])) <- c(match.order[3],match.order[1])
-	
-	message(paste(prettyNum(nrow(unmatched) / nrow(tpsa) * 100, digits=2), 
-				  '% of data points could not be matched.', sep=''))
-	return(results)
+	return(retain)
 }
 
 #' Euclidean distance calculation.

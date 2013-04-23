@@ -40,3 +40,5 @@ Collate:
     'as.data.frame.list.R'
     'trimatch.apply.R'
     'trimatch.loop.R'
+    'summary.triangle.psa.R'
+    'summary.triangle.matches.R'
