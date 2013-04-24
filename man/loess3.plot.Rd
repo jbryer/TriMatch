@@ -3,10 +3,9 @@
 \title{Loess plot for matched triplets.}
 \usage{
   loess3.plot(tmatch, outcome, model, ylab = "Outcome",
-    smooth.method = "auto", plot.connections = FALSE,
-    connections.color = "black", connections.alpha = 0.2,
-    plot.points = geom_point, points.alpha = 0.1,
-    points.palette = "Dark2")
+    plot.connections = FALSE, connections.color = "black",
+    connections.alpha = 0.2, plot.points = geom_point,
+    points.alpha = 0.1, points.palette = "Dark2", ...)
 }
 \arguments{
   \item{tmatch}{the results of \code{\link{trimatch}}.}
@@ -17,9 +16,6 @@
   which model the propensity scores will be used.}
 
   \item{ylab}{the label for the y-axis.}
-
-  \item{smooth.method}{the smoothing method. See
-  \code{\link{stat_smooth}} for more info.}
 
   \item{plot.connections}{boolean indicating whether lines
   will be drawn connecting each matched triplet.}
@@ -40,6 +36,9 @@
   \item{points.palette}{the color palette to use. See
   \code{\link{scale_colour_brewer}} and
   \url{http://colorbrewer2.org/} for more information.}
+
+  \item{...}{other parameters passed to
+  \code{\link{geom_smooth}} and \code{\link{stat_smooth}}.}
 }
 \value{
   a \code{ggplot2} figure.
