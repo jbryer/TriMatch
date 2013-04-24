@@ -13,7 +13,6 @@
 #' @param model an integer between 1 and 3 indicating from which model the propensity
 #'        scores will be used.
 #' @param ylab the label for the y-axis.
-#' @param smooth.method the smoothing method. See \code{\link{stat_smooth}} for more info.
 #' @param plot.connections boolean indicating whether lines will be drawn connecting
 #'        each matched triplet.
 #' @param connections.color the line color of connections.
@@ -25,17 +24,18 @@
 #' @param points.alpha number between 0 and 1 representing the alpha level for the points.
 #' @param points.palette the color palette to use. See \code{\link{scale_colour_brewer}}
 #'        and \url{http://colorbrewer2.org/} for more information.
+#' @param ... other parameters passed to \code{\link{geom_smooth}} and 
+#'        \code{\link{stat_smooth}}.
 #' @return a \code{ggplot2} figure.
 #' @export
 loess3.plot <- function(tmatch, outcome, model,
 						ylab='Outcome', 
-						smooth.method='auto',
 						plot.connections=FALSE,
 						connections.color='black',
 						connections.alpha=.2,
 						plot.points=geom_point,
 						points.alpha=.1,
-						points.palette='Dark2') {
+						points.palette='Dark2', ...) {
 	tpsa <- attr(tmatch, 'triangle.psa')
 	tmatch2 <- merge(x=tmatch, y=outcome)
 	groups <- names(tmatch2)[1:3]
@@ -75,7 +75,7 @@ loess3.plot <- function(tmatch, outcome, model,
 	if(!is.null(plot.points)) {
 		p <- p + plot.points(alpha=points.alpha)
 	}
-	p <- p + geom_smooth(method=smooth.method)
+	p <- p + geom_smooth(...)
 	p <- p + ylab(ylab) + xlab('Propensity Score')
 	p <- p + scale_color_brewer('Treatment', palette=points.palette)
 	p
