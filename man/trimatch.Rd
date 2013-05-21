@@ -36,12 +36,14 @@
   \item{method}{This is a function that specifies which
   matched triplets will be retained. If \code{NULL}, all
   matched triplets within the specified caliper will be
-  returned. The default is \code{\link{maximumTreat}} that
-  uses all treatments within a caliper. Other option is
-  \code{\link{OneToN}} which mimicks the one-to-n matching
-  where treatments are matched to multiple control units.}
+  returned (equivelent to caliper matching in two group
+  matching). The default is \code{\link{maximumTreat}} that
+  attempts include each treatment at least once.  Another
+  option is \code{\link{OneToN}} which mimicks the one-to-n
+  matching where treatments are matched to multiple control
+  units.}
 
-  \item{...}{currently unused.}
+  \item{...}{other parameters passed to \code{method}.}
 
   \item{status}{whether to print a status bar while
   executing.}
@@ -81,7 +83,7 @@ students$EdLevelFather <- as.integer(students$EdLevelFather)
 form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother +
 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
 tpsa <- trips(students, students$TreatBy, form)
-tmatch <- trimatch(tpsa, M1=3, M2=1, status=FALSE)
+tmatch <- trimatch(tpsa, status=FALSE)
 head(tmatch)
 plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
 }

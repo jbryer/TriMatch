@@ -10,20 +10,35 @@
 #' @seealso \code{PSAgraphics} \code{multilevelPSA}
 NA
 
-#' Results from a new student outreach for increasing credit activity within the
-#' first year of enrollment.
-#'
-#' @name students
-#' @docType data
-#' @format a data frame with 320 ovservations of 20 variables.
-#' @keywords datasets
-NULL
-
 #' Results from a study examining the effects of tutoring services on course grades.
+#' 
+#' \itemize{
+#' \item \code{treat} Treatment indicator.
+#' \item \code{Course} The course id the student was enrolled in.
+#' \item \code{Grade} The course grade the student earned (4=A, 3=B, 2=C, 1=D, 0=F or W).
+#' \item \code{Gender} Gender of the student.
+#' \item \code{Ethnicity} Ethnicity of the student, either White, Black, or Other.
+#' \item \code{Military} Is the student an active military student.
+#' \item \code{ESL} English second language student.
+#' \item \code{EdMother} Education level of the mother (1 = did not finish high school;
+#' 2 = high school grad; 3 = some college; 4 = earned associate degree;
+#' 5 = earned baccalaureate degree; 6 = Earned Master's degree; 7 = earned doctorate).
+#' \item \code{EdFather} Education level of the father (levels same as EdMother).
+#' \item \code{Age} Age at the start of the course.
+#' \item \code{Employment} Employment level at college enrollment (1 = No; 2 = part-time;
+#' 3 = full-time).
+#' \item \code{Income} Household income level at college enrollment (1 = <25K; 2 = <35K; 3 = <45K;
+#' 4 = <55K; 5 = <70K; 6 = <85K; 7 = <100K; 8 = <120K; 9 = >120K).
+#' \item \code{Transfer} Number of transfer credits at the start of the course.
+#' \item \code{GPA} GPA as of the start of the course.
+#' \item \code{GradeCode} Letter grade.
+#' \item \code{Level} Level of the course, either Lower or Upper.
+#' \item \code{ID} Randomly assigned student ID.
+#' }
 #'
 #' @name tutoring
 #' @docType data
-#' @format a data frame with 1,381 ovservations of 17 variables.
+#' @format a data frame with 17 variables.
 #' @keywords datasets
 NULL
 

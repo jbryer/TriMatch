@@ -13,14 +13,18 @@ distances.plot <- function(tmatch, caliper=.25, label=FALSE) {
 	tmp <- melt(tmatch[,c('id','D.m1','D.m2','D.m3')], id.vars=1)
 	names(tmp) <- c('ID','Model','Distance')
 	l <- (sd(tpsa$ps1, na.rm=TRUE) + sd(tpsa$ps2, na.rm=TRUE) + sd(tpsa$ps3, na.rm=TRUE))
+	stdev <- sapply(tpsa[,c('ps1','ps2','ps3')], sd, na.rm=TRUE)
 	cat(paste("Standard deviations of propensity scores: ",
-			  paste(prettyNum(
-			  	sapply(tpsa[,c('ps1','ps2','ps3')], sd, na.rm=TRUE), digits=2), 
-			  	  collapse=' + '),
+			  paste(prettyNum(stdev, digits=2), collapse=' + '),
 			  " = ", prettyNum(l, digits=2), '\n', sep='' ))
+	#sddf <- data.frame(Model=c('1','2','3'), stdev=stdev)
+	#sddf$cumsum <- cumsum(sddf$stdev)
+	sddf <- data.frame(Model=c('1','2','3'), cumsum=caliper * 1:3)
+	levels(tmp$Model) <- levels(sddf$Model)
 	p <- ggplot(tmp, aes(x=ID, y=Distance)) +
 		geom_bar(aes(fill=Model), stat='identity', width=1) + coord_flip() + 
-		geom_hline(yintercept=3 * caliper, color='black') +
+		#geom_hline(yintercept=3 * caliper, color='black') +
+		geom_hline(data=sddf, aes(yintercept=cumsum, color=Model), linetype=2) +
 		theme(axis.text.y=element_blank()) +
 		xlab(NULL) + xlim(tmatch[order(tmatch$Dtotal),'id'])
 	if(label & length(which(tmatch$Dtotal > 3 * (min(caliper)))) > 0) {

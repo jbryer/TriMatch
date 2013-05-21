@@ -6,12 +6,17 @@
 #' 
 #' @param tpsa results of \code{\link{trips}}.
 #' @param grid if TRUE, then a grid of three plots for each model will be displayed.
+#' @param cols character vector of covariates (i.e. column names) from the original 
+#'        data to include in the plot. By default all covariates used in the
+#'        logistic regression model are used.
 #' @return a \code{ggplot2} figure.
 #' @export
-multibalance.plot <- function(tpsa, grid=TRUE) {
+multibalance.plot <- function(tpsa, grid=TRUE, cols) {
 	covs <- attr(tpsa, 'data')
 	m1 <- attr(tpsa, 'model1')
-	cols <- attr(m1$terms, 'term.labels')
+	if(missing(cols)) {
+		cols <- attr(m1$terms, 'term.labels')
+	}
 	covs <- covs[,cols]
 	
 	#Recode factors. First we'll covert logicals and factors with two levels to integers

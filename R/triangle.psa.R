@@ -28,7 +28,6 @@
 #' 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
 #' 	      tpsa <- trips(students, students$TreatBy, form)
 #' 	      head(tpsa)
-
 trips <- function(thedata, treat, formu = ~ ., groups=unique(treat), nstrata=5, ...) {
 	if(length(groups) != 3) stop('Sorry, exactly three groups are required.')
 	if(nrow(thedata) != length(treat)) stop('length(treat) does not equal nrow(thedata)')

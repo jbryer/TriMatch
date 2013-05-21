@@ -28,12 +28,18 @@ unmatched <- function(tmatch) {
 #' @S3method summary unmatched
 summary.unmatched <- function(object, digits=3, ...) {
 	tpsa <- attr(object, 'triangle.psa')
-	cat(paste(prettyNum(nrow(object) / nrow(tpsa) * 100, digits=digits), 
-				  '% of total data points were not matched.', sep=''))
-	cat('\nUnmatched by treatment:')
-	print(table(object$treat) / table(tpsa$treat) * 100, digits=digits)
 	results <- list()
 	results$PercentUnmatched <- nrow(object) / nrow(tpsa)
+	results$UnmatchedByTreat <- table(object$treat)
 	results$PercentByTreat <- table(object$treat) / table(tpsa$treat)
+	results$Unmatched <- table(object$treat)
+	cat(paste0(nrow(object), ' (',
+			prettyNum(nrow(object) / nrow(tpsa) * 100, digits=digits), 
+			'%) of ', nrow(tpsa), ' total data points were not matched.'))
+	cat('\nUnmatched by treatment:\n')
+	tmp <- paste0(results$UnmatchedByTreat, ' (', prettyNum(results$UnmatchedByTreat / 
+							table(tpsa$treat) * 100, digits=digits), '%)')
+	names(tmp) <- names(results$UnmatchedByTreat)
+	print(tmp, quote=FALSE)
 	invisible(results)
 }

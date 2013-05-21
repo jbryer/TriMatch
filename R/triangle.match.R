@@ -42,11 +42,12 @@
 #'        before evalutating distances.
 #' @param method This is a function that specifies which matched triplets will be
 #'        retained. If \code{NULL}, all matched triplets within the specified
-#'        caliper will be returned. The default is \code{\link{maximumTreat}} that
-#'        uses all treatments within a caliper. Other option is \code{\link{OneToN}}
-#'        which mimicks the one-to-n matching where treatments are matched to
-#'        multiple control units.
-#' @param ... currently unused.
+#'        caliper will be returned (equivelent to caliper matching in two group
+#'        matching). The default is \code{\link{maximumTreat}} that
+#'        attempts include each treatment at least once. 
+#'        Another option is \code{\link{OneToN}} which mimicks the one-to-n 
+#'        matching where treatments are matched to multiple control units.
+#' @param ... other parameters passed to \code{method}.
 #' @param status whether to print a status bar while executing.
 #' @export
 #' @examples
@@ -59,7 +60,7 @@
 #' form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
 #' 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
 #' tpsa <- trips(students, students$TreatBy, form)
-#' tmatch <- trimatch(tpsa, M1=3, M2=1, status=FALSE)
+#' tmatch <- trimatch(tpsa, status=FALSE)
 #' head(tmatch)
 #' plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
 #' }
@@ -201,8 +202,8 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, exact,
 	attr(results, getModel(match.order[2],match.order[3])) <- c(match.order[2],match.order[3])
 	attr(results, getModel(match.order[3],match.order[1])) <- c(match.order[3],match.order[1])
 	
-	message(paste(prettyNum(nrow(unmatched) / nrow(tpsa) * 100, digits=2), 
-				  '% of data points could not be matched.', sep=''))
+	#message(paste(prettyNum(nrow(unmatched) / nrow(tpsa) * 100, digits=2), 
+	#			  '% of data points were not be matched.', sep=''))
 	return(results)
 }
 

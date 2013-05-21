@@ -5,11 +5,18 @@
 #' @param tmatch the results from \code{\link{trimatch}}.
 #' @param out a vector of the outcome measure of interest.
 #' @param plot.mean logical indicating whether the means should be plotted.
+#' @param ordering specify the order for doing the paired analysis, that is
+#'        analysis will be conducted as:
+#'        \code{ordering[1] - ordering[2]}, \code{ordering[1] - ordering[3]},
+#'        and \code{ordering[2] - ordering[3]}.
+#' @param ci.width the width for the confidence intervals.
 #' @return a \code{ggplot2} boxplot of the differences.
 #' @export
-boxdiff.plot <- function(tmatch, out, plot.mean=TRUE) {
+boxdiff.plot <- function(tmatch, out, plot.mean=TRUE, 
+						 ordering = attr(tmatch, 'match.order'),
+						 ci.width=.5) {
 	tmatch.out <- merge(tmatch, out)
-	outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
+	outcomes <- sapply(ordering, function(x) { which(names(tmatch.out) == paste0(x, '.out')) })
 	tmatch.out$id <- 1:nrow(tmatch.out)
 	
 	diffcols <- c(
@@ -41,7 +48,7 @@ boxdiff.plot <- function(tmatch, out, plot.mean=TRUE) {
 	p <- ggplot(out.box, aes(x=Treatments, y=Difference)) + 
 		geom_boxplot() + 
 		geom_crossbar(data=ci, aes(x=Treatments, ymin=V1, ymax=V2, y=estimate), 
-					  color='green', fill='green', width=.72, alpha=.6) +
+					  color='green', fill='green', width=ci.width, alpha=.6) +
 		geom_hline(color='blue', yintercept=0)
 	if(plot.mean) {
 		p <- p + 

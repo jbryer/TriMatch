@@ -4,7 +4,7 @@
 measure if provided.}
 \usage{
   \method{summary}{triangle.matches} (object, outcome,
-    p = 0.05, ...)
+    p = 0.05, ordering = attr(object, "match.order"), ...)
 }
 \arguments{
   \item{object}{result of \code{\link{trimatch}}.}
@@ -14,6 +14,11 @@ measure if provided.}
   \item{p}{threshold of the p value to perform a}
 
   \item{...}{parameters passed to other statistical tests.}
+
+  \item{ordering}{specify the order for doing the paired
+  analysis, that is analysis will be conducted as:
+  \code{ordering[1] - ordering[2]}, \code{ordering[1] -
+  ordering[3]}, and \code{ordering[2] - ordering[3]}.}
 }
 \value{
   a trimatch.summary object.

@@ -6,6 +6,9 @@
 #' 
 #' @param object the results of \code{\link{trips}}.
 #' @param ... currently unused.
+#' @S3method summary triangle.psa
+#' @method summary triangle.psa
+#' @export
 summary.triangle.psa <- function(object, ...) {
 	m1 <- attr(object, 'model1')
 	m2 <- attr(object, 'model2')
@@ -28,9 +31,9 @@ summary.triangle.psa <- function(object, ...) {
 	
 }
 
-star <- function(pvals) {
-	ifelse(pvals < .001, '***', 
-		   ifelse(pvals < .01, '**',
-		   	   ifelse(pvals < .05, '*',
-		   	   	   ifelse(pvals < .1, '.', ''))))
-}
+# star <- function(pvals) {
+# 	ifelse(pvals < .001, '***', 
+# 		   ifelse(pvals < .01, '**',
+# 		   	   ifelse(pvals < .05, '*',
+# 		   	   	   ifelse(pvals < .1, '.', ''))))
+# }

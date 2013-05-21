@@ -1,0 +1,25 @@
+\name{summary.balance.plots}
+\alias{summary.balance.plots}
+\title{Prints a summary table of the test statistics of each balance plot.}
+\usage{
+  \method{summary}{balance.plots} (x, ...)
+}
+\arguments{
+  \item{x}{the results of \code{\link{balance.plot}} when a
+  data frame is specified.}
+
+  \item{...}{currenlty unused.}
+}
+\value{
+  a data frame
+}
+\description{
+  The \code{\link{balance.plot}} function will create a
+  grid of balance plots if a data frame is provided. The
+  returned object is a list of \code{ggplot2} figures with
+  the statistical tests (i.e. Friedmen Rank Sum tests and
+  if a continuous variable, repeated measures ANOVA as
+  well) saved as attributes. This function will return a
+  data frame combining all of those results.
+}
+

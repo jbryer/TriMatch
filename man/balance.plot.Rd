@@ -4,7 +4,9 @@
 \usage{
   balance.plot(tmatch, covar, model,
     nstrata = attr(attr(tmatch, "triangle.psa"), "nstrata"),
-    label = "Covariate", ylab = "", se.ratio = 2)
+    label = "Covariate", ylab = "", xlab = NULL,
+    se.ratio = 2, print = TRUE, legend.position = "top",
+    x.axis.labels, x.axis.angle = -45, ...)
 }
 \arguments{
   \item{tmatch}{results from \code{\link{trimatch}}.}
@@ -19,13 +21,30 @@
 
   \item{ylab}{label of the y-axis.}
 
+  \item{xlab}{label of the x-axis.}
+
   \item{se.ratio}{a multiplier for how large standard error
   bars will be.}
 
   \item{label}{label for the legend.}
+
+  \item{print}{print the output if the Freidman Rank Sum
+  Test and repeated measures ANOVA (for continuous
+  variables).}
+
+  \item{legend.position}{the position of the legend. See
+  \code{\link{theme}}.}
+
+  \item{x.axis.labels}{labels for the x-axis.}
+
+  \item{x.axis.angle}{angle for x-axis labels.}
+
+  \item{...}{parameters passed to
+  \code{\link{plot.balance.plots}}.}
 }
 \value{
-  a \code{ggplot2} figure.
+  a \code{ggplot2} figure or a list of \code{ggplot2}
+  figures if \code{covar} is a data frame.
 }
 \description{
   If the covariate is numeric, boxplots will be drawn with

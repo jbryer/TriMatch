@@ -2,13 +2,18 @@
 \alias{multibalance.plot}
 \title{Multiple covariate blance assessment plot.}
 \usage{
-  multibalance.plot(tpsa, grid = TRUE)
+  multibalance.plot(tpsa, grid = TRUE, cols)
 }
 \arguments{
   \item{tpsa}{results of \code{\link{trips}}.}
 
   \item{grid}{if TRUE, then a grid of three plots for each
   model will be displayed.}
+
+  \item{cols}{character vector of covariates (i.e. column
+  names) from the original data to include in the plot. By
+  default all covariates used in the logistic regression
+  model are used.}
 }
 \value{
   a \code{ggplot2} figure.

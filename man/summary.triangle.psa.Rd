@@ -2,7 +2,7 @@
 \alias{summary.triangle.psa}
 \title{Prints the summary results of the logistic regression models.}
 \usage{
-  summary.triangle.psa(object, ...)
+  \method{summary}{triangle.psa} (object, ...)
 }
 \arguments{
   \item{object}{the results of \code{\link{trips}}.}

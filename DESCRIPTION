@@ -16,9 +16,11 @@ Depends:
     ez,
     PSAgraphics,
     compiler,
-    R (>= 2.14)
+    R (>= 3.0)
 Suggests:
-    MASS
+    MASS,
+    gridExtra,
+    xtable
 Date: 2013-01-02
 Collate:
     'merge.triangle.matches.R'
@@ -42,3 +44,4 @@ Collate:
     'trimatch.loop.R'
     'summary.triangle.psa.R'
     'summary.triangle.matches.R'
+    'star.R'

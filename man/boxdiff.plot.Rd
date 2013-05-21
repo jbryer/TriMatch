@@ -2,7 +2,8 @@
 \alias{boxdiff.plot}
 \title{Returns a \code{ggplot2} box plot of the differences.}
 \usage{
-  boxdiff.plot(tmatch, out, plot.mean = TRUE)
+  boxdiff.plot(tmatch, out, plot.mean = TRUE,
+    ordering = attr(tmatch, "match.order"), ci.width = 0.5)
 }
 \arguments{
   \item{tmatch}{the results from \code{\link{trimatch}}.}
@@ -11,6 +12,13 @@
 
   \item{plot.mean}{logical indicating whether the means
   should be plotted.}
+
+  \item{ordering}{specify the order for doing the paired
+  analysis, that is analysis will be conducted as:
+  \code{ordering[1] - ordering[2]}, \code{ordering[1] -
+  ordering[3]}, and \code{ordering[2] - ordering[3]}.}
+
+  \item{ci.width}{the width for the confidence intervals.}
 }
 \value{
   a \code{ggplot2} boxplot of the differences.

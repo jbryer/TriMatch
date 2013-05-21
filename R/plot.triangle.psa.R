@@ -32,6 +32,7 @@ plot.triangle.psa <- function(tpsa,
 							  edge.alpha = .2,
 							  edge.color = 'grey',
 							  edge.labels = c('Model 1', 'Model 2', 'Model 3'),
+							  #ordering = attr(tpsa, 'groups'),
 							  sample = c(1),
 							  ...) {
 	if(length(sample) == 1) {
@@ -42,6 +43,7 @@ plot.triangle.psa <- function(tpsa,
 	axis.offset <- .1
 	
 	groups <- attr(tpsa, 'groups')
+	#groups <- ordering
 	nstrata <- attr(tpsa, 'nstrata')
 	m <- sqrt(.75)
 	

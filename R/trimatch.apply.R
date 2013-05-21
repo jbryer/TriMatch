@@ -54,4 +54,3 @@ trimatch.apply <- function(tpsa, caliper, d1, d2, d3, exact1, exact2, exact3, nm
 	for(i in 4:6) { results[,i] <- as.numeric(results[,i]) }
 	invisible(results)
 }
-	

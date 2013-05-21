@@ -8,7 +8,10 @@
   \item{x}{results of
   \code{\link{summary.triangle.matches}}.}
 
-  \item{...}{currenlty unused.}
+  \item{...}{multiple results of
+  \code{\link{summary.triangle.matches}}. These must be
+  named. For example, \code{"Method 1" = summary(tmath,
+  outcome)}.}
 }
 \description{
   This is an S3 generic function to print the results of

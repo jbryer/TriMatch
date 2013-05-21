@@ -42,7 +42,8 @@ loess3.plot <- function(tmatch, outcome, model,
 	
 	if(missing(model)) {
 		for(i in 1:3) {
-			if(length(which(is.na(tpsa[tpsa$treat %in% groups[1:2],paste('model', i, sep='')]))) == 0) {
+			if(length(which(is.na(tpsa[tpsa$treat %in% groups[1:2],
+									   paste('model', i, sep='')]))) == 0) {
 				model <- i
 				break;
 			}
@@ -50,15 +51,30 @@ loess3.plot <- function(tmatch, outcome, model,
 		if(model == 0) {
 			stop('Could not find model. There are missing propensity scores in all models.')
 		}
+	} else {
+		groups <- c(
+			as.character(tpsa[which(!tpsa[,paste0('model',model)]),'treat'][1]),
+			as.character(tpsa[which(tpsa[,paste0('model',model)]),'treat'][1]),
+			as.character(tpsa[which(is.na(tpsa[,paste0('model',model)])),'treat'][1])
+		)
 	}
+
+	xlab <- paste0('Propensity Score (0=', 
+				   tpsa[which(!tpsa[,paste0('model',model)]),'treat'][1],
+				   ', 1=',
+				   tpsa[which(tpsa[,paste0('model',model)]),'treat'][1],
+				   ')')
 	
-	tmatch2 <- merge(tmatch2, tpsa[which(tpsa$treat == groups[1]), c('id',paste('ps', model, sep=''))], 
+	tmatch2 <- merge(tmatch2, tpsa[which(tpsa$treat == groups[1]), 
+								   c('id',paste('ps', model, sep=''))], 
 					 by.x=groups[1], by.y='id', all.x=TRUE)
 	names(tmatch2)[ncol(tmatch2)] <- paste(groups[1], '.ps', sep='')
-	tmatch2 <- merge(tmatch2, tpsa[which(tpsa$treat == groups[2]), c('id',paste('ps', model, sep=''))], 
+	tmatch2 <- merge(tmatch2, tpsa[which(tpsa$treat == groups[2]), 
+								   c('id',paste('ps', model, sep=''))], 
 					 by.x=groups[2], by.y='id', all.x=TRUE)
 	names(tmatch2)[ncol(tmatch2)] <- paste(groups[2], '.ps', sep='')
-	tmatch2[,paste(groups[3], '.ps', sep='')] <- apply(tmatch2[,(ncol(tmatch2)-1):ncol(tmatch2)], 1, mean)
+	tmatch2[,paste(groups[3], '.ps', sep='')] <- apply(
+			tmatch2[,(ncol(tmatch2)-1):ncol(tmatch2)], 1, mean)
 	
 	tmatch2$id <- 1:nrow(tmatch2)
 	
@@ -68,7 +84,7 @@ loess3.plot <- function(tmatch, outcome, model,
 	out$treat <- as.character(out$treat)
 	out$treat <- substr(out$treat, 1, (sapply(out$treat, nchar)-4)) #Strip .out from value
 	
-	p <- ggplot(out, aes(x=ps, y=out, group=treat, colour=treat))
+	p <- ggplot(out, aes(x=ps, y=out, group=treat, fill=treat, colour=treat))
 	if(plot.connections) {
 		p <- p + geom_path(aes(group=id), colour=connections.color, alpha=connections.alpha)
 	}
@@ -76,7 +92,8 @@ loess3.plot <- function(tmatch, outcome, model,
 		p <- p + plot.points(alpha=points.alpha)
 	}
 	p <- p + geom_smooth(...)
-	p <- p + ylab(ylab) + xlab('Propensity Score')
+	p <- p + ylab(ylab) + xlab(xlab)
 	p <- p + scale_color_brewer('Treatment', palette=points.palette)
+	p <- p + scale_fill_brewer('Treatment', palette=points.palette)
 	p
 }

@@ -1,7 +1,6 @@
 require(devtools)
-setwd('~/Dropbox/Projects')
-setwd("C:/Dropbox/Projects")
 
+setwd('~/Dropbox/Projects')
 document('TriMatch')
 check_doc('TriMatch')
 install('TriMatch')
@@ -11,6 +10,15 @@ check('TriMatch')
 require(TriMatch)
 data(nmes)
 data(students)
+
+tools::checkRdaFiles('TriMatch/data')
+tools::resaveRdaFiles('TriMatch/data')
+
+require(cacheSweave); require(tools)
+setwd('TriMatch/inst/doc/')
+Sweave("TriMatch.Rnw", driver = cacheSweaveDriver)
+texi2pdf('TriMatch.tex')
+
 
 ##### Rd2markdown ##############################################################
 
