@@ -1,21 +1,49 @@
 require(TriMatch)
+require(gridExtra)
 data(nmes)
 
-#http://imai.princeton.edu/research/pscore.html
-
-head(nmes[,c('smoke','AGESMOKE','SMOKENOW','AGESTOP','packyears','yearsince')], n=10)
+nmes <- nmes[!is.na(nmes$packyears),]
+nmes <- subset(nmes, select=c(packyears, smoke, AGESMOKE, LASTAGE, MALE, RACE3, 
+				beltuse, educate, marital, SREGION, POVSTALB, HSQACCWT, TOTALEXP))
 
 nmes$smoke <- factor(nmes$smoke, levels=c(0,1,2), labels=c('Never','Smoker','Former'))
 table(nmes$smoke, useNA='ifany')
 
-#Unadjusted results
-describeBy(nmes$TOTALEXP, group=list(nmes$smoke), mat=TRUE, skew=FALSE)
-ggplot(nmes, aes(x=factor(smoke), y=log(TOTALEXP), group=factor(smoke))) + 
-	coord_flip() + geom_jitter(alpha=.1, color='grey80') + geom_boxplot(alpha=0)
+# We'll create a log(TOTALEXP) varaible
+nmes$POSEXP <- 1*(nmes$TOTALEXP>0)
+nmes$LogTotalExp <- log(nmes$TOTALEXP + 1)
 
-#We'll create a log(TOTALEXP) varaible
-nmes$LogTotalExp <- log(nmes$TOTALEXP)
-nmes[nmes$LogTotalExp < 0,]$LogTotalExp <- 0
+# Alternative way of defining treatments, heavy smokers 
+# (i.e. packyears > median(packyears)), moderate smokers, and non-smokers.
+(medPY <- median(nmes[nmes$smoke != 'Never',]$packyears))
+table(nmes$smoke, nmes$packyears > medPY)
+nmes$smoke2 <- ifelse(nmes$smoke == 'Never', 'Never', 
+					  ifelse(nmes$packyears > 17, 'Heavy', 'Moderate'))
+table(nmes$smoke2, useNA='ifany')
+
+# We see our control group is the same, but there is some shifting of heavy
+# and moderate smokers and former and current smokers.
+table(nmes$smoke, nmes$smoke2, useNA='ifany')
+
+# log(packyears) and log(TotalExp) with density of log(packyears)
+grid.newpage()
+pushViewport(viewport(layout = grid.layout(2, 1, heights=unit(c(1,3), "null"))))
+vplayout <- function(x, y) viewport(layout.pos.row = x, layout.pos.col = y)
+print(ggplot(nmes[nmes$smoke != "Never",], 
+			 aes(x=log(packyears+1), color=smoke, fill=smoke)) + 
+	  	geom_density(alpha=.1) + 
+	  	#ggtitle("log(Pack Year) and log(Total Expenditures)") +
+	  	theme(legend.position="none", plot.margin=rep(unit(0, "cm"), 4)) +
+	  	xlab("") + ylab("Density"), 
+	  vp=vplayout(1,1))
+print(ggplot(nmes[nmes$smoke != "Never",], 
+			 aes(x=log(packyears+1), y=LogTotalExp, color=smoke, fill=smoke)) + 
+	  	geom_point(alpha=.2) + 
+	  	geom_smooth(method="loess") +
+	  	scale_color_hue("") + scale_fill_hue("") +
+	  	theme(legend.position=c(.9,1), plot.margin=rep(unit(0, "cm"), 4)) + 
+	  	xlab("log(Pack Year)") + ylab("log(Total Expenditures)"),
+	  vp=vplayout(2,1))
 
 #From Imai and van Dyk (2004, pp. 857-858):
 # "Our analysis includes the following subject-level covariates: age at the times 
@@ -25,50 +53,97 @@ nmes[nmes$LogTotalExp < 0,]$LogTotalExp <- 0
 # college, high school graduate, other), census region (Northeast, Mid- west, 
 # South, West), poverty status (poor, near poor, low income, middle income, 
 # high income), and seat belt usage (rarely, some- times, always/almost always)."
+#formu <- ~ LASTAGE + MALE + RACE3 + beltuse + educate + marital + SREGION + POVSTALB
+
+#nmes$LASTAGE2 <- nmes$LASTAGE^2
+#nmes$AGESMOKE2 <- nmes$AGESMOKE^2
+
+# Imai and van Dyk observed that there appeared to be a relationship between age
+# and medical expenditures. We will create a new categorical age variable using
+# quintiles to use for partial exact matching.
+nmes$LastAge5 <- cut(nmes$LASTAGE, 
+					 breaks=quantile(nmes$LASTAGE, probs=seq(0,1,1/5)),
+					 include.lowest=TRUE, orderd_result=TRUE)
+table(nmes$smoke, nmes$LastAge5, useNA='ifany')
+table(nmes$smoke2, nmes$LastAge5, useNA='ifany')
+
+# Formula for estimating propensity scores. Note that we do not specify the
+# dependent varaible (treatment indicator) as the trips function will replace
+# the dependent varaible for each model.
 formu <- ~ LASTAGE + MALE + RACE3 + beltuse + educate + marital + SREGION + POVSTALB
 
-nmes <- na.omit(nmes[,c(all.vars(formu), 'smoke', 'TOTALEXP')])
+# Remove any rows with missing values. Consistent with Imai and van Dyk's analysis.
+nmes <- na.omit(nmes[,c(all.vars(formu), 'LastAge5', 'smoke', 'smoke2', 
+						'TOTALEXP', 'LogTotalExp', 'packyears')])
 
-treat <- nmes$smoke
-table(treat, useNA='ifany')
+tpsa.smoke <- trips(nmes, nmes$smoke, formu)
+head(tpsa.smoke)
+#We'll plot 5% random triplets to get a sence of the matches
+plot(tpsa.smoke, sample=c(.05), edge.alpha=.1)
 
-tpsa <- trips(nmes, treat, formu)
-head(tpsa)
-#We'll plot 5% random triplets to get a sence of matches
-(p <- plot(tpsa, sample=c(.05), edge.alpha=.1))
+# Using our second treatment varaible
+tpsa.packyears <- trips(nmes, nmes$smoke2, formu)
+head(tpsa.packyears)
+plot(tpsa.packyears, sample=c(.05), edge.alpha=.1)
 
 if(file.exists('tmatch.nmes.rda')) {
 	load('tmatch.nmes.rda')
 } else {
-	tmatch <- trimatch(tpsa, M1=2, M2=1, exact=nmes[,c('MALE','RACE3')], nmatch=c(10,20))
-	save(tmatch, file='tmatch.nmes.rda')
+	trimatch <- cmpfun(trimatch)
+	tmatch.smoke <- trimatch(tpsa.smoke, exact=nmes[,c('LastAge5','MALE','RACE3')])
+	tmatch.packyears <- trimatch(tpsa.packyears, exact=nmes[,c('LastAge5','MALE','RACE3')])
+	save(tmatch.smoke, tmatch.packyears, file='tmatch.nmes.rda')
+	tools::resaveRdaFiles('tmatch.nmes.rda')
 }
 
-table(duplicated(tmatch[,c('Smoker')]))
-table(duplicated(tmatch[,c('Smoker','Former')]))
+# Summary of unmatched rows
+summary(unmatched(tmatch.smoke))
+summary(unmatched(tmatch.packyears))
 
+##### Checking Balance #####
 #Effect size balance plot
-multibalance.plot(tpsa, grid=TRUE)
+multibalance.plot(tpsa.smoke)
+multibalance.plot(tpsa.packyears)
 
-loess3.plot(tmatch, nmes$TOTALEXP, plot.points=NULL, ylab='Total Expenditures')
+bplots <- balance.plot(tmatch.smoke, nmes[,all.vars(formu)], 
+					   legend.position='none', x.axis.angle=90)
+plot(bplots, cols=3, byrow=TRUE, plot.sequence=c(3:8,1:2))
 
-boxdiff.plot(tmatch, nmes$TOTALEXP) #Not very useful with this many points
+bplots2 <- balance.plot(tmatch.packyears, nmes[,all.vars(formu)], 
+						legend.position='none', x.axis.angle=90)
+plot(bplots2, cols=3, byrow=TRUE, plot.sequence=c(3:8,1:2))
 
-boxdiff.plot(tmatch, nmes$LogTotalExp)
+(stot <- summary(tmatch.smoke, nmes$TOTALEXP, ordering=c('Smoker','Former','Never')))
+(slog <- summary(tmatch.smoke, nmes$LogTotalExp, ordering=c('Smoker','Former','Never')))
 
-tmatch.out <- merge(x=tmatch, y=nmes[,c('LogTotalExp')])
-tmatch.out <- merge(x=tmatch, y=nmes[,c('TOTALEXP')])
-outcomes <- grep(".out$", names(tmatch.out), perl=TRUE)
-tmatch.out$id <- 1:nrow(tmatch.out)
-out <- melt(tmatch.out[,c(outcomes, ncol(tmatch.out))],id.vars='id')
-names(out) <- c('ID','Treatment','Outcome')
-set.seed(2112)
-friedman.test(Outcome ~ Treatment | ID, out)
-(rmanova <- ezANOVA(data=out, dv=Outcome, wid=ID, within=Treatment))
+(stot2 <- summary(tmatch.packyears, nmes$TOTALEXP, ordering=c('Heavy','Moderate','Never')))
+(slog2 <- summary(tmatch.packyears, nmes$LogTotalExp, ordering=c('Heavy','Moderate','Never')))
 
-#Possible approach for post-hoc test
-pairwise.wilcox.test(x=out$Outcome, g=out$Treatment, paired=TRUE, p.adjust.method='bonferroni')
+(r1 <- print('Total Expenditures'=stot, 
+			'log(Total Expenditures)'=slog))
+(r2 <- print('Total Expenditures'=stot2, 
+			'log(Total Expenditures)'=slog2))
 
-mean(tmatch.out$Never.out); mean(tmatch.out$Former.out); mean(tmatch.out$Smoker.out);
-t.test(tmatch.out$Smoker.out, tmatch.out$Never.out, paired=TRUE)
+print('Current Smoking Status'=slog, 'Lifetime Smoking Frequency'=slog2, row.names=FALSE)
+
+loess3.plot(tmatch.smoke, nmes$LogTotalExp, points.alpha=.01, method='loess', 
+			ylab='log(Total Expenditures)')
+
+loess3.plot(tmatch.packyears, nmes$LogTotalExp, points.alpha=.01, method='loess', 
+			ylab='log(Total Expenditures)')
+
+boxdiff.plot(tmatch.smoke, nmes$LogTotalExp, ordering=c('Smoker','Former','Never'))
+boxdiff.plot(tmatch.packyears, nmes$LogTotalExp, ordering=c('Heavy','Moderate','Never'))
+
+##### Alternative views of the Loess Plot #####
+# We can use the propensity scores from other models.
+# 0=Never, 1=Moderate, Heavy is imputed
+loess3.plot(tmatch.packyears, nmes$LogTotalExp, points.alpha=.01, method='loess', 
+			model=1, ylab='log(Total Expenditures)')
+# 0=Never, 1=Heavy, Moderate is imputed
+loess3.plot(tmatch.packyears, nmes$LogTotalExp, points.alpha=.01, method='loess', 
+			model=2, ylab='log(Total Expenditures)')
+# 0=Heavy, 1=Moderate, Never is imputed
+loess3.plot(tmatch.packyears, nmes$LogTotalExp, points.alpha=.01, method='loess', 
+			model=3, ylab='log(Total Expenditures)')
 

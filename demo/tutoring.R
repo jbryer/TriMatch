@@ -3,59 +3,119 @@ data(tutoring)
 
 names(tutoring)
 table(tutoring$treat, useNA='ifany')
+table(tutoring$treat, tutoring$Course, useNA='ifany')
 
 formu <- ~ Gender + Ethnicity + Military + ESL + EdMother + EdFather + Age +
 	       Employment + Income + Transfer + GPA
 
+# tutoring$Treat1 <- !tutoring$treat == 'Control'
+# lr1 <- glm(Treat1 ~ Gender + Ethnicity + Military + ESL + EdMother + EdFather + Age +
+# 		   	Employment + Income + Transfer + GPA, data=tutoring, family=binomial)
+# summary(lr1)
+# lr2 <- stepAIC(lr1)
+# summary(lr2)
+# formu <- ~ Gender + Employment + Transfer
+# multibalance.plot(tutoring.tpsa, cols=all.vars(formu))
+
+# Estimate the propensity scores for the three models
 tutoring.tpsa <- trips(tutoring, tutoring$treat, formu)
 
+# Some useful information is saved as attributes.
 names(attributes(tutoring.tpsa))
 
-summary(attr(tutoring.tpsa, 'model1'))
+# Prints a combined summary of the three logistic regression models
+summary(tutoring.tpsa)
 
-attr(tutoring.tpsa, 'groups')
-
+# Triangle plot of the propensity scores
 plot(tutoring.tpsa, sample=c(200))
 
-tutoring.matched <- trimatch(tutoring.tpsa)
+# In the three cases below we will use exact matching on the Course.
+# Default maximumTreat
+tutoring.matched <- trimatch(tutoring.tpsa, exact=tutoring[,c('Course')]) 
+# Caliper matching
+tutoring.matched.caliper <- trimatch(tutoring.tpsa, exact=tutoring[,c('Course')], 
+									 method=NULL)
+# 2-to-1-to-1 matching
+tutoring.matched.2to1 <- trimatch(tutoring.tpsa, exact=tutoring[,c('Course')], 
+								  method=OneToN, M1=2, M2=1)
+# 3-to-2-to-1 matching
+tutoring.matched.3to2 <- trimatch(tutoring.tpsa, exact=tutoring[,c('Course')], 
+								  method=OneToN, M1=3, M2=2)
 
-plot(tutoring.matched, rows=which(tutoring.matched$Treatment2 == '10'), 
-	 line.alpha=1, draw.segments=TRUE)
+# Examine unmatched cases.
+summary(unmatched(tutoring.matched))
+summary(unmatched(tutoring.matched.caliper))
+summary(unmatched(tutoring.matched.2to1))
+summary(unmatched(tutoring.matched.3to2))
 
-unmatched <- unmatched(tutoring.matched)
-summary(unmatched)
+# Examine the differences in standardized propensity scores for each matched triplet.
+# The caliper parameter allows us to see how many matched triplets we would loose
+# if we reduced the caliper.
+distances.plot(tutoring.matched, caliper=.2) 
+distances.plot(tutoring.matched.caliper, caliper=.2) 
 
-#Caliper matching
-tutoring.matched.all <- trimatch(tutoring.tpsa, method=NULL)
-nrow(tutoring.matched.all)
-unmatched.all <- unmatched(tutoring.matched.all)
-table(unmatched.all$treat) / table(tutoring.tpsa$treat) * 100
-boxdiff.plot(tutoring.matched.all, tutoring$Grade)
-parallel.plot(tutoring.matched.all, tutoring$Grade)
-
-# 2-2-1 matching
-tutoring.matched.n <- trimatch(tutoring.tpsa, method=OneToN, M1=5, M2=3)
-nrow(tutoring.matched.n)
-unmatched.n <- unmatched(tutoring.matched.n)
-table(unmatched.n$treat) / table(tutoring.tpsa$treat) * 100
-plot(tutoring.matched.n, rows=which(tutoring.matched.n$Treatment2 == '10'), 
-	 line.alpha=1, draw.segments=TRUE)
-boxdiff.plot(tutoring.matched.n, tutoring$Grade)
-parallel.plot(tutoring.matched.n, tutoring$Grade)
+# We can overlay matched triplets on the triangle plot
+plot(tutoring.matched, rows=c(50), line.alpha=1, draw.segments=TRUE)
 
 
-#Check balance
-multibalance.plot(tutoring.tpsa)
+##### Checking balance #########################################################
+multibalance.plot(tutoring.tpsa) + ggtitle('Covariate Balance Plot')
 
-boxdiff.plot(tutoring.matched, tutoring$Grade)
-
-plot(tutoring.matched, rows=c(3), line.alpha=1, draw.segments=TRUE)
-
-distances.plot(tutoring.matched) 
-
+# Continuous covariate
 balance.plot(tutoring.matched, tutoring$Age, label='Age')
 
-multibalance.plot(tutoring.tpsa, grid=TRUE)
+# Discrete covariate
+balance.plot(tutoring.matched, tutoring$Ethnicity)
 
-boxdiff.plot(tutoring.matched, tutoring$Grade)
+# Create a grid of figures.
+bplots <- balance.plot(tutoring.matched, tutoring[,all.vars(formu)], 
+		legend.position='none', x.axis.labels=c('C','T1','T1'), x.axis.angle=0)
+bplots[['Gender']] # We can plot one at at time.
+summary(bplots) # Create a data frame with the statistical results
+plot(bplots, cols=3, byrow=FALSE)
+#print(bplots, cols=3, byrow=FALSE) # Will call summary and plot
+
+##### Phase II #################################################################
+matched.out <- merge(tutoring.matched, tutoring$Grade)
+names(matched.out)
+head(matched.out)
+
+(s1 <- summary(tutoring.matched, tutoring$Grade))
+(s2 <- summary(tutoring.matched.caliper, tutoring$Grade))
+(s3 <- summary(tutoring.matched.2to1, tutoring$Grade))
+(s4 <- summary(tutoring.matched.3to2, tutoring$Grade))
+
+# Loess plot for the optimal matching method
+loess3.plot(tutoring.matched, tutoring$Grade, ylab='Grade')
+# Draw lines connecting each matched triplet
+loess3.plot(tutoring.matched, tutoring$Grade, ylab='Grade', 
+			points.alpha=.5, plot.connections=TRUE)
+# Loess plot for the caliper matching method
+loess3.plot(tutoring.matched.caliper, tutoring$Grade, ylab='Grade', 
+			points.alpha=.1, method='loess')
+# Loess plot for the 2-to-1 matching method
+loess3.plot(tutoring.matched.2to1, tutoring$Grade, ylab='Grade', span=.9)
+# Loess plot for the 3-to-2 matching method
+loess3.plot(tutoring.matched.3to2, tutoring$Grade, ylab='Grade', span=.9)
+
+boxdiff.plot(tutoring.matched, tutoring$Grade, 
+			 ordering=c('Treat2','Treat1','Control')) + 
+	ggtitle('Boxplot of Differences: Optimal Matching')
+boxdiff.plot(tutoring.matched.caliper, tutoring$Grade, 
+			 ordering=c('Treat2','Treat1','Control')) +
+	ggtitle('Boxplot of Differences: Caliper Matching')
+boxdiff.plot(tutoring.matched.2to1, tutoring$Grade, 
+			 ordering=c('Treat2','Treat1','Control')) +
+	ggtitle('Boxplot of Differences: 2-to-1-to-n Matching')
+boxdiff.plot(tutoring.matched.3to2, tutoring$Grade, 
+			 ordering=c('Treat2','Treat1','Control')) +
+	ggtitle('Boxplot of Differences: 3-to-2-to-n Matching')
+
+
+print('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4)
+
+require(xtable)
+x <- xtable(tritable('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4))
+print(x, include.rownames=FALSE)
+
 
