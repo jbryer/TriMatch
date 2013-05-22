@@ -3,8 +3,11 @@ require(gridExtra)
 data(nmes)
 
 nmes <- nmes[!is.na(nmes$packyears),]
-nmes <- subset(nmes, select=c(packyears, smoke, AGESMOKE, LASTAGE, MALE, RACE3, 
+nmes <- subset(nmes, select=c(packyears, smoke, LASTAGE, MALE, RACE3, 
 				beltuse, educate, marital, SREGION, POVSTALB, HSQACCWT, TOTALEXP))
+
+# Remove any rows with missing values. Consistent with Imai and van Dyk's analysis.
+nmes <- na.omit(nmes)
 
 nmes$smoke <- factor(nmes$smoke, levels=c(0,1,2), labels=c('Never','Smoker','Former'))
 table(nmes$smoke, useNA='ifany')
@@ -72,10 +75,6 @@ table(nmes$smoke2, nmes$LastAge5, useNA='ifany')
 # the dependent varaible for each model.
 formu <- ~ LASTAGE + MALE + RACE3 + beltuse + educate + marital + SREGION + POVSTALB
 
-# Remove any rows with missing values. Consistent with Imai and van Dyk's analysis.
-nmes <- na.omit(nmes[,c(all.vars(formu), 'LastAge5', 'smoke', 'smoke2', 
-						'TOTALEXP', 'LogTotalExp', 'packyears')])
-
 tpsa.smoke <- trips(nmes, nmes$smoke, formu)
 head(tpsa.smoke)
 #We'll plot 5% random triplets to get a sence of the matches
@@ -113,18 +112,14 @@ bplots2 <- balance.plot(tmatch.packyears, nmes[,all.vars(formu)],
 						legend.position='none', x.axis.angle=90)
 plot(bplots2, cols=3, byrow=TRUE, plot.sequence=c(3:8,1:2))
 
-(stot <- summary(tmatch.smoke, nmes$TOTALEXP, ordering=c('Smoker','Former','Never')))
-(slog <- summary(tmatch.smoke, nmes$LogTotalExp, ordering=c('Smoker','Former','Never')))
+sum.smoke <- summary(tmatch.smoke, nmes$LogTotalExp, 
+					 ordering=c("Smoker","Former","Never"))
+sum.packyears <- summary(tmatch.packyears, nmes$LogTotalExp, 
+						 ordering=c("Heavy","Moderate","Never"))
+print("Current Smoking Status"=sum.smoke, "Smoking Frequency"=sum.packyears)
 
-(stot2 <- summary(tmatch.packyears, nmes$TOTALEXP, ordering=c('Heavy','Moderate','Never')))
-(slog2 <- summary(tmatch.packyears, nmes$LogTotalExp, ordering=c('Heavy','Moderate','Never')))
-
-(r1 <- print('Total Expenditures'=stot, 
-			'log(Total Expenditures)'=slog))
-(r2 <- print('Total Expenditures'=stot2, 
-			'log(Total Expenditures)'=slog2))
-
-print('Current Smoking Status'=slog, 'Lifetime Smoking Frequency'=slog2, row.names=FALSE)
+sum.smoke$t.tests
+sum.packyears$t.test
 
 loess3.plot(tmatch.smoke, nmes$LogTotalExp, points.alpha=.01, method='loess', 
 			ylab='log(Total Expenditures)')
