@@ -1,3 +1,5 @@
+utils::globalVariables(c('Outcome','ID','Treatment'))
+
 #' Provides a summary of the matched triplets including analysis of outcome
 #' measure if provided.
 #' 

@@ -38,14 +38,12 @@
   }_{ 2 }{ T }_{ 1 } })}
 }
 \examples{
-data(students)
-	      students$Income <- as.integer(students$Income)
-	      students$Employment <- as.integer(students$Employment)
-	      students$EdLevelMother <- as.integer(students$EdLevelMother)
-	      students$EdLevelFather <- as.integer(students$EdLevelFather)
-	      form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother +
-	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
-	      tpsa <- trips(students, students$TreatBy, form)
-	      head(tpsa)
+\dontrun{
+data(turoing)
+formu <- ~ Gender + Ethnicity + Military + ESL + EdMother + EdFather + Age +
+     Employment + Income + Transfer + GPA
+tpsa <- trips(tutoring, tutoring$treat, formu)
+head(tpsa)
+}
 }
 

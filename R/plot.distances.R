@@ -1,3 +1,5 @@
+utils::globalVariables(c('ID','Distance','Model'))
+
 #' Barplot for the sum of distances.
 #' 
 #' @param tmatch the results of \code{\link{trimatch}}.

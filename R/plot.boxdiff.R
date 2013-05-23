@@ -1,3 +1,5 @@
+utils::globalVariables(c('Treatments','Difference','V1','V2','estimate'))
+
 #' Returns a \code{ggplot2} box plot of the differences.
 #' 
 #' A boxplot of differences between each pair of treatments.

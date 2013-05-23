@@ -52,17 +52,11 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' data(students)
-#' students$Income <- as.integer(students$Income)
-#' students$Employment <- as.integer(students$Employment)
-#' students$EdLevelMother <- as.integer(students$EdLevelMother)
-#' students$EdLevelFather <- as.integer(students$EdLevelFather)
-#' form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
-#' 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
-#' tpsa <- trips(students, students$TreatBy, form)
+#' data(turoing)
+#' formu <- ~ Gender + Ethnicity + Military + ESL + EdMother + EdFather + Age +
+#'      Employment + Income + Transfer + GPA
+#' tpsa <- trips(tutoring, tutoring$treat, formu)
 #' tmatch <- trimatch(tpsa, status=FALSE)
-#' head(tmatch)
-#' plot(tmatch, rows=c(3), line.alpha=1, draw.segments=TRUE)
 #' }
 trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, exact,
 					 method=maximumTreat, status=TRUE, ...) {

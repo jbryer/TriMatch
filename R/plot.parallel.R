@@ -1,3 +1,5 @@
+utils::globalVariables(c('Outcome','ID','group1'))
+
 #' Parallel coordinate plot for the three groups and dependent variable.
 #' 
 #' Creates a \code{ggplot2} figure of a parallel coordinate plot.

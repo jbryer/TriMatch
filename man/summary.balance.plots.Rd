@@ -2,11 +2,11 @@
 \alias{summary.balance.plots}
 \title{Prints a summary table of the test statistics of each balance plot.}
 \usage{
-  \method{summary}{balance.plots} (x, ...)
+  \method{summary}{balance.plots} (object, ...)
 }
 \arguments{
-  \item{x}{the results of \code{\link{balance.plot}} when a
-  data frame is specified.}
+  \item{object}{the results of \code{\link{balance.plot}}
+  when a data frame is specified.}
 
   \item{...}{currenlty unused.}
 }

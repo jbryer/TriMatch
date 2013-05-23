@@ -4,10 +4,10 @@
 suppress the "Removed n rows containing missing values" warning printed
 by \code{ggplot2}.}
 \usage{
-  print.triangle.plot(p, ...)
+  \method{print}{triangle.plot} (x, ...)
 }
 \arguments{
-  \item{p}{a plot from \code{\link{plot.triangle.psa}}.}
+  \item{x}{a plot from \code{\link{plot.triangle.psa}}.}
 
   \item{...}{other parameters passed to ggplot2.}
 }

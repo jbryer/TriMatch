@@ -2,8 +2,8 @@
 \alias{as.data.frame.list}
 \title{Convert a list of vectors to a data frame.}
 \usage{
-  as.data.frame.list(x, row.names = NULL, optional = FALSE,
-    ...)
+  \method{as.data.frame}{list} (x, row.names = NULL,
+    optional = FALSE, ...)
 }
 \arguments{
   \item{x}{a list to convert to a data frame.}
@@ -54,8 +54,11 @@ test1 <- list( c(a='a',b='b',c='c'), c(a='d',b='e',c='f'))
     test3 <- list('Row1'=c(a='a',b='b',c='c'), 'Row2'=c(var1='d',var2='e',var3='f'))
     as.data.frame(test3)
 
+    \dontrun{
+    #This will print a warning.
     test4 <- list('Row1'=letters[1:5], 'Row2'=letters[1:7], 'Row3'=letters[8:14])
     as.data.frame(test4)
+    }
 
     test5 <- list(letters[1:10], letters[11:20])
     as.data.frame(test5)

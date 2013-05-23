@@ -2,13 +2,13 @@
 \alias{plot.triangle.matches}
 \title{Triangle plot drawing matched triplets.}
 \usage{
-  plot.triangle.matches(tmatch, sample = 0.05,
+  \method{plot}{triangle.matches} (x, sample = 0.05,
     rows = sample(nrow(tmatch), nrow(tmatch) * sample),
     line.color = "black", line.alpha = 0.5,
     point.color = "black", point.size = 3, p, ...)
 }
 \arguments{
-  \item{tmatch}{matched triplets from
+  \item{x}{matched triplets from
   \code{link{triangle.match}}.}
 
   \item{sample}{an number between 0 and 1 representing the

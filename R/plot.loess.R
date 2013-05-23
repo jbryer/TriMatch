@@ -1,3 +1,5 @@
+utils::globalVariables(c('ps','treat'))
+
 #' Loess plot for matched triplets.
 #' 
 #' This function will create a \code{ggplot2} figure with propensity scores on the

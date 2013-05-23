@@ -1,3 +1,5 @@
+utils::globalVariables(c('match.order','caliper'))
+
 #' Recursive function to find possible matched triplets using nested for loops.
 #' 
 #' Internal method.

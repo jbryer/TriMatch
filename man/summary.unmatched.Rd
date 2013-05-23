@@ -2,7 +2,7 @@
 \alias{summary.unmatched}
 \title{Provides a summary of unmatched subjects.}
 \usage{
-  summary.unmatched(object, digits = 3, ...)
+  \method{summary}{unmatched} (object, digits = 3, ...)
 }
 \arguments{
   \item{object}{results of \code{\link{unmatched}}}

@@ -1,3 +1,5 @@
+utils::globalVariables(c('y'))
+
 #' Triangle plot drawing matched triplets.
 #' 
 #' This plot function adds a layer to \code{\link{plot.triangle.psa}} drawing 
@@ -11,7 +13,7 @@
 #' figure. To plot all segments and points regardless if used in matching, set
 #' \code{p = plot(tpsa)}.
 #' 
-#' @param tmatch matched triplets from \code{link{triangle.match}}.
+#' @param x matched triplets from \code{link{triangle.match}}.
 #' @param sample an number between 0 and 1 representing the percentage of matched
 #'        triplets to draw.
 #' @param rows an integer vector corresponding to the rows in \code{tmatch} to draw.
@@ -24,8 +26,10 @@
 #' @return a \code{ggplot2} graphic.
 #' @seealso plot.triangle.psa
 #' @seealso triangle.match
+#' @S3method plot triangle.matches
+#' @method plot triangle.matches
 #' @export
-plot.triangle.matches <- function(tmatch, 
+plot.triangle.matches <- function(x, 
 								  sample=.05, 
 								  rows=sample(nrow(tmatch), nrow(tmatch) * sample), 
 								  line.color='black',
@@ -33,6 +37,7 @@ plot.triangle.matches <- function(tmatch,
 								  point.color='black',
 								  point.size=3,
 								  p, ...) {
+	tmatch <- x
 	tpsa <- attr(tmatch, 'triangle.psa')
 	pts.overlay <- data.frame(x=numeric(), y=numeric(), id=integer())
 	for(i in rows) {

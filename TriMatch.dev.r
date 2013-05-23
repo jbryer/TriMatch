@@ -14,6 +14,9 @@ data(students)
 tools::checkRdaFiles('TriMatch/data')
 tools::resaveRdaFiles('TriMatch/data')
 
+tools::checkRdaFiles('TriMatch/inst/doc')
+tools::resaveRdaFiles('TriMatch/inst/doc')
+
 require(cacheSweave); require(tools)
 setwd('TriMatch/inst/doc/')
 Sweave("TriMatch.Rnw", driver = cacheSweaveDriver)

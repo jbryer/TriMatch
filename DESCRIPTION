@@ -16,6 +16,7 @@ Depends:
     ez,
     PSAgraphics,
     compiler,
+    scales,
     R (>= 3.0)
 Suggests:
     MASS,

@@ -1,3 +1,6 @@
+utils::globalVariables(c('Treatment','Covariate','Mean','Strata','ymin','ymax',
+						 '..count..','ID'))
+
 #' Balance plot for the given covariate.
 #'
 #' If the covariate is numeric, boxplots will be drawn with red points for the mean
@@ -9,7 +12,7 @@
 #' a continuous covariate a repeated measures ANOVA will also be performed, printed,
 #' and returned as an attribute named \code{rmanova}.
 #' 
-#' @param tmatch results from \code{\link{trimatch}}.
+#' @param x results from \code{\link{trimatch}}.
 #' @param covar vector of the covaraite to check balance of.
 #' @param model an integer between 1 and 3 indicating from which model the 
 #'        propensity scores will be used.
@@ -27,7 +30,7 @@
 #' @return a \code{ggplot2} figure or a list of \code{ggplot2} figures if \code{covar}
 #'        is a data frame.
 #' @export
-balance.plot <- function(tmatch, covar, model,
+balance.plot <- function(x, covar, model,
 					     nstrata=attr(attr(tmatch, 'triangle.psa'), 'nstrata'),
 					     label='Covariate',
 					     ylab='',
@@ -38,6 +41,7 @@ balance.plot <- function(tmatch, covar, model,
 						 x.axis.labels,
 						 x.axis.angle = -45,
 						 ...) {
+	tmatch <- x
 	if(is.data.frame(covar)) {
 		#If covar is a data frame, create a grid of figures.
 		plots <- list()
@@ -201,22 +205,22 @@ print.balance.plots <- function(x, ...) {
 #' continuous variable, repeated measures ANOVA as well) saved as attributes.
 #' This function will return a data frame combining all of those results.
 #' 
-#' @param x the results of \code{\link{balance.plot}} when a data frame is specified.
+#' @param object the results of \code{\link{balance.plot}} when a data frame is specified.
 #' @param ... currenlty unused.
 #' @return a data frame
 #' @export
 #' @S3method summary balance.plots
 #' @method summary balance.plots
-summary.balance.plots <- function(x, ...) {
+summary.balance.plots <- function(object, ...) {
 	friedman.results <- data.frame(Covariate=character(), 
 								   Friedman=numeric(), Friedman.p=numeric(),
 								   rmANOVA=numeric(), rmANOVA.p=numeric(),
 								   stringsAsFactors=FALSE)
-	for(i in seq_along(x)) {
-		f <- attr(x[[i]], 'friedman')
-		a <- attr(x[[i]], 'rmanova')
+	for(i in seq_along(object)) {
+		f <- attr(object[[i]], 'friedman')
+		a <- attr(object[[i]], 'rmanova')
 		friedman.results <- rbind(friedman.results, data.frame(
-			Covariate = names(x)[i],
+			Covariate = names(object)[i],
 			Friedman = f$statistic,
 			Friedman.p = f$p.value,
 			Friedman.sig = TriMatch:::star(f$p.value),
@@ -232,7 +236,7 @@ summary.balance.plots <- function(x, ...) {
 
 #' Prints a grid of balance plots.
 #' 
-#' @param bplots the results of \code{\link{balance.plot}} when a data frame is specified.
+#' @param x the results of \code{\link{balance.plot}} when a data frame is specified.
 #' @param rows if \code{covar} is a data frame of covariates, the number of
 #'        rows in the grid of figures.
 #' @param cols if \code{covar} is a data farme of covariates, the number of
@@ -243,8 +247,9 @@ summary.balance.plots <- function(x, ...) {
 #' @S3method plot balance.plots
 #' @method plot balance.plots
 #' @export
-plot.balance.plots <- function(bplots, rows, cols, byrow = TRUE, 
+plot.balance.plots <- function(x, rows, cols, byrow = TRUE, 
 							   plot.sequence=seq_along(bplots), ...) {
+	bplots <- x
 	require(gridExtra)
 	grid.newpage()
 	if(missing(rows) & missing(cols)) {

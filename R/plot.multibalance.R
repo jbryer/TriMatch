@@ -1,3 +1,5 @@
+utils::globalVariables(c('value','covariate','variable','model','group'))
+
 #' Multiple covariate blance assessment plot.
 #' 
 #' A graphic based upon \code{\link{cv.bal.psa}} function in the \code{PSAgraphics}

@@ -8,6 +8,7 @@
 #' @return \code{x} with the additional column(s) added.
 #' @export
 #' @S3method merge triangle.matches
+#' @method merge triangle.matches
 merge.triangle.matches <- function(x, y, ...) {
 	stopifnot('triangle.matches' %in% class(x))
 	tpsa <- attr(x, 'triangle.psa')

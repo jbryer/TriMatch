@@ -2,7 +2,7 @@
 \alias{merge.triangle.psa}
 \title{Merges covariate(s) with the results of \code{\link{trips}}.}
 \usage{
-  merge.triangle.psa(x, y, ...)
+  \method{merge}{triangle.psa} (x, y, ...)
 }
 \arguments{
   \item{x}{the result of \code{\link{trips}}}

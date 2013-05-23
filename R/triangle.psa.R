@@ -19,15 +19,13 @@
 #' @param ... other parameters passed to \code{\link{glm}}.
 #' @export
 #' @examples
-#'        data(students)
-#' 	      students$Income <- as.integer(students$Income)
-#' 	      students$Employment <- as.integer(students$Employment)
-#' 	      students$EdLevelMother <- as.integer(students$EdLevelMother)
-#' 	      students$EdLevelFather <- as.integer(students$EdLevelFather)
-#' 	      form <- ~ Military + Income + Employment + NativeEnglish + EdLevelMother + 
-#' 	      	EdLevelFather + HasAssocAtEnrollment + Ethnicity + Gender + Age
-#' 	      tpsa <- trips(students, students$TreatBy, form)
-#' 	      head(tpsa)
+#' \dontrun{
+#' data(turoing)
+#' formu <- ~ Gender + Ethnicity + Military + ESL + EdMother + EdFather + Age +
+#'      Employment + Income + Transfer + GPA
+#' tpsa <- trips(tutoring, tutoring$treat, formu)
+#' head(tpsa)
+#' }
 trips <- function(thedata, treat, formu = ~ ., groups=unique(treat), nstrata=5, ...) {
 	if(length(groups) != 3) stop('Sorry, exactly three groups are required.')
 	if(nrow(thedata) != length(treat)) stop('length(treat) does not equal nrow(thedata)')

@@ -2,12 +2,12 @@
 \alias{plot.balance.plots}
 \title{Prints a grid of balance plots.}
 \usage{
-  \method{plot}{balance.plots} (bplots, rows, cols,
+  \method{plot}{balance.plots} (x, rows, cols,
     byrow = TRUE, plot.sequence = seq_along(bplots), ...)
 }
 \arguments{
-  \item{bplots}{the results of \code{\link{balance.plot}}
-  when a data frame is specified.}
+  \item{x}{the results of \code{\link{balance.plot}} when a
+  data frame is specified.}
 
   \item{rows}{if \code{covar} is a data frame of
   covariates, the number of rows in the grid of figures.}

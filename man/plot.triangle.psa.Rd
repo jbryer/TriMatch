@@ -2,7 +2,7 @@
 \alias{plot.triangle.psa}
 \title{Triangle plot.}
 \usage{
-  plot.triangle.psa(tpsa, point.alpha = 0.3,
+  \method{plot}{triangle.psa} (x, point.alpha = 0.3,
     point.size = 5, legend.title = "Treatment",
     text.size = 4, draw.edges = FALSE,
     draw.segments = TRUE, edge.alpha = 0.2,
@@ -11,7 +11,7 @@
     sample = c(1), ...)
 }
 \arguments{
-  \item{tpsa}{the results from \code{\link{trips}}.}
+  \item{x}{the results from \code{\link{trips}}.}
 
   \item{point.alpha}{alpha level for points.}
 

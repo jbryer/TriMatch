@@ -2,14 +2,14 @@
 \alias{balance.plot}
 \title{Balance plot for the given covariate.}
 \usage{
-  balance.plot(tmatch, covar, model,
+  balance.plot(x, covar, model,
     nstrata = attr(attr(tmatch, "triangle.psa"), "nstrata"),
     label = "Covariate", ylab = "", xlab = NULL,
     se.ratio = 2, print = TRUE, legend.position = "top",
     x.axis.labels, x.axis.angle = -45, ...)
 }
 \arguments{
-  \item{tmatch}{results from \code{\link{trimatch}}.}
+  \item{x}{results from \code{\link{trimatch}}.}
 
   \item{covar}{vector of the covaraite to check balance
   of.}

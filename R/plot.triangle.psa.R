@@ -1,9 +1,11 @@
+utils::globalVariables(c('y','treat','name','angle','vjust','hjust','xend','yend','strata'))
+
 #' Triangle plot.
 #' 
 #' Triangle plot showing the fitted values (propensity scores) for three different
 #' models.
 #' 
-#' @param tpsa the results from \code{\link{trips}}.
+#' @param x the results from \code{\link{trips}}.
 #' @param point.alpha alpha level for points.
 #' @param point.size point size.
 #' @param legend.title title for the legend.
@@ -21,8 +23,10 @@
 #' @param ... currently unused.
 #' @return ggplot2 figure
 #' @seealso triangle.psa
+#' @S3method plot triangle.psa
+#' @method plot triangle.psa
 #' @export
-plot.triangle.psa <- function(tpsa, 	
+plot.triangle.psa <- function(x, 	
 							  point.alpha = .3,
 							  point.size = 5,
 							  legend.title = 'Treatment',
@@ -35,6 +39,7 @@ plot.triangle.psa <- function(tpsa,
 							  #ordering = attr(tpsa, 'groups'),
 							  sample = c(1),
 							  ...) {
+	tpsa <- x
 	if(length(sample) == 1) {
 		sample <- rep(sample,3)
 	}
@@ -182,9 +187,11 @@ plot.triangle.psa <- function(tpsa,
 #' suppress the "Removed n rows containing missing values" warning printed
 #' by \code{ggplot2}.
 #' 
-#' @param p a plot from \code{\link{plot.triangle.psa}}.
+#' @param x a plot from \code{\link{plot.triangle.psa}}.
 #' @param ... other parameters passed to ggplot2.
 #' @export
-print.triangle.plot <- function(p, ...) {
-	suppressWarnings(NextMethod(p, ...))
+#' @S3method print triangle.plot
+#' @method print triangle.plot
+print.triangle.plot <- function(x, ...) {
+	suppressWarnings(NextMethod(x, ...))
 }

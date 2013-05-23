@@ -2,7 +2,7 @@
 \alias{merge.triangle.matches}
 \title{Merges outcomes with the matched set.}
 \usage{
-  merge.triangle.matches(x, y, ...)
+  \method{merge}{triangle.matches} (x, y, ...)
 }
 \arguments{
   \item{x}{the result of \code{\link{trimatch}}}

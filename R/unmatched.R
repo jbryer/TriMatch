@@ -26,6 +26,7 @@ unmatched <- function(tmatch) {
 #' @return a list of summary results.
 #' @export
 #' @S3method summary unmatched
+#' @method summary unmatched
 summary.unmatched <- function(object, digits=3, ...) {
 	tpsa <- attr(object, 'triangle.psa')
 	results <- list()
