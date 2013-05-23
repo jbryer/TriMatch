@@ -6,3 +6,10 @@ pscore.tar.gz
 studentsHS.rda
 TriMatch.dev.r
 Articles
+inst/doc/Sweave.sty
+inst/doc/TriMatch.tpbuild
+ACS Data Prep.r
+Nested Loops.R
+useR 2013
+HSOutreach
+nmes.test.R
