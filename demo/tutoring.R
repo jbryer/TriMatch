@@ -114,8 +114,3 @@ boxdiff.plot(tutoring.matched.3to2, tutoring$Grade,
 
 print('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4)
 
-require(xtable)
-x <- xtable(tritable('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4))
-print(x, include.rownames=FALSE)
-
-
