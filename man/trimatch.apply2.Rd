@@ -1,0 +1,44 @@
+\name{trimatch.apply2}
+\alias{trimatch.apply2}
+\title{Recursive function to find possible matched triplets using the apply functions.}
+\usage{
+  trimatch.apply2(tpsa, caliper, nmatch, match.order, sd1,
+    sd2, sd3)
+}
+\arguments{
+  \item{sd1}{standard deviation for propensity scores from
+  model 1.}
+
+  \item{sd2}{standard deviation for propensity scores from
+  model 2.}
+
+  \item{sd3}{standard deviation for propensity scores from
+  model 3.}
+
+  \item{tpsa}{the results from \code{\link{trips}}}
+
+  \item{caliper}{a vector of length one or three indicating
+  the caliper to use for matching within each step. This is
+  expressed in standardized units such that .25 means that
+  matches must be within .25 of one standard deviation to
+  be kept, otherwise the match is dropped.}
+
+  \item{nmatch}{number of closest matches to retain before
+  moving to next edge. This can be \code{Inf} in which case
+  all matches within the caliper will be retained through
+  to the next step. For large datasets, evaluating all
+  possible matches within the caliper could be time
+  consuming.}
+
+  \item{match.order}{character vector of length three
+  indicating the order in which the matching algorithm will
+  processes. The default is to use start with the group the
+  middle number of subjects, followed by the smallest, and
+  then the largest.}
+}
+\description{
+  Internal method. This version does not use the exact
+  matching. Instead, this function should be called
+  separately for each grouping.
+}
+

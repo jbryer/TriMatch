@@ -356,11 +356,7 @@ print(p.packyears, vp=vplayout(1,2))
 
 Create two sets of matched triplets for our two treatments.
 
-<<echo=FALSE,results=hide>>=
-#A little cheating here. Loading a pre-processed match file since this takes a while to run.
-load("tmatch.nmes.rda")
-@
-<<echo=TRUE,eval=FALSE>>=
+<<echo=TRUE,eval=TRUE>>=
 tmatch.smoke <- trimatch(tpsa.smoke, 
 exact=nmes[,c("LastAge5","MALE","RACE3")])
 tmatch.packyears <- trimatch(tpsa.packyears, 

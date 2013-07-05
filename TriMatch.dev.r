@@ -9,7 +9,7 @@ check('TriMatch')
 
 require(TriMatch)
 data(nmes)
-data(students)
+data(tutoring)
 
 tools::checkRdaFiles('TriMatch/data')
 tools::resaveRdaFiles('TriMatch/data')

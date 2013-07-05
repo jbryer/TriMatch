@@ -70,7 +70,7 @@ balance.plot(tutoring.matched, tutoring$Ethnicity)
 # Create a grid of figures.
 bplots <- balance.plot(tutoring.matched, tutoring[,all.vars(formu)], 
 		legend.position='none', x.axis.labels=c('C','T1','T1'), x.axis.angle=0)
-bplots[['Gender']] # We can plot one at at time.
+bplots[['Military']] # We can plot one at at time.
 summary(bplots) # Create a data frame with the statistical results
 plot(bplots, cols=3, byrow=FALSE)
 #print(bplots, cols=3, byrow=FALSE) # Will call summary and plot

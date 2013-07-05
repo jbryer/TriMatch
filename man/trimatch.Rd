@@ -2,9 +2,8 @@
 \alias{trimatch}
 \title{Creates matched triplets.}
 \usage{
-  trimatch(tpsa, caliper = 0.25, nmatch = c(25),
-    match.order, exact, method = maximumTreat,
-    status = TRUE, ...)
+  trimatch(tpsa, caliper = 0.25, nmatch = c(15),
+    match.order, exact, method = maximumTreat, ...)
 }
 \arguments{
   \item{tpsa}{the results from \code{\link{trips}}}
@@ -44,9 +43,6 @@
   units.}
 
   \item{...}{other parameters passed to \code{method}.}
-
-  \item{status}{whether to print a status bar while
-  executing.}
 }
 \description{
   Create matched triplets by minimizing the total distance

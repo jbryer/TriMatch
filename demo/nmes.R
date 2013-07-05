@@ -80,18 +80,8 @@ tpsa.packyears <- trips(nmes, nmes$smoke2, formu)
 head(tpsa.packyears)
 plot(tpsa.packyears, sample=c(.05), edge.alpha=.1)
 
-# The trimatch algorithm takes a while to run for large datasets like NMES.
-# A pre-matched datafile is included in the vignette directory.
-matchfile <- system.file("doc/tmatch.nmes.rda", package="TriMatch")
-if(file.exists(matchfile)) {
-	load(matchfile)
-} else {
-	trimatch <- cmpfun(trimatch)
-	tmatch.smoke <- trimatch(tpsa.smoke, exact=nmes[,c("LastAge5","MALE","RACE3")])
-	tmatch.packyears <- trimatch(tpsa.packyears, exact=nmes[,c("LastAge5","MALE","RACE3")])
-	save(tmatch.smoke, tmatch.packyears, file=matchfile)
-	tools::resaveRdaFiles(matchfile)
-}
+tmatch.smoke <- trimatch(tpsa.smoke, exact=nmes[,c("LastAge5","MALE","RACE3")], nmatch=10)
+tmatch.packyears <- trimatch(tpsa.packyears, exact=nmes[,c("LastAge5","MALE","RACE3")], nmatch=10)
 
 # Summary of unmatched rows
 summary(unmatched(tmatch.smoke))

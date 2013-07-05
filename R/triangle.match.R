@@ -48,7 +48,6 @@
 #'        Another option is \code{\link{OneToN}} which mimicks the one-to-n 
 #'        matching where treatments are matched to multiple control units.
 #' @param ... other parameters passed to \code{method}.
-#' @param status whether to print a status bar while executing.
 #' @export
 #' @examples
 #' \dontrun{
@@ -58,8 +57,13 @@
 #' tpsa <- trips(tutoring, tutoring$treat, formu)
 #' tmatch <- trimatch(tpsa, status=FALSE)
 #' }
-trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, exact,
-					 method=maximumTreat, status=TRUE, ...) {
+trimatch <- function(tpsa, 
+					 caliper=.25, 
+					 nmatch=c(15),
+					 match.order,
+					 exact,
+					 method=maximumTreat, 
+					 ...) {
 	if(length(nmatch) == 1) {
 		nmatch <- c(nmatch, nmatch)
 	}
@@ -79,103 +83,39 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, exact,
 			which(groups == match.order[2]),
 			which(groups == match.order[3]))
 	}
-	message(paste("Matching order: ", paste(match.order, collapse=', '), sep=''))
-	
-	getModel <- function(x, y) {
-		test <- tpsa[which(tpsa$treat %in% c(x,y)),c('model1','model2','model3')]
-		if(length(which(is.na(test$model1))) == 0) {
-			return('m1')
-		} else if(length(which(is.na(test$model2))) == 0) {
-			return('m2')
-		} else if(length(which(is.na(test$model3))) == 0) {
-			return('m3')
-		} else {
-			stop('Could not find model.')
-		}
-	}
-	
-	getPS <- function(x, y) {
-		test <- tpsa[which(tpsa$treat %in% c(x,y)),c('model1','model2','model3')]
-		if(length(which(is.na(test$model1))) == 0) {
-			return(tpsa$ps1)
-		} else if(length(which(is.na(test$model2))) == 0) {
-			return(tpsa$ps2)
-		} else if(length(which(is.na(test$model3))) == 0) {
-			return(tpsa$ps3)
-		} else {
-			stop('Could not find model.')
-		}
-	}
-	
-	ps1 <- getPS(match.order[1], match.order[2])
-	ps2 <- getPS(match.order[2], match.order[3])
-	ps3 <- getPS(match.order[3], match.order[1])
-	
-	#Calculate the distances
-	message('Calculating distances...')
-	d1 <- sapply(ps1[tpsa$treat == match.order[2]],
-				 FUN=function(x) { abs(x - ps1[tpsa$treat == match.order[1]]) / 
-				 				  	sd(ps1, na.rm=TRUE) })		
-	dimnames(d1) <- list(
-		tpsa[tpsa$treat == match.order[1],'id'],
-		tpsa[tpsa$treat == match.order[2],'id']	)
-	
-	d2 <- sapply(ps2[tpsa$treat == match.order[3]],
-				 FUN=function(x) { abs(x - ps2[tpsa$treat == match.order[2]]) / 
-				 				  	sd(ps2, na.rm=TRUE) })		
-	dimnames(d2) <- list(
-		tpsa[tpsa$treat == match.order[2],'id'],
-		tpsa[tpsa$treat == match.order[3],'id']	)
-	
-	d3 <- sapply(ps3[tpsa$treat == match.order[1]],
-				 FUN=function(x) { abs(x - ps3[tpsa$treat == match.order[3]]) / 
-				 				  	sd(ps3, na.rm=TRUE) })		
-	dimnames(d3) <- list(
-		tpsa[tpsa$treat == match.order[3],'id'],
-		tpsa[tpsa$treat == match.order[1],'id']	)
+
+	ps1 <- getPS(tpsa, match.order[1], match.order[2])
+	ps2 <- getPS(tpsa, match.order[2], match.order[3])
+	ps3 <- getPS(tpsa, match.order[3], match.order[1])
+
+	sd1 <- sd(ps1, na.rm=TRUE)
+	sd2 <- sd(ps2, na.rm=TRUE)
+	sd3 <- sd(ps3, na.rm=TRUE)
 	
 	if(!missing(exact)) {
-		message('Determining exact matches...')
 		if(class(exact) %in% c('matrix','data.frame')) {
 			exact <- apply(exact, 1, paste, collapse='.')
 		}
 	
-		e1 <- exact[tpsa$treat == match.order[1]]
-		e2 <- exact[tpsa$treat == match.order[2]]
-		e3 <- exact[tpsa$treat == match.order[3]]
-		exact1 <- sapply(e2, FUN=function(x) { x == e1 })
-		exact2 <- sapply(e3, FUN=function(x) { x == e2 })
-		exact3 <- sapply(e1, FUN=function(x) { x == e3 })
+		results <- data.frame()
+		for(i in unique(exact)) {
+			tmp <- tpsa[exact == i,]
+			if(all(table(tmp$treat) > 1)) {
+				results <- rbind(results, trimatch.apply2(
+					tmp, caliper=caliper, nmatch=nmatch, match.order=match.order,
+					sd1=sd1, sd2=sd2, sd3=sd3
+				))
+			} #Else there are not at least one unit from each group that exactly match
+		}
 	} else {
-		exact1 <- matrix(TRUE, 
-						 nrow=length(which(tpsa$treat == match.order[1])),
-						 ncol=length(which(tpsa$treat == match.order[2])))
-		exact2 <- matrix(TRUE, 
-						 nrow=length(which(tpsa$treat == match.order[2])),
-						 ncol=length(which(tpsa$treat == match.order[3])))
-		exact3 <- matrix(TRUE, 
-						 nrow=length(which(tpsa$treat == match.order[3])),
-						 ncol=length(which(tpsa$treat == match.order[1])))
+		results <- trimatch.apply2(tpsa, caliper, nmatch, match.order=match.order,
+								   sd1=sd1, sd2=sd2, sd3=sd3)
 	}
-	dimnames(exact1) <- list(
-		tpsa[tpsa$treat == match.order[1],'id'],
-		tpsa[tpsa$treat == match.order[2],'id']	)
-	dimnames(exact2) <- list(
-		tpsa[tpsa$treat == match.order[2],'id'],
-		tpsa[tpsa$treat == match.order[3],'id'] )
-	dimnames(exact3) <- list(
-		tpsa[tpsa$treat == match.order[3],'id'],
-		tpsa[tpsa$treat == match.order[1],'id'] )
-	
-	message('Finding matches...')
-	
-	results <- TriMatch:::trimatch.apply(tpsa, caliper, d1, d2, d3, exact1, exact2, exact3, 
-							  nmatch, status=status)
 	
 	names(results) <- c(match.order,
-			paste0('D.', getModel(match.order[1],match.order[2])),
-			paste0('D.', getModel(match.order[2],match.order[3])),
-			paste0('D.', getModel(match.order[3],match.order[1]))
+			paste0('D.', getModel(tpsa, match.order[1],match.order[2])),
+			paste0('D.', getModel(tpsa, match.order[2],match.order[3])),
+			paste0('D.', getModel(tpsa, match.order[3],match.order[1]))
 	)
 	
 	results$Dtotal <- results$D.m1 + results$D.m2 + results$D.m3
@@ -192,13 +132,37 @@ trimatch <- function(tpsa, caliper=.25, nmatch=c(25), match.order, exact,
 	attr(results, 'triangle.psa') <- tpsa
 	attr(results, 'match.order') <- match.order
 	attr(results, 'unmatched') <- unmatched
-	attr(results, getModel(match.order[1],match.order[2])) <- c(match.order[1],match.order[2])
-	attr(results, getModel(match.order[2],match.order[3])) <- c(match.order[2],match.order[3])
-	attr(results, getModel(match.order[3],match.order[1])) <- c(match.order[3],match.order[1])
+	attr(results, getModel(tpsa, match.order[1],match.order[2])) <- c(match.order[1],match.order[2])
+	attr(results, getModel(tpsa, match.order[2],match.order[3])) <- c(match.order[2],match.order[3])
+	attr(results, getModel(tpsa, match.order[3],match.order[1])) <- c(match.order[3],match.order[1])
 	
-	#message(paste(prettyNum(nrow(unmatched) / nrow(tpsa) * 100, digits=2), 
-	#			  '% of data points were not be matched.', sep=''))
 	return(results)
+}
+
+getModel <- function(tpsa, x, y) {
+	test <- tpsa[which(tpsa$treat %in% c(x,y)),c('model1','model2','model3')]
+	if(length(which(is.na(test$model1))) == 0) {
+		return('m1')
+	} else if(length(which(is.na(test$model2))) == 0) {
+		return('m2')
+	} else if(length(which(is.na(test$model3))) == 0) {
+		return('m3')
+	} else {
+		stop('Could not find model.')
+	}
+}
+
+getPS <- function(tpsa, x, y) {
+	test <- tpsa[which(tpsa$treat %in% c(x,y)),c('model1','model2','model3')]
+	if(length(which(is.na(test$model1))) == 0) {
+		return(tpsa$ps1)
+	} else if(length(which(is.na(test$model2))) == 0) {
+		return(tpsa$ps2)
+	} else if(length(which(is.na(test$model3))) == 0) {
+		return(tpsa$ps3)
+	} else {
+		stop('Could not find model.')
+	}
 }
 
 #' This method will return at least one treatment from groups one and two within
