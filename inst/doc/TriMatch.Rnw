@@ -411,11 +411,11 @@ print(boxdiff.plot(tmatch.packyears, nmes$LogTotalExp, ordering=c("Heavy","Moder
 \end{figure}
 
 <<>>=
-sum.smoke <- summary(tmatch.smoke, nmes$LogTotalExp, 
-ordering=c("Smoker","Former","Never"))
-sum.packyears <- summary(tmatch.packyears, nmes$LogTotalExp, 
-ordering=c("Heavy","Moderate","Never"))
-print("Current Smoking Status"=sum.smoke, "Smoking Frequency"=sum.packyears)
+	sum.smoke <- summary(tmatch.smoke, nmes$LogTotalExp, 
+	ordering=c("Smoker","Former","Never"))
+	sum.packyears <- summary(tmatch.packyears, nmes$LogTotalExp, 
+	ordering=c("Heavy","Moderate","Never"))
+	print("Current Smoking Status"=sum.smoke, "Smoking Frequency"=sum.packyears)
 @
 
 <<>>=
