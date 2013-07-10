@@ -55,7 +55,7 @@ distances.plot(tutoring.matched, caliper=.2)
 distances.plot(tutoring.matched.caliper, caliper=.2) 
 
 # We can overlay matched triplets on the triangle plot
-plot(tutoring.matched, rows=c(50), line.alpha=1, draw.segments=TRUE)
+plot(tutoring.matched, rows=c(1), line.alpha=1, draw.segments=TRUE)
 
 
 ##### Checking balance #########################################################
@@ -112,5 +112,5 @@ boxdiff.plot(tutoring.matched.3to2, tutoring$Grade,
 	ggtitle('Boxplot of Differences: 3-to-2-to-n Matching')
 
 
-print('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4)
+print(print('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4), row.names=FALSE)
 
