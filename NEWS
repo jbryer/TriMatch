@@ -1,3 +1,7 @@
+TriMatch 0.9.1
+
+* Fixes to pass new warnings from R CMD check.
+
 TriMatch 0.9
 =========
 

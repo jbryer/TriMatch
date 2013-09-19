@@ -1,4 +1,4 @@
-utils::globalVariables(c('ps','treat'))
+utils::globalVariables(c('ps','treat','id'))
 
 #' Loess plot for matched triplets.
 #' 

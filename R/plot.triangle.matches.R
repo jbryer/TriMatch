@@ -1,4 +1,4 @@
-utils::globalVariables(c('y'))
+utils::globalVariables(c('y','id'))
 
 #' Triangle plot drawing matched triplets.
 #' 

@@ -1,4 +1,4 @@
-utils::globalVariables(c('ID','Distance','Model'))
+utils::globalVariables(c('ID','Distance','Model','id'))
 
 #' Barplot for the sum of distances.
 #' 
