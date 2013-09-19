@@ -24,6 +24,9 @@ Excelsior College
 
 <<setup,echo=FALSE,results=hide>>=
 require(TriMatch)
+require(reshape2)
+require(PSAgraphics)
+require(psych)
 data(tutoring)
 options(digits=3)
 options(width=80)

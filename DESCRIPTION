@@ -10,14 +10,15 @@ URL: http://jason.bryer.org/TriMatch, http://github.com/jbryer/TriMatch
 BugReports: https://github.com/jbryer/TriMatch/issues
 Depends:
     ggplot2,
-    psych,
-    reshape2,
-    stats,
-    ez,
-    PSAgraphics,
-    compiler,
     scales,
+    reshape2,
+    ez,
     R (>= 3.0)
+Imports:
+    psych,
+    stats,
+    PSAgraphics,
+    compiler
 Suggests:
     MASS,
     gridExtra,

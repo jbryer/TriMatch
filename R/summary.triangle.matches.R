@@ -80,7 +80,7 @@ summary.triangle.matches <- function(object, outcome, p=.05,
 			ci$t <- c(t1$statistic, t2$statistic, t3$statistic)
 			ci$df <- c(t1$parameter, t2$parameter, t3$parameter)
 			ci$p.value <- c(t1$p.value, t2$p.value, t3$p.value)
-			ci$sig <- TriMatch:::star(ci$p.value)
+			ci$sig <- star(ci$p.value)
 			ci$mean.diff <- c(t1$estimate, t2$estimate, t3$estimate)
 			ci$ci.min <- c(t1$conf.int[1], t2$conf.int[1], t3$conf.int[1])
 			ci$ci.max <- c(t1$conf.int[2], t2$conf.int[2], t3$conf.int[2])
@@ -123,10 +123,10 @@ print.trimatch.summary <- function(x, ...) {
 				Method = names(parms)[i],
 				Friedman.chi2 = parms[[i]]$friedman.test$statistic,
 				Friedman.p = parms[[i]]$friedman.test$p.value,
-				Friedman.sig = TriMatch:::star(parms[[i]]$friedman.test$p.value),
+				Friedman.sig = star(parms[[i]]$friedman.test$p.value),
 				rmANOVA.F = parms[[i]]$rmanova[[1]]$F,
 				rmANOVA.p = parms[[i]]$rmanova[[1]]$p,
-				rmANOVA.sig = TriMatch:::star(parms[[i]]$rmanova[[1]]$p),
+				rmANOVA.sig = star(parms[[i]]$rmanova[[1]]$p),
 				stringsAsFactors=FALSE))
 		}
 		names(df)[7] <- ' '

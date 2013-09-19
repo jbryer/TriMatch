@@ -1,0 +1,5 @@
+#!/bin/bash
+R CMD Sweave "$TEXPAD_ROOTFILE"
+pdflatex "$TEXPAD_ROOTFILE_NO_EXT"
+bibtex "$TEXPAD_ROOTFILE_NO_EXT"
+pdflatex "$TEXPAD_ROOTFILE_NO_EXT"

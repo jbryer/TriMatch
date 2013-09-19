@@ -1,5 +1,5 @@
 utils::globalVariables(c('Treatment','Covariate','Mean','Strata','ymin','ymax',
-						 '..count..','ID'))
+						 '..count..','ID','describeBy','cstrata.psa','cv.trans.psa'))
 
 #' Balance plot for the given covariate.
 #'
@@ -222,10 +222,10 @@ summary.balance.plots <- function(object, ...) {
 			Covariate = names(object)[i],
 			Friedman = f$statistic,
 			Friedman.p = f$p.value,
-			Friedman.sig = TriMatch:::star(f$p.value),
+			Friedman.sig = star(f$p.value),
 			rmANOVA = ifelse(is.null(a), NA, a[[1]]$F),
 			rmANOVA.p = ifelse(is.null(a), NA, a[[1]]$p),
-			rmANOVA.sig = TriMatch:::star(ifelse(is.null(a), NA, a[[1]]$p)),
+			rmANOVA.sig = star(ifelse(is.null(a), NA, a[[1]]$p)),
 			stringsAsFactors=FALSE
 		))
 	}
