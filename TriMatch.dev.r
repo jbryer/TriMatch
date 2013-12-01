@@ -3,7 +3,7 @@ require(devtools)
 setwd('~/Dropbox/Projects')
 document('TriMatch')
 check_doc('TriMatch')
-install('TriMatch')
+install('TriMatch', build_vignettes=FALSE)
 build('TriMatch')
 check('TriMatch')
 

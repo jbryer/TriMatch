@@ -208,7 +208,7 @@ OneToN <- function(tmatch, M1=2, M2=1, ...) {
 	results <- tmatch
 	retain <- data.frame()
 	for(i in 1:M2) {
-		keep <- which(!duplicated(results[, 1:2]))
+		keep <- which(!duplicated(results[, 2]))
 		if(length(keep) > 0) {
 			retain <- rbind(retain, results[keep,])
 			results <- results[-keep,]
