@@ -1,2 +1,3 @@
 nmes	 This demo demonstrates matching using the 1987 National Medical Expenditure Study originally used by Johnson et al (2003) and later by Imai and van Dyk (2004).
 tutoring	 Analyze a study of students who used tutoring services never (control), once (treatment 1), or more than once (treatment 2).
+one-to-one-to-one	 Demonstrates how to post process the results of the trimatch function. Specifically, this will anlyzie the tutoring data using each student outcome only once.
