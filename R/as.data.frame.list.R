@@ -25,7 +25,6 @@
 #' @param optional not used.
 #' @param ... other parameters passed to \code{\link{data.frame}}.
 #' @return a data frame.
-#' @S3method as.data.frame list
 #' @method as.data.frame list
 #' @export
 #' @examples

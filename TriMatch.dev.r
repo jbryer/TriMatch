@@ -1,9 +1,10 @@
-require(devtools)
+library(devtools)
 
 setwd('~/Dropbox/Projects')
 document('TriMatch')
 check_doc('TriMatch')
 install('TriMatch', build_vignettes=FALSE)
+install('TriMatch')
 build('TriMatch')
 check('TriMatch')
 

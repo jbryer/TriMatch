@@ -8,6 +8,17 @@
 #' @author Jason Bryer \email{jason@@bryer.org}
 #' @keywords propensity score analysis psa matching
 #' @seealso \code{PSAgraphics} \code{multilevelPSA}
+#' @import PSAgraphics
+#' @importFrom psych describe
+#' @importFrom psych describeBy
+#' @import compiler
+#' @import stats
+#' @import gridExtra
+#' @import ggplot2
+#' @import ez
+#' @import reshape2
+#' @import scales
+#' @import grid
 NA
 
 #' Results from a study examining the effects of tutoring services on course grades.

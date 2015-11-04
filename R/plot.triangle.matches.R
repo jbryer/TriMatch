@@ -26,7 +26,6 @@ utils::globalVariables(c('y','id'))
 #' @return a \code{ggplot2} graphic.
 #' @seealso plot.triangle.psa
 #' @seealso triangle.match
-#' @S3method plot triangle.matches
 #' @method plot triangle.matches
 #' @export
 plot.triangle.matches <- function(x, 

@@ -1,4 +1,4 @@
-utils::globalVariables(c('y','treat','name','angle','vjust','hjust','xend','yend','strata'))
+utils::globalVariables(c('y','treat','name','angle','vjust','hjust','xend','yend','strata','label'))
 
 #' Triangle plot.
 #' 
@@ -23,7 +23,6 @@ utils::globalVariables(c('y','treat','name','angle','vjust','hjust','xend','yend
 #' @param ... currently unused.
 #' @return ggplot2 figure
 #' @seealso triangle.psa
-#' @S3method plot triangle.psa
 #' @method plot triangle.psa
 #' @export
 plot.triangle.psa <- function(x, 	
@@ -190,7 +189,6 @@ plot.triangle.psa <- function(x,
 #' @param x a plot from \code{\link{plot.triangle.psa}}.
 #' @param ... other parameters passed to ggplot2.
 #' @export
-#' @S3method print triangle.plot
 #' @method print triangle.plot
 print.triangle.plot <- function(x, ...) {
 	suppressWarnings(NextMethod(x, ...))

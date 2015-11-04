@@ -19,7 +19,6 @@ utils::globalVariables(c('Outcome','ID','Treatment'))
 #' @seealso \code{\link{friedman.test}}, \code{\link{ezANOVA}}, 
 #'        \code{\link{pairwise.wilcox.test}}
 #' @return a trimatch.summary object.
-#' @S3method summary triangle.matches
 #' @method summary triangle.matches
 #' @export
 summary.triangle.matches <- function(object, outcome, p=.05, 
@@ -101,7 +100,6 @@ summary.triangle.matches <- function(object, outcome, p=.05,
 #' @param x results of \code{\link{summary.triangle.matches}}.
 #' @param ... multiple results of \code{\link{summary.triangle.matches}}. These
 #'        must be named. For example, \code{"Method 1" = summary(tmath, outcome)}.
-#' @S3method print trimatch.summary
 #' @method print trimatch.summary
 #' @export
 print.trimatch.summary <- function(x, ...) {

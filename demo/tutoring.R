@@ -1,4 +1,5 @@
-require(TriMatch)
+library(TriMatch)
+library(grid)
 data(tutoring)
 
 names(tutoring)
@@ -51,8 +52,9 @@ summary(unmatched(tutoring.matched.3to2))
 # Examine the differences in standardized propensity scores for each matched triplet.
 # The caliper parameter allows us to see how many matched triplets we would loose
 # if we reduced the caliper.
-distances.plot(tutoring.matched, caliper=.2) 
-distances.plot(tutoring.matched.caliper, caliper=.2) 
+# TODO: Currently doesn't work
+# distances.plot(tutoring.matched, caliper=.2) 
+# distances.plot(tutoring.matched.caliper, caliper=.2) 
 
 # We can overlay matched triplets on the triangle plot
 plot(tutoring.matched, rows=c(1), line.alpha=1, draw.segments=TRUE)
@@ -113,4 +115,10 @@ boxdiff.plot(tutoring.matched.3to2, tutoring$Grade,
 
 
 print(print('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4), row.names=FALSE)
+
+##### Sensitivity Analysis #####################################################
+library(rbounds)
+psens(matched.out$Treat1.out, matched.out$Control.out, Gamma=2, GammaInc=0.1)
+psens(matched.out$Treat2.out, matched.out$Control.out, Gamma=2, GammaInc=0.1)
+psens(matched.out$Treat1.out, matched.out$Treat2.out, Gamma=2, GammaInc=0.1)
 

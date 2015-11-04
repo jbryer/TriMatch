@@ -1,11 +1,13 @@
 #' Estimates propensity scores for three groups
 #' 
-#' The propensity score is \eqn{e(X)=P({ W }=1|X)}
+#' The propensity score is \deqn{e(X)=P({ W }=1|X)}
 #' This function will estimate the propensity scores for each pair of groups
 #' (e.g. two treatments and one control).
 #' 
 #' \deqn{{ PS }_{ 1 }=e({ X }_{ { T }_{ 1 }C })=Pr(z=1|{ X }_{ { T }_{ 1 }C })}
+#' 
 #' \deqn{{ PS }_{ 2 }=e({ X }_{ { T }_{ 2 }C })=Pr(z=1|{ X }_{ { T }_{ 2 }C })}
+#' 
 #' \deqn{{ PS }_{ 3 }=e({ X }_{ { T }_{ 2 }{ T }_{ 1 } })=Pr(z=1|{ X }_{ { T }_{ 2 }{ T }_{ 1 } })}
 #' 
 #' @param thedata the data frame.
@@ -20,7 +22,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' data(turoing)
+#' data(tutoring)
 #' formu <- ~ Gender + Ethnicity + Military + ESL + EdMother + EdFather + Age +
 #'      Employment + Income + Transfer + GPA
 #' tpsa <- trips(tutoring, tutoring$treat, formu)

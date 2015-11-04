@@ -6,7 +6,6 @@
 #' 
 #' @param object the results of \code{\link{trips}}.
 #' @param ... currently unused.
-#' @S3method summary triangle.psa
 #' @method summary triangle.psa
 #' @export
 summary.triangle.psa <- function(object, ...) {

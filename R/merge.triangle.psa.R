@@ -7,7 +7,6 @@
 #' @param ... unused
 #' @return \code{x} with the additional column(s) added.
 #' @export
-#' @S3method merge triangle.psa
 #' @method merge triangle.psa
 merge.triangle.psa <- function(x, y, ...) {
 	stopifnot('triangle.psa' %in% class(x))

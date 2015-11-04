@@ -188,7 +188,6 @@ balance.plot <- function(x, covar, model,
 #' @param x the results of \code{\link{balance.plot}} when a data frame is specified.
 #' @param ... parameters passed to \code{\link{plot.balance.plots}} and
 #'        \code{\link{summary.balance.plots}}.
-#' @S3method print balance.plots
 #' @method print balance.plots
 #' @export
 print.balance.plots <- function(x, ...) {
@@ -208,7 +207,6 @@ print.balance.plots <- function(x, ...) {
 #' @param ... currenlty unused.
 #' @return a data frame
 #' @export
-#' @S3method summary balance.plots
 #' @method summary balance.plots
 summary.balance.plots <- function(object, ...) {
 	friedman.results <- data.frame(Covariate=character(), 
@@ -243,13 +241,11 @@ summary.balance.plots <- function(object, ...) {
 #' @param byrow if TRUE (default), plots will be drawn by rows, otherwise by columns.
 #' @param plot.sequence the sequence (or subset) of plots to draw.
 #' @param ... currenlty unused.
-#' @S3method plot balance.plots
 #' @method plot balance.plots
 #' @export
 plot.balance.plots <- function(x, rows, cols, byrow = TRUE, 
 							   plot.sequence=seq_along(bplots), ...) {
 	bplots <- x
-	require(gridExtra)
 	grid.newpage()
 	if(missing(rows) & missing(cols)) {
 		rows <- ceiling(sqrt(length(bplots)))
