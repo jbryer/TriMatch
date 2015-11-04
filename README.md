@@ -1,7 +1,7 @@
 # TriMatch
 #### Propensity score matching for non-binary treatments.
 
-[![Build Status](https://travis-ci.org/jbryer/TriMatch?branch=master)](https://api.travis-ci.org/jbryer/TriMatch.svg)
+[![Build Status](https://travis-ci.org/jbryer/TriMatch.svg)](https://travis-ci.org/jbryer/TriMatch?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/TriMatch)](http://cran.r-project.org/package=TriMatch)
 
 
