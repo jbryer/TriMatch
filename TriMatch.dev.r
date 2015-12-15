@@ -6,7 +6,7 @@ check_doc('TriMatch')
 install('TriMatch', build_vignettes=FALSE)
 install('TriMatch')
 build('TriMatch')
-check('TriMatch')
+check('TriMatch', cran=TRUE)
 
 require(TriMatch)
 data(nmes)

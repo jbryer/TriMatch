@@ -5,7 +5,7 @@ Type: Package
 Author: Jason Bryer <jason@bryer.org>
 Maintainer: Jason Bryer <jason@bryer.org>
 Description: Propensity score matching for non-binary treatments.
-Version: 0.9.5
+Version: 0.9.6
 URL: http://jason.bryer.org/TriMatch, http://github.com/jbryer/TriMatch
 BugReports: https://github.com/jbryer/TriMatch/issues
 Depends:
@@ -24,5 +24,5 @@ Imports:
 Suggests:
     MASS,
     xtable
-Date: 2015-11-04
-RoxygenNote: 5.0.0
+Date: 2015-23-14
+RoxygenNote: 5.0.1
