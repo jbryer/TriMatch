@@ -27,7 +27,7 @@ utils::globalVariables(c('y','treat','name','angle','vjust','hjust','xend','yend
 #' @export
 plot.triangle.psa <- function(x, 	
 							  point.alpha = .3,
-							  point.size = 5,
+							  point.size = 1.5,
 							  legend.title = 'Treatment',
 							  text.size = 4,
 							  draw.edges = FALSE,
@@ -143,7 +143,7 @@ plot.triangle.psa <- function(x,
 	
 	p <- p +
 		geom_text(data=labels, aes(x=x, y=y, angle=angle, label=label, vjust=vjust, hjust=hjust)) +
-		geom_point(data=pts, aes(x=x, y=y, colour=treat), alpha=point.alpha, point.size=point.size) +
+		geom_point(data=pts, aes(x=x, y=y, colour=treat), alpha=point.alpha, size=point.size) +
 		scale_color_manual(legend.title, values=cols)
 	
 	p <- p +

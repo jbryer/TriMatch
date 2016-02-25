@@ -1,3 +1,18 @@
+TriMatch 0.9.7
+=========
+
+* Update for new version of ggplot2
+
+TriMatch 0.9.6
+=========
+
+* Fixed bug with the triangle plot. Exported utility functions to be visible.
+
+TriMatch 0.9.5
+=========
+
+* Updates for version 2.0 of ggplot2.
+
 TriMatch 0.9.4
 =========
 
