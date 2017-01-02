@@ -17,17 +17,13 @@ summary.triangle.psa <- function(object, ...) {
 	m2sum <- summary(m2)
 	m3sum <- summary(m3)
 	
-	ls(m1sum)
-	print(
-	cbind(as.data.frame(m1sum$coefficients),
+	#ls(m1sum)
+	return(cbind(as.data.frame(m1sum$coefficients),
 		  'm1'=star(m1sum$coefficients[,4]),
 		  as.data.frame(m2sum$coefficients),
 		  'm2'=star(m2sum$coefficients[,4]),
 		  as.data.frame(m3sum$coefficients), 
-		  'm3'=star(m3sum$coefficients[,4])),
-	digits=3)
-
-	
+		  'm3'=star(m3sum$coefficients[,4])))
 }
 
 # star <- function(pvals) {

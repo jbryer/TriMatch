@@ -4,7 +4,7 @@
 \alias{multibalance.plot}
 \title{Multiple covariate blance assessment plot.}
 \usage{
-multibalance.plot(tpsa, grid = TRUE, cols)
+multibalance.plot(tpsa, tmatch, grid = TRUE, cols)
 }
 \arguments{
 \item{tpsa}{results of \code{\link{trips}}.}

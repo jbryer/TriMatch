@@ -1,8 +1,8 @@
+setwd('~/Dropbox/Projects')
+
 library(devtools)
 
-setwd('~/Dropbox/Projects')
 document('TriMatch')
-check_man('TriMatch')
 install('TriMatch', build_vignettes=FALSE)
 install('TriMatch')
 build('TriMatch')

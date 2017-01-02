@@ -1,3 +1,11 @@
+TriMatch 0.9.8
+=========
+
+* Added tmatch parameter to the multibalance.plot function that will limit the balance estimates to 
+  only the units that have been matched.
+* Added method parameter to trips function and implemented random forests as an alternative method
+  for calculating propensity scores.
+
 TriMatch 0.9.7
 =========
 

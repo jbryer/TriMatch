@@ -18,6 +18,8 @@
 #' @param groups a vector of exactly length three corresponding the values in
 #'        \code{treat} for each control/treatment.
 #' @param nstrata the number of strata marks to plot on the edge.
+#' @param method the method to use to estimate the propensity scores. Current options are logistic
+#'        or randomForest.
 #' @param ... other parameters passed to \code{\link{glm}}.
 #' @export
 #' @examples
@@ -28,7 +30,8 @@
 #' tpsa <- trips(tutoring, tutoring$treat, formu)
 #' head(tpsa)
 #' }
-trips <- function(thedata, treat, formu = ~ ., groups=unique(treat), nstrata=5, ...) {
+trips <- function(thedata, treat, formu = ~ ., groups=unique(treat), nstrata=5, 
+				  method = 'logistic', ...) {
 	if(length(groups) != 3) stop('Sorry, exactly three groups are required.')
 	if(nrow(thedata) != length(treat)) stop('length(treat) does not equal nrow(thedata)')
 	
@@ -45,22 +48,42 @@ trips <- function(thedata, treat, formu = ~ ., groups=unique(treat), nstrata=5, 
 	treats[which(treats$treat == groups[3]), c('model3')] <- FALSE
 	
 	rows1 <- which(!is.na(treats$model1))
-	m1 <- glm(update(formu, treat ~ .), 
-			  data=cbind(thedata[rows1,], treat=treats[rows1,]$model1), 
-			  family='binomial', ...)
-	treats[rows1,]$ps1 <- fitted(m1)
-	
 	rows2 <- which(!is.na(treats$model2))
-	m2 <- glm(update(formu, treat ~ .), 
-			  data=cbind(thedata[rows2,], treat=treats[rows2,]$model2), 
-			  family='binomial', ...)
-	treats[rows2,]$ps2 <- fitted(m2)
-	
 	rows3 <- which(!is.na(treats$model3))
-	m3 <- glm(update(formu, treat ~ .), 
-			  data=cbind(thedata[rows3,], treat=treats[rows3,]$model3), 
-			  family='binomial', ...)
-	treats[rows3,]$ps3 <- fitted(m3)
+	if(method == 'logistic') {
+		message('Using logistic regression to estimate propensity scores...')
+		
+		m1 <- glm(update(formu, treat ~ .),
+				  data=cbind(thedata[rows1,], treat=treats[rows1,]$model1),
+				  family='binomial', ...)
+		treats[rows1,]$ps1 <- fitted(m1)
+		
+		m2 <- glm(update(formu, treat ~ .),
+				  data=cbind(thedata[rows2,], treat=treats[rows2,]$model2),
+				  family='binomial', ...)
+		treats[rows2,]$ps2 <- fitted(m2)
+
+		m3 <- glm(update(formu, treat ~ .),
+				  data=cbind(thedata[rows3,], treat=treats[rows3,]$model3),
+				  family='binomial', ...)
+		treats[rows3,]$ps3 <- fitted(m3)
+	} else if(method == 'randomForest') {
+		message('Using random forests to estimate propensity scores...')
+
+		m1 <- randomForest(update(formu, treat ~ .), 
+						   data=cbind(thedata[rows1,], treat=factor(treats[rows1,]$model1)), ...)
+		treats[rows1,]$ps1 <- predict(m1, type='prob')[,2]
+
+		m2 <- randomForest(update(formu, treat ~ .), 
+						   data=cbind(thedata[rows2,], treat=factor(treats[rows2,]$model2)), ...)
+		treats[rows2,]$ps2 <- predict(m2, type='prob')[,2]
+		
+		m3 <- randomForest(update(formu, treat ~ .), 
+						   data=cbind(thedata[rows3,], treat=factor(treats[rows3,]$model3)), ...)
+		treats[rows3,]$ps3 <- predict(m3, type='prob')[,2]
+	} else {
+		stop(paste0('Unsupported method: ', method))
+	}
 	
 	breaks1 <- quantile(treats$ps1, probs=seq(0,1,1/nstrata), na.rm=TRUE)
 	breaks2 <- quantile(treats$ps2, probs=seq(0,1,1/nstrata), na.rm=TRUE)

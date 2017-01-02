@@ -13,7 +13,7 @@ utils::globalVariables(c('value','covariate','variable','model','group'))
 #'        logistic regression model are used.
 #' @return a \code{ggplot2} figure.
 #' @export
-multibalance.plot <- function(tpsa, grid=TRUE, cols) {
+multibalance.plot <- function(tpsa, tmatch, grid=TRUE, cols) {
 	covs <- attr(tpsa, 'data')
 	m1 <- attr(tpsa, 'model1')
 	if(missing(cols)) {
@@ -37,6 +37,11 @@ multibalance.plot <- function(tpsa, grid=TRUE, cols) {
 	}
 	
 	tpsa2 <- cbind(tpsa, (covs))
+	
+	if(!missing(tmatch)) {
+		rows <- c(tmatch$Control, tmatch$Treat1, tmatch$Treat2)
+		tpsa2 <- tpsa2[rows,]
+	}
 	
 	results <- data.frame(covariate=character(), model=integer(), unadjusted=numeric(),
 						  adjusted=numeric(), stringsAsFactors=FALSE)

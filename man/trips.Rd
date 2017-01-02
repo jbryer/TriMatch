@@ -5,7 +5,7 @@
 \title{Estimates propensity scores for three groups}
 \usage{
 trips(thedata, treat, formu = ~., groups = unique(treat), nstrata = 5,
-  ...)
+  method = "logistic", ...)
 }
 \arguments{
 \item{thedata}{the data frame.}
@@ -20,6 +20,9 @@ should not be specified and will be modified.}
 \code{treat} for each control/treatment.}
 
 \item{nstrata}{the number of strata marks to plot on the edge.}
+
+\item{method}{the method to use to estimate the propensity scores. Current options are logistic
+or randomForest.}
 
 \item{...}{other parameters passed to \code{\link{glm}}.}
 }
