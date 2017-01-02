@@ -9,6 +9,8 @@ multibalance.plot(tpsa, tmatch, grid = TRUE, cols)
 \arguments{
 \item{tpsa}{results of \code{\link{trips}}.}
 
+\item{tmatch}{results of \code{\link{trimatch}}.}
+
 \item{grid}{if TRUE, then a grid of three plots for each model will be displayed.}
 
 \item{cols}{character vector of covariates (i.e. column names) from the original 
