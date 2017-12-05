@@ -20,4 +20,3 @@ a list of summary results.
 Will return as a list and print the percentage of total unmatched rows and
 percent by treatment.
 }
-

@@ -1,3 +1,9 @@
+TriMatch 0.9.9
+=========
+
+* Fixed issue where as.data.frame.list would cause a conflict with the base function of the same 
+  name. A new function, data.frame.to.list, wraps the non-exported version of as.data.frame.list.
+
 TriMatch 0.9.8
 =========
 

@@ -16,4 +16,3 @@ The \code{\link{trips}} function estimates three separate logistic regression
 models for each pair of groups. This function will print a combined table
 of the three summaries.
 }
-

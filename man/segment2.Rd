@@ -14,4 +14,3 @@ segment2(d)
 Internal method for plotting.
 Position along the right side segement
 }
-

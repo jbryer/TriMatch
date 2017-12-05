@@ -1,3 +1,9 @@
+#' @inherit as.data.frame.list
+#' @export
+data.frame.to.list <- function(...) {
+	as.data.frame.list(...)
+}
+
 #' Convert a list of vectors to a data frame.
 #' 
 #' This function will convert a list of vectors to a data frame. This function
@@ -26,7 +32,6 @@
 #' @param ... other parameters passed to \code{\link{data.frame}}.
 #' @return a data frame.
 #' @method as.data.frame list
-#' @export
 #' @examples
 #'     test1 <- list( c(a='a',b='b',c='c'), c(a='d',b='e',c='f'))
 #'     as.data.frame(test1)

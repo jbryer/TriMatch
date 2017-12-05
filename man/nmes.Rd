@@ -16,10 +16,6 @@ Jason Bryer (jason@bryer.org) to an R data object to be included in this
 package. See \url{http://imai.princeton.edu/research/pscore.html} for more
 information
 }
-\author{
-United States Department of Health and Human Services. 
-        Agency for Health Care Policy and Research
-}
 \references{
 National Center For Health Services Research, 1987. National 
         Medical Expenditure Survey. Methods II. Questionnaires and data 
@@ -36,5 +32,8 @@ National Center For Health Services Research, 1987. National
         analysis of the national medical expenditure survey. Journal of 
         Econometrics, 112.
 }
+\author{
+United States Department of Health and Human Services. 
+        Agency for Health Care Policy and Research
+}
 \keyword{datasets}
-

@@ -47,4 +47,3 @@ tpsa <- trips(tutoring, tutoring$treat, formu)
 head(tpsa)
 }
 }
-

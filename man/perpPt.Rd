@@ -18,4 +18,3 @@ perpPt(x, y, d = 0.05)
 Internal method for plotting.
 Finds a point d distance from x, y
 }
-

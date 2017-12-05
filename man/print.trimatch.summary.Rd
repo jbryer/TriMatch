@@ -16,4 +16,3 @@ must be named. For example, \code{"Method 1" = summary(tmath, outcome)}.}
 This is an S3 generic function to print the results of 
 \code{\link{summary.triangle.matches}}.
 }
-

@@ -74,4 +74,3 @@ tpsa <- trips(tutoring, tutoring$treat, formu)
 tmatch <- trimatch(tpsa, status=FALSE)
 }
 }
-

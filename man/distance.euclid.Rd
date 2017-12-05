@@ -31,4 +31,3 @@ a list of length equal to \code{x}. Each element of the list is a
 This method uses a simple Euclidean distance caluclation for determining the
 distances between two matches. That is, |ps1 - ps2|.
 }
-

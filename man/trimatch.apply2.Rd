@@ -34,4 +34,3 @@ and then the largest.}
 Internal method. This version does not use the exact matching. Instead, this
 function should be called separately for each grouping.
 }
-

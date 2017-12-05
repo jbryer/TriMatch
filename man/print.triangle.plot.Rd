@@ -18,4 +18,3 @@ Print method for \code{\link{plot.triangle.psa}}. The primary purpose is to
 suppress the "Removed n rows containing missing values" warning printed
 by \code{ggplot2}.
 }
-

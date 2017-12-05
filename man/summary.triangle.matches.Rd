@@ -35,4 +35,3 @@ a Pairwise Wilcoxon Rank Sum Test will also be provided.
 \code{\link{friedman.test}}, \code{\link{ezANOVA}}, 
        \code{\link{pairwise.wilcox.test}}
 }
-

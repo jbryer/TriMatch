@@ -25,4 +25,3 @@ columns in the grid of figures.}
 \description{
 Prints a grid of balance plots.
 }
-

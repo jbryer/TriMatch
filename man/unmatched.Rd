@@ -17,4 +17,3 @@ This function returns a subset of \code{\link{trips}} that were not matched by
 \code{\link{trimatch}}. All data frame methods work with the returned object
 but special \code{summary} function will provided relevant information.
 }
-

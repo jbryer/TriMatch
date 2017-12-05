@@ -23,4 +23,3 @@ In this method, \code{M2} corresponds to the number of times a treat1 unit can b
 matched with a treat2 unit. The \code{M1} parameter corresponds to the number of
 times a treat1 unit can be used in total.
 }
-

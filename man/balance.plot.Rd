@@ -53,4 +53,3 @@ and stored as an attribute to the returned object named \code{friedman}. If
 a continuous covariate a repeated measures ANOVA will also be performed, printed,
 and returned as an attribute named \code{rmanova}.
 }
-

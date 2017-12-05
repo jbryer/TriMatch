@@ -22,4 +22,3 @@ treat1 units are identified. For each of those treat2 units, the matched
 triplet with the smallest overall distances where treat2 is one of the mathched
 units is retained.
 }
-

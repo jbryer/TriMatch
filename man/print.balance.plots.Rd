@@ -15,4 +15,3 @@
 \description{
 Print the results of \code{\link{balance.plot}} for a data frame of covariates.
 }
-

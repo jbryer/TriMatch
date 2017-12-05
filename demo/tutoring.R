@@ -116,9 +116,4 @@ boxdiff.plot(tutoring.matched.3to2, tutoring$Grade,
 
 print(print('Optimal'=s1, 'Caliper'=s2, '2-to-1'=s3, '3-to-2'=s4), row.names=FALSE)
 
-##### Sensitivity Analysis #####################################################
-library(rbounds)
-psens(matched.out$Treat1.out, matched.out$Control.out, Gamma=2, GammaInc=0.1)
-psens(matched.out$Treat2.out, matched.out$Control.out, Gamma=2, GammaInc=0.1)
-psens(matched.out$Treat1.out, matched.out$Treat2.out, Gamma=2, GammaInc=0.1)
 

@@ -13,4 +13,3 @@ star(x)
 Returns the significance level as stars, or NA if a non-numeric value is
 passed in.
 }
-

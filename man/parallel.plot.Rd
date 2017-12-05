@@ -14,4 +14,3 @@ parallel.plot(tmatch, outcome)
 \description{
 Creates a \code{ggplot2} figure of a parallel coordinate plot.
 }
-

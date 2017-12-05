@@ -21,4 +21,3 @@ Barplot for the sum of distances.
 \seealso{
 triangle.match
 }
-

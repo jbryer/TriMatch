@@ -14,4 +14,3 @@ segment1(d)
 Internal method for plotting.
 Position along the left side segement
 }
-

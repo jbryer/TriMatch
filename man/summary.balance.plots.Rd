@@ -21,4 +21,3 @@ figures with the statistical tests (i.e. Friedmen Rank Sum tests and if a
 continuous variable, repeated measures ANOVA as well) saved as attributes.
 This function will return a data frame combining all of those results.
 }
-

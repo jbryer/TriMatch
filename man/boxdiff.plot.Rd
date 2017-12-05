@@ -27,4 +27,3 @@ a \code{ggplot2} boxplot of the differences.
 \description{
 A boxplot of differences between each pair of treatments.
 }
-

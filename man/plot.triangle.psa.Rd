@@ -48,4 +48,3 @@ models.
 \seealso{
 triangle.psa
 }
-

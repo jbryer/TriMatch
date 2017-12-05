@@ -51,4 +51,3 @@ group in each matched triplet will be the mean of the other two. If \code{model}
 is not specified, the default will be to use the model that estimates the propensity
 scores for the first two groups in the matching order.
 }
-

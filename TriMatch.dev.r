@@ -8,7 +8,9 @@ install('TriMatch')
 build('TriMatch')
 check('TriMatch', cran=TRUE)
 
-require(TriMatch)
+library(TriMatch)
+ls('package:TriMatch')
+
 data(nmes)
 data(tutoring)
 

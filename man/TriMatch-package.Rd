@@ -2,22 +2,21 @@
 % Please edit documentation in R/TriMatch-package.R
 \docType{package}
 \name{TriMatch-package}
-\alias{TriMatch}
 \alias{TriMatch-package}
+\alias{TriMatch}
 \title{Propensity Score Analysis for Non-Binary Treatments}
 \description{
 This packages provides functions to estimate and visualize propensity
 score analyses including matching for non-binary treatments.
 }
-\author{
-Jason Bryer \email{jason@bryer.org}
-}
 \seealso{
 \code{PSAgraphics} \code{multilevelPSA}
+}
+\author{
+Jason Bryer \email{jason@bryer.org}
 }
 \keyword{analysis}
 \keyword{matching}
 \keyword{propensity}
 \keyword{psa}
 \keyword{score}
-

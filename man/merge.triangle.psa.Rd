@@ -19,4 +19,3 @@
 \description{
 The \code{y} parameter should be a subset of the orignal data used.
 }
-
