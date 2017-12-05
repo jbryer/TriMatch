@@ -1,6 +1,6 @@
 #' Merges outcomes with the matched set.
 #' 
-#' The \code{y} parameter should be a subset of the orignal data used.
+#' The \code{y} parameter should be a subset of the original data used.
 #' 
 #' @param x the result of \code{\link{trimatch}}
 #' @param y another data frame or vector to merge with.

@@ -13,7 +13,7 @@ utils::globalVariables(c('Treatment','Covariate','Mean','Strata','ymin','ymax',
 #' and returned as an attribute named \code{rmanova}.
 #' 
 #' @param x results from \code{\link{trimatch}}.
-#' @param covar vector of the covaraite to check balance of.
+#' @param covar vector of the covariate to check balance of.
 #' @param model an integer between 1 and 3 indicating from which model the 
 #'        propensity scores will be used.
 #' @param nstrata number of strata to use.
@@ -204,7 +204,7 @@ print.balance.plots <- function(x, ...) {
 #' This function will return a data frame combining all of those results.
 #' 
 #' @param object the results of \code{\link{balance.plot}} when a data frame is specified.
-#' @param ... currenlty unused.
+#' @param ... currently unused.
 #' @return a data frame
 #' @export
 #' @method summary balance.plots
@@ -236,11 +236,11 @@ summary.balance.plots <- function(object, ...) {
 #' @param x the results of \code{\link{balance.plot}} when a data frame is specified.
 #' @param rows if \code{covar} is a data frame of covariates, the number of
 #'        rows in the grid of figures.
-#' @param cols if \code{covar} is a data farme of covariates, the number of
+#' @param cols if \code{covar} is a data frame of covariates, the number of
 #'        columns in the grid of figures.
 #' @param byrow if TRUE (default), plots will be drawn by rows, otherwise by columns.
 #' @param plot.sequence the sequence (or subset) of plots to draw.
-#' @param ... currenlty unused.
+#' @param ... currently unused.
 #' @method plot balance.plots
 #' @export
 plot.balance.plots <- function(x, rows, cols, byrow = TRUE, 

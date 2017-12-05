@@ -1,5 +1,5 @@
 #' Internal method for plotting.
-#' Position along the left side segement
+#' Position along the left side segment
 #' 
 #' @param d the distance
 #' @export
@@ -10,7 +10,7 @@ segment1 <- function(d) {
 }
 
 #' Internal method for plotting.
-#' Position along the right side segement
+#' Position along the right side segment
 #' 
 #' @param d the distance
 #' @export

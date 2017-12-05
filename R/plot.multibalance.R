@@ -1,10 +1,10 @@
 utils::globalVariables(c('value','covariate','variable','model','group'))
 
-#' Multiple covariate blance assessment plot.
+#' Multiple covariate balance assessment plot.
 #' 
 #' A graphic based upon \code{\link{cv.bal.psa}} function in the \code{PSAgraphics}
-#' package. This graphic plots the effect sizes for multiple covariated before and
-#' after propensity score andjustement.
+#' package. This graphic plots the effect sizes for multiple covariates before and
+#' after propensity score adjustement.
 #' 
 #' @param tpsa results of \code{\link{trips}}.
 #' @param tmatch results of \code{\link{trimatch}}.

@@ -1,6 +1,6 @@
 #' Merges covariate(s) with the results of \code{\link{trips}}.
 #' 
-#' The \code{y} parameter should be a subset of the orignal data used.
+#' The \code{y} parameter should be a subset of the original data used.
 #' 
 #' @param x the result of \code{\link{trips}}
 #' @param y another data frame or vector to merge with.

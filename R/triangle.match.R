@@ -39,10 +39,10 @@
 #'        and then the largest. 
 #' @param exact a vector or data frame of representing covariates for exact matching.
 #'        That is, matched triplets will first be matched exactly on these covariates
-#'        before evalutating distances.
+#'        before evaluating distances.
 #' @param method This is a function that specifies which matched triplets will be
 #'        retained. If \code{NULL}, all matched triplets within the specified
-#'        caliper will be returned (equivelent to caliper matching in two group
+#'        caliper will be returned (equivalent to caliper matching in two group
 #'        matching). The default is \code{\link{maximumTreat}} that
 #'        attempts include each treatment at least once. 
 #'        Another option is \code{\link{OneToN}} which mimicks the one-to-n 
@@ -230,7 +230,7 @@ OneToN <- function(tmatch, M1=2, M2=1, ...) {
 
 #' Euclidean distance calculation.
 #' 
-#' This method uses a simple Euclidean distance caluclation for determining the
+#' This method uses a simple Euclidean distance calculation for determining the
 #' distances between two matches. That is, |ps1 - ps2|.
 #' 
 #' @param x vector of propensity scores.
