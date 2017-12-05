@@ -3,7 +3,7 @@
 \name{segment1}
 \alias{segment1}
 \title{Internal method for plotting.
-Position along the left side segement}
+Position along the left side segment}
 \usage{
 segment1(d)
 }
@@ -12,5 +12,5 @@ segment1(d)
 }
 \description{
 Internal method for plotting.
-Position along the left side segement
+Position along the left side segment
 }

@@ -4,7 +4,7 @@ utils::globalVariables(c('value','covariate','variable','model','group'))
 #' 
 #' A graphic based upon \code{\link{cv.bal.psa}} function in the \code{PSAgraphics}
 #' package. This graphic plots the effect sizes for multiple covariates before and
-#' after propensity score adjustement.
+#' after propensity score adjustment.
 #' 
 #' @param tpsa results of \code{\link{trips}}.
 #' @param tmatch results of \code{\link{trimatch}}.

@@ -17,5 +17,5 @@
 \code{x} with the additional column(s) added.
 }
 \description{
-The \code{y} parameter should be a subset of the orignal data used.
+The \code{y} parameter should be a subset of the original data used.
 }

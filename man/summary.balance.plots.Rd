@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{the results of \code{\link{balance.plot}} when a data frame is specified.}
 
-\item{...}{currenlty unused.}
+\item{...}{currently unused.}
 }
 \value{
 a data frame

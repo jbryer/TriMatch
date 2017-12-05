@@ -39,7 +39,7 @@ be called first.
 }
 \details{
 If this function calls \code{\link{plot.triangle.psa}}, it will only draw
-line segements and points for those data rows that were used in the matching
+line segments and points for those data rows that were used in the matching
 procedure. That is, data elements not matched will be excluded from the
 figure. To plot all segments and points regardless if used in matching, set
 \code{p = plot(tpsa)}.

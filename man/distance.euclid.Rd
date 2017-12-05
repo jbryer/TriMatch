@@ -28,6 +28,6 @@ a list of length equal to \code{x}. Each element of the list is a
        name to the \code{id}.
 }
 \description{
-This method uses a simple Euclidean distance caluclation for determining the
+This method uses a simple Euclidean distance calculation for determining the
 distances between two matches. That is, |ps1 - ps2|.
 }
