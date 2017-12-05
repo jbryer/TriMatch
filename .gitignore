@@ -8,7 +8,10 @@
 /.dropbox
 /Icon
 .Rproj.user
-
+/Articles
+/working
+/TriMatchJSS
+/vignettes_working
 /Nested Loops.R
 /inst/doc/Sweave.sty
 /inst/doc/TriMatch-balancegrid.pdf
