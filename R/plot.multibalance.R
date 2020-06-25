@@ -16,7 +16,7 @@ utils::globalVariables(c('value','covariate','variable','model','group'))
 #' @export
 multibalance.plot <- function(tpsa, tmatch, grid=TRUE, cols) {
 	if(!missing(tmatch)) {
-		tpsa <- attr(results, 'triangle.psa', exact=TRUE)
+		tpsa <- attr(tmatch, 'triangle.psa', exact=TRUE)
 	}
 	
 	covs <- attr(tpsa, 'data')
@@ -24,13 +24,13 @@ multibalance.plot <- function(tpsa, tmatch, grid=TRUE, cols) {
 	if(missing(cols)) {
 		cols <- attr(m1$terms, 'term.labels')
 	}
-	covs <- covs[,cols]
+	covs <- covs[cols]
 	
 	#Recode factors. First we'll covert logicals and factors with two levels to integers
 	for(i in 1:ncol(covs)) {
-		if(class(covs[,i]) == 'logical') {
+		if(is.logical(covs[,i])) {
 			covs[,i] <- as.integer(covs[,i])
-		} else if(class(covs[,i]) == 'factor' & length(levels(covs[,i])) == 2) {
+		} else if(is.factor(covs[,i]) && length(levels(covs[,i])) == 2) {
 			covs[,i] <- as.integer(covs[,i])
 		}
 	}
@@ -56,10 +56,10 @@ multibalance.plot <- function(tpsa, tmatch, grid=TRUE, cols) {
 	for(i in 1:3) {
 		m <- tpsa2[!is.na(tpsa2[,paste('model', i, sep='')]),]
 		
-		bal <- covariateBalance(m[,names(m) %in% names(covs)], 
-						  m[,paste('model', i, sep='')], 
-						  m[,paste('ps', i, sep='')],
-						  m[,paste('strata', i, sep='')])
+		bal <- covariateBalance(m[names(m) %in% names(covs)], 
+						  m[paste('model', i, sep='')], 
+						  m[paste('ps', i, sep='')],
+						  m[paste('strata', i, sep='')])
 		results <- rbind(results, data.frame(
 			covariate = row.names(bal$effect.sizes),
 			model = rep(i, ncol(covs)),
