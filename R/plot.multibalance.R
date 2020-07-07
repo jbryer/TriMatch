@@ -57,9 +57,9 @@ multibalance.plot <- function(tpsa, tmatch, grid=TRUE, cols) {
 		m <- tpsa2[!is.na(tpsa2[,paste('model', i, sep='')]),]
 		
 		bal <- covariateBalance(m[names(m) %in% names(covs)], 
-						  m[paste('model', i, sep='')], 
-						  m[paste('ps', i, sep='')],
-						  m[paste('strata', i, sep='')])
+						  m[, paste('model', i, sep='')], 
+						  m[, paste('ps', i, sep='')],
+						  m[, paste('strata', i, sep='')])
 		results <- rbind(results, data.frame(
 			covariate = row.names(bal$effect.sizes),
 			model = rep(i, ncol(covs)),
