@@ -37,6 +37,7 @@ knitr::opts_chunk$set(
   warning = FALSE,
   error = FALSE
 )
+options(digits = 2)
 ```
 
 ```{r setup}
