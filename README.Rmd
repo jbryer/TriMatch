@@ -11,7 +11,7 @@ editor_options:
 `r badger::badge_cran_release("TriMatch", "orange")`
 `r badger::badge_devel("jbryer/TriMatch", "blue")`
 `r badger::badge_github_actions("jbryer/TriMatch", action = "R-CMD-check")`
-![Downloads](http://cranlogs.r-pkg.org/badges/TriMatch)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/TriMatch)
 <!-- badges: end -->
 
 

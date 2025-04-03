@@ -7,7 +7,7 @@
 [![](https://img.shields.io/badge/devel%20version-1.0.0-blue.svg)](https://github.com/jbryer/TriMatch)
 [![R build
 status](https://github.com/jbryer/TriMatch/workflows/R-CMD-check/badge.svg)](https://github.com/jbryer/TriMatch/actions)
-![Downloads](http://cranlogs.r-pkg.org/badges/TriMatch)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/TriMatch)
 <!-- badges: end -->
 
 ### Abstract

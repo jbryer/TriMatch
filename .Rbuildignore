@@ -19,3 +19,4 @@ cran-comments.md
 README.Rmd
 private/
 build.R
+^CRAN-SUBMISSION$
