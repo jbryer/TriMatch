@@ -47,8 +47,39 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Propensity score matching for non-binary treatments.
+  <main id="main" class="col-md-9"><div class="section level2">
+<h2 id="id_-trimatch---propensity-score-matching-for-non-binary-treatments">
+<a href="https://github.com/jbryer/TriMatch" class="external-link"><img src="reference/figures/TriMatch.png" align="right" width="200"></a> TriMatch - Propensity score matching for non-binary treatments.<a class="anchor" aria-label="anchor" href="#id_-trimatch---propensity-score-matching-for-non-binary-treatments"></a>
+</h2>
+<!-- badges: start -->
+
+<div class="section level3">
+<h3 id="abstract">Abstract<a class="anchor" aria-label="anchor" href="#abstract"></a>
+</h3>
+<p>The use of propensity score methods (Rosenbaum and Rubin, 1983) have become popular for estimating causal inferences in observational studies in medical research (Austin, 2008) and in the social sciences (Thoemmes and Kim, 2011). In most cases however, the use of propensity score methods have been confined to a single treatment. Several researchers have suggested using propensity score methods with multiple control groups, or to simply perform two separate analyses, one between treatment one and the control and another between treatment two and control. This talk introduces the <code>TriMatch</code> package for R that provides a method for determining matched triplets. Examples from educational and medical contexts will be discussed.</p>
+<p>Consider two treatments, T r1 and T r2, and a control, C. We estimate propensity scores with three separate logistic regression models where model one predicts T r1 with C, model two predicts T r2 with C, and model three predicts T r1 with T r2. The triangle plot in Figure 1 represents the fitted values (i.e. propensity scores) from the three models on each edge. Since each unit has a propensity score in two models, their scores are connected. The <code>TriMatch</code> algorithm will find matched triplets where the sum of the distances within each model is minimized. In Figure 1, the black lines illustrate one matched triplet.</p>
+<p>Propensity score analysis of two groups typically use dependent sample t-tests. The analogue for matched triplets include Figure 1: Triangle Plot repeated measures ANOVA and the Freidman Rank Sum Test. The <code>TriMatch</code> package provides utility functions for conducting and visualizing these statistical tests. Moreover, a set of functions extending PSAgraphics (Helmreich and Pruzek, 2009) for matched triplets to check covariate balance are provided.</p>
+<p><img src="reference/figures/matches.png" width="80%" style="display: block; margin: auto;"></p>
+<p><strong>References</strong></p>
+<p>Austin, P. (2008). A critical appraisal of propensity-score matching in the medical literature between 1996 and 2003. <em>Statistics in Medicine 27</em>, 2037–2049.</p>
+<p>Helmreich, J. E. and R. M. Pruzek (2009, 2). Psagraphics: An r package to support propensity score analysis. <em>Journal of Statistical Software 29</em>(6), 1–23.</p>
+<p>Rosenbaum, P. R. and D. B. Rubin (1983). The central role of the propensity score in observational studies for causal effects. <em>Biometrika 70</em>, 41–55.</p>
+<p>Thoemmes, F. J. and E. S. Kim (2011). A systematic review of propensity score methods in the social sciences. <em>Multivariate Behavioral Research 46</em>, 90–118.</p>
+<p>See the <a href="https://psa.bryer.org" class="external-link">Applied Propensity Score Analysis with R</a> book and R package for a general introduction to propensity score methods.</p>
+<p><strong>Keywords</strong>: propensity score analysis, matching, non-binary treatments</p>
+</div>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install from CRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'TriMatch'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or install the package from Github</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'TriMatch'</span>, <span class="st">'jbryer'</span><span class="op">)</span></span></code></pre></div>
+<p>See <code><a href="articles/TriMatch.html">vignette('TriMatch')</a></code> for more details.</p>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -80,7 +111,14 @@ Propensity score matching for non-binary treatments.
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=TriMatch" class="external-link"><img src="https://www.r-pkg.org/badges/version/TriMatch?color=orange"></a></li>
+<li><a href="https://github.com/jbryer/TriMatch" class="external-link"><img src="https://img.shields.io/badge/devel%20version-1.0.0-blue.svg"></a></li>
+<li><a href="https://github.com/jbryer/TriMatch/actions" class="external-link"><img src="https://github.com/jbryer/TriMatch/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>

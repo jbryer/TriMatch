@@ -46,10 +46,21 @@ will be drawn.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">balance.plot</span><span class="op">(</span><span class="va">x</span>, <span class="va">covar</span>, <span class="va">model</span>, nstrata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">tmatch</span>, <span class="st">"triangle.psa"</span><span class="op">)</span>,</span>
-<span>  <span class="st">"nstrata"</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"Covariate"</span>, ylab <span class="op">=</span> <span class="st">""</span>, xlab <span class="op">=</span> <span class="cn">NULL</span>, se.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  print <span class="op">=</span> <span class="cn">TRUE</span>, legend.position <span class="op">=</span> <span class="st">"top"</span>, <span class="va">x.axis.labels</span>,</span>
-<span>  x.axis.angle <span class="op">=</span> <span class="op">-</span><span class="fl">45</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">balance.plot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">covar</span>,</span>
+<span>  <span class="va">model</span>,</span>
+<span>  nstrata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">tmatch</span>, <span class="st">"triangle.psa"</span><span class="op">)</span>, <span class="st">"nstrata"</span><span class="op">)</span>,</span>
+<span>  label <span class="op">=</span> <span class="st">"Covariate"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  se.ratio <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  print <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  legend.position <span class="op">=</span> <span class="st">"top"</span>,</span>
+<span>  <span class="va">x.axis.labels</span>,</span>
+<span>  x.axis.angle <span class="op">=</span> <span class="op">-</span><span class="fl">45</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -57,7 +68,7 @@ will be drawn.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>results from <code><a href="trimatch.html">trimatch</a></code>.</p></dd>
+<dd><p>results from [trimatch()].</p></dd>
 
 
 <dt id="arg-covar">covar<a class="anchor" aria-label="anchor" href="#arg-covar"></a></dt>
@@ -95,7 +106,7 @@ measures ANOVA (for continuous variables).</p></dd>
 
 
 <dt id="arg-legend-position">legend.position<a class="anchor" aria-label="anchor" href="#arg-legend-position"></a></dt>
-<dd><p>the position of the legend. See <code>theme</code>.</p></dd>
+<dd><p>the position of the legend.</p></dd>
 
 
 <dt id="arg-x-axis-labels">x.axis.labels<a class="anchor" aria-label="anchor" href="#arg-x-axis-labels"></a></dt>
@@ -107,7 +118,7 @@ measures ANOVA (for continuous variables).</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>parameters passed to <code><a href="plot.balance.plots.html">plot.balance.plots</a></code>.</p></dd>
+<dd><p>parameters passed to [plot.balance.plots()].</p></dd>
 
 </dl></div>
     <div class="section level2">

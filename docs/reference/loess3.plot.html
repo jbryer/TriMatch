@@ -58,10 +58,19 @@ scores for the first two groups in the matching order.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loess3.plot</span><span class="op">(</span><span class="va">tmatch</span>, <span class="va">outcome</span>, <span class="va">model</span>, ylab <span class="op">=</span> <span class="st">"Outcome"</span>,</span>
-<span>  plot.connections <span class="op">=</span> <span class="cn">FALSE</span>, connections.color <span class="op">=</span> <span class="st">"black"</span>,</span>
-<span>  connections.alpha <span class="op">=</span> <span class="fl">0.2</span>, plot.points <span class="op">=</span> <span class="va">geom_point</span>, points.alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  points.palette <span class="op">=</span> <span class="st">"Dark2"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loess3.plot</span><span class="op">(</span></span>
+<span>  <span class="va">tmatch</span>,</span>
+<span>  <span class="va">outcome</span>,</span>
+<span>  <span class="va">model</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="st">"Outcome"</span>,</span>
+<span>  plot.connections <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  connections.color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  connections.alpha <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  plot.points <span class="op">=</span> <span class="va">geom_point</span>,</span>
+<span>  points.alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  points.palette <span class="op">=</span> <span class="st">"Dark2"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -69,7 +78,7 @@ scores for the first two groups in the matching order.</p>
 
 
 <dl><dt id="arg-tmatch">tmatch<a class="anchor" aria-label="anchor" href="#arg-tmatch"></a></dt>
-<dd><p>the results of <code><a href="trimatch.html">trimatch</a></code>.</p></dd>
+<dd><p>the results of [trimatch()].</p></dd>
 
 
 <dt id="arg-outcome">outcome<a class="anchor" aria-label="anchor" href="#arg-outcome"></a></dt>
@@ -101,7 +110,7 @@ connection lines.</p></dd>
 
 <dt id="arg-plot-points">plot.points<a class="anchor" aria-label="anchor" href="#arg-plot-points"></a></dt>
 <dd><p>a <code>ggplot2</code> function for plotting points. Usually
-<code>geom_point</code> or <code>geom_jitter</code>. If <code>NULL</code> no points
+[ggplot2::geom_point()] or [ggplot2::geom_jitter()]. If `NULL` no points
 will be drawn.</p></dd>
 
 
@@ -110,18 +119,18 @@ will be drawn.</p></dd>
 
 
 <dt id="arg-points-palette">points.palette<a class="anchor" aria-label="anchor" href="#arg-points-palette"></a></dt>
-<dd><p>the color palette to use. See <code>scale_colour_brewer</code>
+<dd><p>the color palette to use. See [ggplot2::scale_colour_brewer()]
 and <a href="http://colorbrewer2.org/" class="external-link">http://colorbrewer2.org/</a> for more information.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>other parameters passed to <code>geom_smooth</code> and
-<code>stat_smooth</code>.</p></dd>
+<dd><p>other parameters passed to [ggplot2::geom_smooth()] and
+[ggplot2::stat_smooth()].</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a <code>ggplot2</code> figure.</p>
+    <p>a `ggplot2` figure.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

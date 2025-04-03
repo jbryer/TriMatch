@@ -43,8 +43,15 @@ within a specified caliper.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">trimatch</span><span class="op">(</span><span class="va">tpsa</span>, caliper <span class="op">=</span> <span class="fl">0.25</span>, nmatch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>, <span class="va">match.order</span>, <span class="va">exact</span>,</span>
-<span>  method <span class="op">=</span> <span class="va">maximumTreat</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">trimatch</span><span class="op">(</span></span>
+<span>  <span class="va">tpsa</span>,</span>
+<span>  caliper <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<span>  nmatch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span><span class="op">)</span>,</span>
+<span>  <span class="va">match.order</span>,</span>
+<span>  <span class="va">exact</span>,</span>
+<span>  method <span class="op">=</span> <span class="va">maximumTreat</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -52,7 +59,7 @@ within a specified caliper.</p>
 
 
 <dl><dt id="arg-tpsa">tpsa<a class="anchor" aria-label="anchor" href="#arg-tpsa"></a></dt>
-<dd><p>the results from <code><a href="trips.html">trips</a></code></p></dd>
+<dd><p>the results from [trips()]</p></dd>
 
 
 <dt id="arg-caliper">caliper<a class="anchor" aria-label="anchor" href="#arg-caliper"></a></dt>
@@ -84,21 +91,21 @@ before evaluating distances.</p></dd>
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>This is a function that specifies which matched triplets will be
-retained. If <code>NULL</code>, all matched triplets within the specified
+retained. If `NULL`, all matched triplets within the specified
 caliper will be returned (equivalent to caliper matching in two group
-matching). The default is <code><a href="maximumTreat.html">maximumTreat</a></code> that
+matching). The default is [maximumTreat()] that
 attempts include each treatment at least once.
-Another option is <code><a href="OneToN.html">OneToN</a></code> which mimicks the one-to-n
+Another option is [OneToN()] which mimicks the one-to-n
 matching where treatments are matched to multiple control units.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>other parameters passed to <code>method</code>.</p></dd>
+<dd><p>other parameters passed to `method`.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The <code><a href="trips.html">trips</a></code> function will estimate the propensity scores
+    <p>The [trips()] function will estimate the propensity scores
 for three models. This method will then find the best matched triplets based
 upon minimizing the summed differences between propensity scores across the
 three models. That is, the algorithm works as follows:</p>
