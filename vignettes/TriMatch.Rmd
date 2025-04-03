@@ -10,8 +10,10 @@ date: "`r Sys.Date()`"
 abstract: "The use of propensity score methods [@RosenbaumRubin1983] have become popular for estimating causal inferences in observational studies in medical research [@Austin2008] and in the social sciences [@ThoemmesKim2011]. In most cases however, the use of propensity score methods have been confined to a single treatment. Several researchers have suggested using propensity score methods with multiple control groups, or to simply perform two separate analyses, one between treatment one and the control and another between treatment two and control. This paper introduces the TriMatch package for R that provides a method for determining matched triplets. Examples from educational and medical contexts will be discussed."
 keywords: "propensity score analysis, causality, matching"
 bibliography: "references.bib"
+# output:
+#  bookdown::html_document2: default
 output:
- bookdown::html_document2: default
+ bookdown::pdf_document2: default
 pkgdown:
  as_is: false
 fontsize: 11pt
@@ -59,11 +61,11 @@ $${ PS }_{ 1 }=e({ x }_{ { T }_{ 1 }C })=Pr(z=1|{ X }_{ { T }_{ 1 }C })$$
 $${ PS }_{ 2 }=e({ x }_{ { T }_{ 2 }C })=Pr(z=1|{ X}_{ { T }_{ 2 }C })$$
 $${ PS }_{ 3 }=e({ x }_{ { T }_{ 2 }{ T }_{ 1 } })=Pr(z=1|{ X }_{ { T }_{ 2 }{ T }_{ 1 } })$$
 
-B. Match order is determined. The default is to start with the larger of the two treatments, followed the second treatment, and lastly the control group. However, the match order is configurable vis-\`{a}-vis the `match.order` parameter.
+B. Match order is determined. The default is to start with the larger of the two treatments, followed the second treatment, and lastly the control group. However, the match order is configurable vis-a-vis the `match.order` parameter.
 
 C. Three distance matrices are calculated, $D_1$, $D_2$, and $D_3$ corresponding to the propensity scores estimated in step \@ref(item:ps). That is, $D_1$ is a $n_{Tr_1}$ x $n_{Tr_2}$  matrix where $D_1[x,y]$ is the standardized distance between $PS_1[x]$ and $PS_1[y]$.
 
-D. Distances greater than the caliper, 0.25 by default as recommended by \cite{RosenbaumRubin1985}, are eliminated. The caliper is specified in standard units so 0.25 corresponds to one-quarter of one standard deviation.
+D. Distances greater than the caliper, 0.25 by default as recommended by [@RosenbaumRubin1985], are eliminated. The caliper is specified in standard units so 0.25 corresponds to one-quarter of one standard deviation.
 
 E. If partial exact matching is desired, three logical matrices are created with the same dimensions as the distance matrices calculated in step \@ref(item:distance). That is, position $x,y$ in the matrix is true if the covariate(s) to match exactly on between unit $x$ and $y$ match exactly. Distances where exact there are not exact matches are eliminated.
 
@@ -129,7 +131,7 @@ print(plot(tutoring.matched, rows=c(50), line.alpha=1, draw.segments=TRUE))
 
 ## Examining Unmatched Students
 
-The different methods for retaining matched triplets address the issue of overrepresentation of treatment units. In this example there four times as many control units as treatment units (the ratio is larger when considering the treatments separately). These methods fall on a spectrum where each treatment unit is used minimally (`maximumTreat` method) or all units are used (caliper matching). \cite{Rosenbaum2012} suggests testing hypothesis more than once and it is our general recommendation to utilize multiple methods. Functions to help present and compare the results from multiple methods are provided and discussed below.
+The different methods for retaining matched triplets address the issue of overrepresentation of treatment units. In this example there four times as many control units as treatment units (the ratio is larger when considering the treatments separately). These methods fall on a spectrum where each treatment unit is used minimally (`maximumTreat` method) or all units are used (caliper matching). [@Rosenbaum2012] suggests testing hypothesis more than once and it is our general recommendation to utilize multiple methods. Functions to help present and compare the results from multiple methods are provided and discussed below.
 
 The `unmatched` function will return the rows of students who were not matched. The `summary` function will provide information about how many students within each group were not matched. As shown below, the caliper matching will match the most students. In this particular example, in fact, the only substantial difference in the unmatched students is with the control group. All methods fail to match 37 treatment one students. This is due to the fact that there is not another student within the specified caliper that match exactly on the course.
 
@@ -152,7 +154,7 @@ summary(unmatched(tutoring.matched.3to2))
 
 ## Checking Balance
 
-The eventual strength of propensity score methods is dependent on how well balance is achieved. \cite{HelmreichPruzek2008} introduced graphical approaches to evaluating balance. We provide functions that extend that framework to matching of three groups. Figure \@ref(fig:multibalance) is a multiple covariate balance plot that plots the absolute effect size of each covariate before and after adjustment. In this example, the figure suggests that reasonable balance has been achieved across all covariates and across all three models since effect sizes are smaller than the unadjusted in most cases and relatively small.
+The eventual strength of propensity score methods is dependent on how well balance is achieved. [@HelmreichPruzek2008] introduced graphical approaches to evaluating balance. We provide functions that extend that framework to matching of three groups. Figure \@ref(fig:multibalance) is a multiple covariate balance plot that plots the absolute effect size of each covariate before and after adjustment. In this example, the figure suggests that reasonable balance has been achieved across all covariates and across all three models since effect sizes are smaller than the unadjusted in most cases and relatively small.
 
 ```{r multibalance, fig.cap = 'Multiple Covariate Balance Plot of Absolute Standardized Effect Sizes Before and After Propensity Score Adjustment'}
 print(multibalance.plot(tutoring.tpsa) + ggtitle("Covariate Balance Plot"))
@@ -177,7 +179,7 @@ names(matched.out)
 head(matched.out)
 ```
 
-Although the `merge` function is convenient for conducting your own analysis, the `summary` function will perform the most common analyses including Friedman Rank Sum test and repeated measures ANOVA. If either of those tests produce a \textit{p} value less than the specified threshold (0.05 by default), then the `summary` function will also perform and return Wilcoxon signed rank test and three separate dependent sample \textit{t}-tests \citep[see][for discussion of dependent versus independent \textit{t}-tests]{Austin2010}.
+Although the `merge` function is convenient for conducting your own analysis, the `summary` function will perform the most common analyses including Friedman Rank Sum test and repeated measures ANOVA. If either of those tests produce a *p* value less than the specified threshold (0.05 by default), then the `summary` function will also perform and return Wilcoxon signed rank test and three separate dependent sample *t*-tests see [@Austin2010] for discussion of dependent versus independent *t*-tests.
 
 ```{r}
 s1 <- summary(tutoring.matched, tutoring$Grade)
@@ -209,7 +211,7 @@ boxdiff.plot(tutoring.matched.2to1, tutoring$Grade,
 ```
 
 
-Another useful visualization for presenting the results is the Loess plot. In Figure \@ref(fig:loess) we plot the propensity scores on the \textit{x}-axis and the outcome (grade in this example) on the *y*-axis. A Loess regression line is then overlaid.\footnote{We utilize the `geom_smooth` geometry in the `ggplot2` package that provides other smoothing functions including linear modeling (`lm`), generalized linear modeling (`glm`), and robust generalized additive models (`gam`). See the documentation for the `stat_smooth` function in `ggplot2`.} Since there are three propensity score scales, the `plot.loess3` function will use the propensity scores from the model predicting treatment one from treatment two. Propensity scores for the control group are then imputed by taking the mean of the propensity scores of the two treatment units that control was matched to. It should be noted that if a control unit is matched to two different sets of treatment units, then that control unit will have two propensity scores. Which propensity score scale is utilized can be explicitly specified using the `model` parameter.
+Another useful visualization for presenting the results is the Loess plot. In Figure \@ref(fig:loess) we plot the propensity scores on the *x*-axis and the outcome (grade in this example) on the *y*-axis. A Loess regression line is then overlaid.^[We utilize the `geom_smooth` geometry in the `ggplot2` package that provides other smoothing functions including linear modeling (`lm`), generalized linear modeling (`glm`), and robust generalized additive models (`gam`). See the documentation for the `stat_smooth` function in `ggplot2`.] Since there are three propensity score scales, the `plot.loess3` function will use the propensity scores from the model predicting treatment one from treatment two. Propensity scores for the control group are then imputed by taking the mean of the propensity scores of the two treatment units that control was matched to. It should be noted that if a control unit is matched to two different sets of treatment units, then that control unit will have two propensity scores. Which propensity score scale is utilized can be explicitly specified using the `model` parameter.
 
 
 ```{r loess, fig.cap = 'Loess Plot for Caliper Matching'}
@@ -219,18 +221,18 @@ loess3.plot(tutoring.matched.caliper, tutoring$Grade, ylab="Grade",
 
 # Effects of Smoking on Medical Expenditures
 
-In this example\footnote{This example is included as a demo in the package. Type `demo(nmes)` in R to start the demo.}  we will utilize the National Medical Expenditure Study \citep{nmes} to estimate the effects of smoking on medical expenditures. This dataset was first used by \cite{Johnson2003} to estimate the effects of smoking on diseases, and then the effect of diseases on medical expenditures. \cite{ImaiVanDyk2004} developed an a method to generalize the propensity score, called a p-score, to directly estimate the effects of smoking on medical expenditures. More specifically, they defined a quantitative treatment variable, pack year, defined as:
+In this example^[This example is included as a demo in the package. Type `demo(nmes)` in R to start the demo.]  we will utilize the National Medical Expenditure Study [@nmes] to estimate the effects of smoking on medical expenditures. This dataset was first used by [@Johnson2003] to estimate the effects of smoking on diseases, and then the effect of diseases on medical expenditures. [@ImaiVanDyk2004] developed an a method to generalize the propensity score, called a p-score, to directly estimate the effects of smoking on medical expenditures. More specifically, they defined a quantitative treatment variable, pack year, defined as:
 
 $$packyear = \frac{\text{number of cigarettes per day}}{20} \times \text{number of years smoked}$$
 
-Our approach is designed to match three separate groups and not a continuous treatment. We will address two research questions: (1) What are the effects of smoking status (i.e. never smoked, former smoker, and current smoker) on medical expenditures? and (2) What are the effects of lifetime smoking on medical expenditures? Figure \@ref(fig:packyearsAndTotalExp) represent the relationship between these two different treatments\footnote{Note that the control group in both instances are people who never smoked and is omitted from this figure.}. This figure reveals several, perhaps counterintuitive, facts. First, the unadjusted total medical expenditures for former smokers is higher than current smokers. Secondly, the distribution of $log(packyear)$ overlap substantial between former and current smokers. To dichotomize the pack year smoking variable, we will split on the median of pack year, labeled moderate smokers (i.e. $packyear \le median(packyear)$) and heavy smokers (i.e. $packyear > median(packyear)$).
+Our approach is designed to match three separate groups and not a continuous treatment. We will address two research questions: (1) What are the effects of smoking status (i.e. never smoked, former smoker, and current smoker) on medical expenditures? and (2) What are the effects of lifetime smoking on medical expenditures? Figure \@ref(fig:packyearsAndTotalExp) represent the relationship between these two different treatments^[Note that the control group in both instances are people who never smoked and is omitted from this figure.]. This figure reveals several, perhaps counterintuitive, facts. First, the unadjusted total medical expenditures for former smokers is higher than current smokers. Secondly, the distribution of $log(packyear)$ overlap substantial between former and current smokers. To dichotomize the pack year smoking variable, we will split on the median of pack year, labeled moderate smokers (i.e. $packyear \le median(packyear)$) and heavy smokers (i.e. $packyear > median(packyear)$).
 
 ```{r}
 data(nmes)
 nmes <- subset(nmes, select = c(packyears, smoke, LASTAGE, MALE, RACE3, beltuse, educate, marital, SREGION, POVSTALB, HSQACCWT, TOTALEXP))
 ```
 
-Both \cite{Johnson2003} and \cite{ImaiVanDyk2004} conducted a complete-case analysis and Johnson et al. reported that multiple imputation did not substantially affect their results.
+Both [@Johnson2003] and [@ImaiVanDyk2004] conducted a complete-case analysis and Johnson et al. reported that multiple imputation did not substantially affect their results.
 
 ```{r}
 nmes <- na.omit(nmes)
@@ -301,7 +303,7 @@ tmatch.packyears <- trimatch(tpsa.packyears,
 exact=nmes[,c("LastAge5","MALE","RACE3")])
 ```
 
-The following summary of the unmatched rows show that more than 96\% of the treatment units were matched in both models.
+The following summary of the unmatched rows show that more than 96% of the treatment units were matched in both models.
 
 ```{r}
 summary(unmatched(tmatch.smoke))
@@ -319,7 +321,7 @@ p.packyears
 
 ## Phase II: Estimating Effects of Smoking on Medical Expenditures
 
-For both treatment regimes we used the `maximumTreat` method for finding matched triplets that will retain each treatment unit once with the possibility of using treatment units twice in cases where a treatment unit would not otherwise be matched. The Friedman Rank Sum Test and repeated measures ANOVA indicate there a statistically significant difference in both treatment regimes. Figure \@ref(fig:nmesboxplots) provides box plots of the differences for the two treatment regimes. For the current smoking status treatment, the results indicate that smoker's actually spend less than former and non-smokers. However, as \cite{ImaiVanDyk2004} explain, the sample of smokers includes only survivors and should be considered when interpreting these results. 
+For both treatment regimes we used the `maximumTreat` method for finding matched triplets that will retain each treatment unit once with the possibility of using treatment units twice in cases where a treatment unit would not otherwise be matched. The Friedman Rank Sum Test and repeated measures ANOVA indicate there a statistically significant difference in both treatment regimes. Figure \@ref(fig:nmesboxplots) provides box plots of the differences for the two treatment regimes. For the current smoking status treatment, the results indicate that smoker's actually spend less than former and non-smokers. However, as [@ImaiVanDyk2004] explain, the sample of smokers includes only survivors and should be considered when interpreting these results. 
 
 Imai and van Dyk's analysis used pack year as treatment indicator. Our dichotomizing of pack year into moderate and heavy smokers more closely adheres to their approach. The results with this treatment regime indicate that smokers, both moderate and heavy, have higher medical expenditures than non-smokers. However, there is no statistically significant difference between heavy and moderate smokers in medical expenditures. 
 

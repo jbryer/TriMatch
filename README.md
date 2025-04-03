@@ -44,7 +44,7 @@ to check covariate balance are provided.
 
 <img src="man/figures/matches.png" width="80%" style="display: block; margin: auto;" />
 
-**References**
+### References
 
 Austin, P. (2008). A critical appraisal of propensity-score matching in
 the medical literature between 1996 and 2003. *Statistics in Medicine
@@ -62,11 +62,9 @@ Thoemmes, F. J. and E. S. Kim (2011). A systematic review of propensity
 score methods in the social sciences. *Multivariate Behavioral Research
 46*, 90–118.
 
-See the [Applied Propensity Score Analysis with
-R](https://psa.bryer.org) book and R package for a general introduction
-to propensity score methods.
+### Keywords
 
-**Keywords**: propensity score analysis, matching, non-binary treatments
+propensity score analysis, matching, non-binary treatments
 
 ### Installation
 
@@ -78,4 +76,6 @@ install.packages('TriMatch')
 remotes::install_github('TriMatch', 'jbryer')
 ```
 
-See `vignette('TriMatch')` for more details.
+See `vignette('TriMatch')` for more details. See the [Applied Propensity
+Score Analysis with R](https://psa.bryer.org) book and R package for a
+general introduction to propensity score methods.

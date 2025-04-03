@@ -138,7 +138,7 @@ regression.
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>P</mi><mi>S</mi></mrow><mn>1</mn></msub><mo>=</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><msub><mi>T</mi><mn>1</mn></msub><mi>C</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><msub><mi>X</mi><mrow><msub><mi>T</mi><mn>1</mn></msub><mi>C</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">{ PS }_{ 1 }=e({ x }_{ { T }_{ 1 }C })=Pr(z=1|{ X }_{ { T }_{ 1 }C })</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>P</mi><mi>S</mi></mrow><mn>2</mn></msub><mo>=</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><msub><mi>T</mi><mn>2</mn></msub><mi>C</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><msub><mi>X</mi><mrow><msub><mi>T</mi><mn>2</mn></msub><mi>C</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">{ PS }_{ 2 }=e({ x }_{ { T }_{ 2 }C })=Pr(z=1|{ X}_{ { T }_{ 2 }C })</annotation></semantics></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>P</mi><mi>S</mi></mrow><mn>3</mn></msub><mo>=</mo><mi>e</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><msub><mi>T</mi><mn>2</mn></msub><msub><mi>T</mi><mn>1</mn></msub></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo>=</mo><mn>1</mn><mo stretchy="false" form="prefix">|</mo><msub><mi>X</mi><mrow><msub><mi>T</mi><mn>2</mn></msub><msub><mi>T</mi><mn>1</mn></msub></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">{ PS }_{ 3 }=e({ x }_{ { T }_{ 2 }{ T }_{ 1 } })=Pr(z=1|{ X }_{ { T }_{ 2 }{ T }_{ 1 } })</annotation></semantics></math></p>
 <p>B. Match order is determined. The default is to start with the larger
 of the two treatments, followed the second treatment, and lastly the
-control group. However, the match order is configurable vis-`{a}-vis the
+control group. However, the match order is configurable vis-a-vis the
 <code>match.order</code> parameter.</p>
 <p>C. Three distance matrices are calculated,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>D</mi><mn>1</mn></msub><annotation encoding="application/x-tex">D_1</annotation></semantics></math>,
@@ -159,7 +159,8 @@ is the standardized distance between
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><msub><mi>S</mi><mn>1</mn></msub><mrow><mo stretchy="true" form="prefix">[</mo><mi>y</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">PS_1[y]</annotation></semantics></math>.</p>
 <p>D. Distances greater than the caliper, 0.25 by default as recommended
-by , are eliminated. The caliper is specified in standard units so 0.25
+by <span class="citation">(Rosenbaum and Rubin 1985)</span>, are
+eliminated. The caliper is specified in standard units so 0.25
 corresponds to one-quarter of one standard deviation.</p>
 <p>E. If partial exact matching is desired, three logical matrices are
 created with the same dimensions as the distance matrices calculated in
@@ -283,10 +284,10 @@ four times as many control units as treatment units (the ratio is larger
 when considering the treatments separately). These methods fall on a
 spectrum where each treatment unit is used minimally
 (<code>maximumTreat</code> method) or all units are used (caliper
-matching). suggests testing hypothesis more than once and it is our
-general recommendation to utilize multiple methods. Functions to help
-present and compare the results from multiple methods are provided and
-discussed below.</p>
+matching). <span class="citation">(Rosenbaum 2012)</span> suggests
+testing hypothesis more than once and it is our general recommendation
+to utilize multiple methods. Functions to help present and compare the
+results from multiple methods are provided and discussed below.</p>
 <p>The <code>unmatched</code> function will return the rows of students
 who were not matched. The <code>summary</code> function will provide
 information about how many students within each group were not matched.
@@ -325,14 +326,15 @@ course.</p>
 <h3 id="checking-balance">Checking Balance<a class="anchor" aria-label="anchor" href="#checking-balance"></a>
 </h3>
 <p>The eventual strength of propensity score methods is dependent on how
-well balance is achieved. introduced graphical approaches to evaluating
-balance. We provide functions that extend that framework to matching of
-three groups. Figure @ref(fig:multibalance) is a multiple covariate
-balance plot that plots the absolute effect size of each covariate
-before and after adjustment. In this example, the figure suggests that
-reasonable balance has been achieved across all covariates and across
-all three models since effect sizes are smaller than the unadjusted in
-most cases and relatively small.</p>
+well balance is achieved. <span class="citation">(Helmreich and Pruzek
+2009)</span> introduced graphical approaches to evaluating balance. We
+provide functions that extend that framework to matching of three
+groups. Figure @ref(fig:multibalance) is a multiple covariate balance
+plot that plots the absolute effect size of each covariate before and
+after adjustment. In this example, the figure suggests that reasonable
+balance has been achieved across all covariates and across all three
+models since effect sizes are smaller than the unadjusted in most cases
+and relatively small.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="../reference/multibalance.plot.html">multibalance.plot</a></span><span class="op">(</span><span class="va">tutoring.tpsa</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Covariate Balance Plot"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -388,10 +390,12 @@ three groups.</p>
 <p>Although the <code>merge</code> function is convenient for conducting
 your own analysis, the <code>summary</code> function will perform the
 most common analyses including Friedman Rank Sum test and repeated
-measures ANOVA. If either of those tests produce a value less than the
-specified threshold (0.05 by default), then the <code>summary</code>
-function will also perform and return Wilcoxon signed rank test and
-three separate dependent sample -tests .</p>
+measures ANOVA. If either of those tests produce a <em>p</em> value less
+than the specified threshold (0.05 by default), then the
+<code>summary</code> function will also perform and return Wilcoxon
+signed rank test and three separate dependent sample <em>t</em>-tests
+see <span class="citation">(Austin 2010)</span> for discussion of
+dependent versus independent <em>t</em>-tests.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tutoring.matched</span>, <span class="va">tutoring</span><span class="op">$</span><span class="va">Grade</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span>
@@ -444,15 +448,20 @@ Boxplot of Differences
 </div>
 <p>Another useful visualization for presenting the results is the Loess
 plot. In Figure @ref(fig:loess) we plot the propensity scores on the
--axis and the outcome (grade in this example) on the <em>y</em>-axis. A
-Loess regression line is then overlaid. Since there are three propensity
-score scales, the <code>plot.loess3</code> function will use the
-propensity scores from the model predicting treatment one from treatment
-two. Propensity scores for the control group are then imputed by taking
-the mean of the propensity scores of the two treatment units that
-control was matched to. It should be noted that if a control unit is
-matched to two different sets of treatment units, then that control unit
-will have two propensity scores. Which propensity score scale is
+<em>x</em>-axis and the outcome (grade in this example) on the
+<em>y</em>-axis. A Loess regression line is then overlaid.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;We utilize the &lt;code&gt;geom_smooth&lt;/code&gt; geometry in the
+&lt;code&gt;ggplot2&lt;/code&gt; package that provides other smoothing functions
+including linear modeling (&lt;code&gt;lm&lt;/code&gt;), generalized linear modeling
+(&lt;code&gt;glm&lt;/code&gt;), and robust generalized additive models
+(&lt;code&gt;gam&lt;/code&gt;). See the documentation for the
+&lt;code&gt;stat_smooth&lt;/code&gt; function in &lt;code&gt;ggplot2&lt;/code&gt;.&lt;/p&gt;"><sup>1</sup></a> Since there are three
+propensity score scales, the <code>plot.loess3</code> function will use
+the propensity scores from the model predicting treatment one from
+treatment two. Propensity scores for the control group are then imputed
+by taking the mean of the propensity scores of the two treatment units
+that control was matched to. It should be noted that if a control unit
+is matched to two different sets of treatment units, then that control
+unit will have two propensity scores. Which propensity score scale is
 utilized can be explicitly specified using the <code>model</code>
 parameter.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -468,14 +477,17 @@ Loess Plot for Caliper Matching
 <div class="section level2">
 <h2 id="effects-of-smoking-on-medical-expenditures">Effects of Smoking on Medical Expenditures<a class="anchor" aria-label="anchor" href="#effects-of-smoking-on-medical-expenditures"></a>
 </h2>
-<p>In this example we will utilize the National Medical Expenditure
-Study to estimate the effects of smoking on medical expenditures. This
-dataset was first used by to estimate the effects of smoking on
-diseases, and then the effect of diseases on medical expenditures.
-developed an a method to generalize the propensity score, called a
-p-score, to directly estimate the effects of smoking on medical
-expenditures. More specifically, they defined a quantitative treatment
-variable, pack year, defined as:</p>
+<p>In this example<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This example is included as a demo in the package. Type
+&lt;code&gt;demo(nmes)&lt;/code&gt; in R to start the demo.&lt;/p&gt;"><sup>2</sup></a> we will utilize the National Medical
+Expenditure Study <span class="citation">(National Center For Health
+Services Research 1987)</span> to estimate the effects of smoking on
+medical expenditures. This dataset was first used by <span class="citation">(Johnson et al. 2003)</span> to estimate the effects of
+smoking on diseases, and then the effect of diseases on medical
+expenditures. <span class="citation">(<strong>ImaiVanDyk2004?</strong>)</span> developed an
+a method to generalize the propensity score, called a p-score, to
+directly estimate the effects of smoking on medical expenditures. More
+specifically, they defined a quantitative treatment variable, pack year,
+defined as:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi>y</mi><mi>e</mi><mi>a</mi><mi>r</mi><mo>=</mo><mfrac><mtext mathvariant="normal">number of cigarettes per day</mtext><mn>20</mn></mfrac><mo>×</mo><mtext mathvariant="normal">number of years smoked</mtext></mrow><annotation encoding="application/x-tex">packyear = \frac{\text{number of cigarettes per day}}{20} \times \text{number of years smoked}</annotation></semantics></math></p>
 <p>Our approach is designed to match three separate groups and not a
 continuous treatment. We will address two research questions: (1) What
@@ -483,7 +495,8 @@ are the effects of smoking status (i.e. never smoked, former smoker, and
 current smoker) on medical expenditures? and (2) What are the effects of
 lifetime smoking on medical expenditures? Figure
 @ref(fig:packyearsAndTotalExp) represent the relationship between these
-two different treatments. This figure reveals several, perhaps
+two different treatments<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that the control group in both instances are people
+who never smoked and is omitted from this figure.&lt;/p&gt;"><sup>3</sup></a>. This figure reveals several, perhaps
 counterintuitive, facts. First, the unadjusted total medical
 expenditures for former smokers is higher than current smokers.
 Secondly, the distribution of
@@ -497,9 +510,9 @@ and heavy smokers
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nmes</span><span class="op">)</span></span>
 <span><span class="va">nmes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">nmes</span>, select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">packyears</span>, <span class="va">smoke</span>, <span class="va">LASTAGE</span>, <span class="va">MALE</span>, <span class="va">RACE3</span>, <span class="va">beltuse</span>, <span class="va">educate</span>, <span class="va">marital</span>, <span class="va">SREGION</span>, <span class="va">POVSTALB</span>, <span class="va">HSQACCWT</span>, <span class="va">TOTALEXP</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Both and conducted a complete-case analysis and Johnson et
-al. reported that multiple imputation did not substantially affect their
-results.</p>
+<p>Both <span class="citation">(Johnson et al. 2003)</span> and <span class="citation">(<strong>ImaiVanDyk2004?</strong>)</span> conducted a
+complete-case analysis and Johnson et al. reported that multiple
+imputation did not substantially affect their results.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nmes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">nmes</span><span class="op">)</span></span></code></pre></div>
 <p>Since many participants had zero medical expenditures, we will add
@@ -621,8 +634,9 @@ significant difference in both treatment regimes. Figure
 @ref(fig:nmesboxplots) provides box plots of the differences for the two
 treatment regimes. For the current smoking status treatment, the results
 indicate that smoker’s actually spend less than former and non-smokers.
-However, as explain, the sample of smokers includes only survivors and
-should be considered when interpreting these results.</p>
+However, as <span class="citation">(<strong>ImaiVanDyk2004?</strong>)</span> explain, the
+sample of smokers includes only survivors and should be considered when
+interpreting these results.</p>
 <p>Imai and van Dyk’s analysis used pack year as treatment indicator.
 Our dichotomizing of pack year into moderate and heavy smokers more
 closely adheres to their approach. The results with this treatment
@@ -693,10 +707,32 @@ Helmreich, James E., and Robert M. Pruzek. 2009. <span>“PSAgraphics: An
 r Package to Support Propensity Score Analysis.”</span> <em>Journal of
 Statistical Software</em> 29 (6): 1–23. <a href="http://www.jstatsoft.org/v29/i06" class="external-link">http://www.jstatsoft.org/v29/i06</a>.
 </div>
+<div id="ref-Johnson2003" class="csl-entry">
+Johnson, Elizabeth, Francesca Dominici, Michael Griswold, and Scott L.
+Zeger. 2003. <span>“Disease Cases and Their Medical Costs Attributable
+to Smoking: An Analysis of the National Medical Expenditure
+Survey.”</span> <em>Journal of Econometrics</em> 112: 135–51.
+</div>
+<div id="ref-nmes" class="csl-entry">
+National Center For Health Services Research. 1987. <span>“National
+Medical Expenditure Survey. Methods II. Questionnaires and Data
+Collection Methods for the Household Survey and the Survey of American
+Indians and Alaska Natives. National Center for Health Services Research
+and Health Technology Assessment.”</span>
+</div>
+<div id="ref-Rosenbaum2012" class="csl-entry">
+Rosenbaum, Paul R. 2012. <span>“Testing One Hypothesis Twice in
+Observational Studies.”</span> <em>Biometrika</em>, 1–12.
+</div>
 <div id="ref-RosenbaumRubin1983" class="csl-entry">
 Rosenbaum, Paul R., and Donald B. Rubin. 1983. <span>“The Central Role
 of the Propensity Score in Observational Studies for Causal
 Effects.”</span> <em>Biometrika</em> 70: 41–55.
+</div>
+<div id="ref-RosenbaumRubin1985" class="csl-entry">
+———. 1985. <span>“Constructing a Control Group Using Multivariate
+Matched Sampling Methods That Incorporate the Propensity Score.”</span>
+<em>The American Statistician</em> 39.
 </div>
 <div id="ref-ThoemmesKim2011" class="csl-entry">
 Thoemmes, Felix J., and Eun Sook Kim. 2011. <span>“A Systematic Review
@@ -705,6 +741,7 @@ of Propensity Score Methods in the Social Sciences.”</span>
 </div>
 </div>
 </div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

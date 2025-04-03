@@ -25,6 +25,7 @@ Imports:
     randomForest,
     stats
 Suggests:
+    bookdown,
     knitr,
     MASS,
     rmarkdown,
