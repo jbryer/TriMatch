@@ -1,29 +1,35 @@
-Package: TriMatch
-License: GPL (>= 2)
-Title: Propensity Score Matching of Non-Binary Treatments
 Type: Package
-Author: Jason Bryer <jason@bryer.org>
-Maintainer: Jason Bryer <jason@bryer.org>
+Package: TriMatch
+Title: Propensity Score Matching of Non-Binary Treatments
+Version: 1.0.0
+Date: 2025-04-03
+Authors@R: 
+    person("Jason", "Bryer", , "jason@bryer.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2454-0402"))
 Description: Propensity score matching for non-binary treatments.
-Version: 0.9.9
-Date: 2017-12-05
-URL: http://jason.bryer.org/TriMatch, http://github.com/jbryer/TriMatch
+License: GPL (>= 2)
+URL: http://jbryer.github.io/TriMatch, http://github.com/jbryer/TriMatch
 BugReports: https://github.com/jbryer/TriMatch/issues
 Depends:
-    ggplot2,
-    scales,
-    reshape2,
     ez,
-    R (>= 3.0)
+    ggplot2,
+    R (>= 3.0),
+    reshape2,
+    scales
 Imports:
-    psych,
-    stats,
-    PSAgraphics,
     compiler,
     grid,
     gridExtra,
-    randomForest
+    PSAgraphics,
+    psych,
+    randomForest,
+    stats
 Suggests:
+    knitr,
     MASS,
+    rmarkdown,
     xtable
-RoxygenNote: 6.0.1
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+RoxygenNote: 7.3.2

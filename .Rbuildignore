@@ -1,26 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-DataPrep.r
-pscore
-pscore.tar.gz
-studentsHS.rda
-TriMatch.dev.r
-Articles
-vignettes/Sweave.sty
-vignettes/TriMatch.tpbuild
-ACS Data Prep.r
-Nested Loops.R
-useR 2013
-HSOutreach
-nmes.test.R
-working
+vignettes/TriMatch_cache
 Icon
 README.md
-Approval Form Letter - Bryer & Bose.pdf
-vignettes_working
-JSSstyle.zip
-TriMatchJSS
-Icon
 .DS_Store
 .Rhistory
 .dropbox
@@ -31,3 +13,8 @@ HSOutreach
 .git
 cran-comments.md
 .travis.yml
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+README.Rmd
+private/

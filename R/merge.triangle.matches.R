@@ -2,7 +2,7 @@
 #' 
 #' The \code{y} parameter should be a subset of the original data used.
 #' 
-#' @param x the result of \code{\link{trimatch}}
+#' @param x the result of [trimatch()]
 #' @param y another data frame or vector to merge with.
 #' @param ... unused
 #' @return \code{x} with the additional column(s) added.

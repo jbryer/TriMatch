@@ -4,7 +4,9 @@
 \name{nmes}
 \alias{nmes}
 \title{Results from the 1987 National Medical Expenditure Study}
-\format{a data frame with 9,708 observations of 12 variables.}
+\format{
+a data frame with 9,708 observations of 12 variables.
+}
 \source{
 http://imai.princeton.edu/research/pscore.html
 }

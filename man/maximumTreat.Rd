@@ -8,7 +8,7 @@ the caliper.}
 maximumTreat(tmatch, ...)
 }
 \arguments{
-\item{tmatch}{initial results from \code{\link{trimatch}} that contains all
+\item{tmatch}{initial results from [trimatch()] that contains all
 possible matches within the specified caliper.}
 
 \item{...}{currently unused.}

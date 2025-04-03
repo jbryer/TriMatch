@@ -1,10 +1,10 @@
-#' Returns rows from \code{\link{trips}} that were not matched by \code{\link{trimatch}}.
+#' Returns rows from [trips()] that were not matched by [trimatch()].
 #' 
-#' This function returns a subset of \code{\link{trips}} that were not matched by
-#' \code{\link{trimatch}}. All data frame methods work with the returned object
-#' but special \code{summary} function will provided relevant information.
+#' This function returns a subset of [trips()] that were not matched by
+#' [trimatch()]. All data frame methods work with the returned object
+#' but special `summary` function will provided relevant information.
 #' 
-#' @param tmatch the results of \code{\link{trimatch}}.
+#' @param tmatch the results of [trimatch()].
 #' @return a data frame of unmatched rows.
 #' @export
 unmatched <- function(tmatch) {
@@ -20,7 +20,7 @@ unmatched <- function(tmatch) {
 #' Will return as a list and print the percentage of total unmatched rows and
 #' percent by treatment.
 #' 
-#' @param object results of \code{\link{unmatched}}
+#' @param object results of [unmatched()].
 #' @param digits number of digits to print.
 #' @param ... currently unused.
 #' @return a list of summary results.

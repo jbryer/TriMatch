@@ -4,11 +4,18 @@
 \alias{trimatch}
 \title{Creates matched triplets.}
 \usage{
-trimatch(tpsa, caliper = 0.25, nmatch = c(15), match.order, exact,
-  method = maximumTreat, ...)
+trimatch(
+  tpsa,
+  caliper = 0.25,
+  nmatch = c(15),
+  match.order,
+  exact,
+  method = maximumTreat,
+  ...
+)
 }
 \arguments{
-\item{tpsa}{the results from \code{\link{trips}}}
+\item{tpsa}{the results from [trips()]}
 
 \item{caliper}{a vector of length one or three indicating the caliper to use 
 for matching within each step. This is expressed in standardized units such 
@@ -30,21 +37,21 @@ That is, matched triplets will first be matched exactly on these covariates
 before evaluating distances.}
 
 \item{method}{This is a function that specifies which matched triplets will be
-retained. If \code{NULL}, all matched triplets within the specified
+retained. If `NULL`, all matched triplets within the specified
 caliper will be returned (equivalent to caliper matching in two group
-matching). The default is \code{\link{maximumTreat}} that
+matching). The default is [maximumTreat()] that
 attempts include each treatment at least once. 
-Another option is \code{\link{OneToN}} which mimicks the one-to-n 
+Another option is [OneToN()] which mimicks the one-to-n 
 matching where treatments are matched to multiple control units.}
 
-\item{...}{other parameters passed to \code{method}.}
+\item{...}{other parameters passed to `method`.}
 }
 \description{
 Create matched triplets by minimizing the total distance between matched triplets
 within a specified caliper.
 }
 \details{
-The \code{\link{trips}} function will estimate the propensity scores
+The [trips()] function will estimate the propensity scores
 for three models. This method will then find the best matched triplets based
 upon minimizing the summed differences between propensity scores across the
 three models. That is, the algorithm works as follows:

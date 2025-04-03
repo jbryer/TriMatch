@@ -1,8 +1,8 @@
-#' Merges covariate(s) with the results of \code{\link{trips}}.
+#' Merges covariate(s) with the results of [trips()].
 #' 
 #' The \code{y} parameter should be a subset of the original data used.
 #' 
-#' @param x the result of \code{\link{trips}}
+#' @param x the result of [trips()]
 #' @param y another data frame or vector to merge with.
 #' @param ... unused
 #' @return \code{x} with the additional column(s) added.

@@ -7,7 +7,7 @@
 OneToN(tmatch, M1 = 2, M2 = 1, ...)
 }
 \arguments{
-\item{tmatch}{initial results from \code{\link{trimatch}} that contains all
+\item{tmatch}{initial results from [trimatch()] that contains all
 possible matches within the specified caliper.}
 
 \item{M1}{a scaler indicating the number of unique subjects in group one to

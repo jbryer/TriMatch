@@ -7,7 +7,7 @@
 trimatch.apply2(tpsa, caliper, nmatch, match.order, sd1, sd2, sd3)
 }
 \arguments{
-\item{tpsa}{the results from \code{\link{trips}}}
+\item{tpsa}{the results from [trips()]}
 
 \item{caliper}{a vector of length one or three indicating the caliper to use 
 for matching within each step. This is expressed in standardized units such 

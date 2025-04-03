@@ -4,13 +4,23 @@
 \alias{plot.triangle.psa}
 \title{Triangle plot.}
 \usage{
-\method{plot}{triangle.psa}(x, point.alpha = 0.3, point.size = 1.5,
-  legend.title = "Treatment", text.size = 4, draw.edges = FALSE,
-  draw.segments = TRUE, edge.alpha = 0.2, edge.color = "grey",
-  edge.labels = c("Model 1", "Model 2", "Model 3"), sample = c(1), ...)
+\method{plot}{triangle.psa}(
+  x,
+  point.alpha = 0.3,
+  point.size = 1.5,
+  legend.title = "Treatment",
+  text.size = 4,
+  draw.edges = FALSE,
+  draw.segments = TRUE,
+  edge.alpha = 0.2,
+  edge.color = "grey",
+  edge.labels = c("Model 1", "Model 2", "Model 3"),
+  sample = c(1),
+  ...
+)
 }
 \arguments{
-\item{x}{the results from \code{\link{trips}}.}
+\item{x}{the results from [trips()].}
 
 \item{point.alpha}{alpha level for points.}
 

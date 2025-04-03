@@ -2,18 +2,18 @@
 % Please edit documentation in R/unmatched.R
 \name{unmatched}
 \alias{unmatched}
-\title{Returns rows from \code{\link{trips}} that were not matched by \code{\link{trimatch}}.}
+\title{Returns rows from [trips()] that were not matched by [trimatch()].}
 \usage{
 unmatched(tmatch)
 }
 \arguments{
-\item{tmatch}{the results of \code{\link{trimatch}}.}
+\item{tmatch}{the results of [trimatch()].}
 }
 \value{
 a data frame of unmatched rows.
 }
 \description{
-This function returns a subset of \code{\link{trips}} that were not matched by
-\code{\link{trimatch}}. All data frame methods work with the returned object
-but special \code{summary} function will provided relevant information.
+This function returns a subset of [trips()] that were not matched by
+[trimatch()]. All data frame methods work with the returned object
+but special `summary` function will provided relevant information.
 }

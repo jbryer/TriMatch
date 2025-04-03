@@ -5,11 +5,10 @@
 \title{Provides a summary of the matched triplets including analysis of outcome
 measure if provided.}
 \usage{
-\method{summary}{triangle.matches}(object, outcome, p = 0.05,
-  ordering = attr(object, "match.order"), ...)
+\method{summary}{triangle.matches}(object, outcome, p = 0.05, ordering = attr(object, "match.order"), ...)
 }
 \arguments{
-\item{object}{result of \code{\link{trimatch}}.}
+\item{object}{result of [trimatch()].}
 
 \item{outcome}{vector representing the outcome measure.}
 
@@ -32,6 +31,5 @@ significant difference (as determined by the value of the \code{p} parameter),
 a Pairwise Wilcoxon Rank Sum Test will also be provided.
 }
 \seealso{
-\code{\link{friedman.test}}, \code{\link{ezANOVA}}, 
-       \code{\link{pairwise.wilcox.test}}
+[stats::friedman.test()], [ez::ezANOVA()], [stats::pairwise.wilcox.test()]
 }

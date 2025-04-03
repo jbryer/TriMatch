@@ -7,9 +7,9 @@
 multibalance.plot(tpsa, tmatch, grid = TRUE, cols)
 }
 \arguments{
-\item{tpsa}{results of \code{\link{trips}}.}
+\item{tpsa}{results of [trips()].}
 
-\item{tmatch}{results of \code{\link{trimatch}}.}
+\item{tmatch}{results of [trimatch()].}
 
 \item{grid}{if TRUE, then a grid of three plots for each model will be displayed.}
 
@@ -21,7 +21,7 @@ logistic regression model are used.}
 a \code{ggplot2} figure.
 }
 \description{
-A graphic based upon \code{\link{cv.bal.psa}} function in the \code{PSAgraphics}
+A graphic based upon [cv.bal.psa()] function in the `PSAgraphics`
 package. This graphic plots the effect sizes for multiple covariates before and
 after propensity score adjustment.
 }

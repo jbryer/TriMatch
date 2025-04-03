@@ -1,10 +1,10 @@
 #' Prints the summary results of the logistic regression models.
 #' 
-#' The \code{\link{trips}} function estimates three separate logistic regression
+#' The [trips()] function estimates three separate logistic regression
 #' models for each pair of groups. This function will print a combined table
 #' of the three summaries.
 #' 
-#' @param object the results of \code{\link{trips}}.
+#' @param object the results of [trips()].
 #' @param ... currently unused.
 #' @method summary triangle.psa
 #' @export

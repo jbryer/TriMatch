@@ -4,17 +4,25 @@
 \alias{plot.triangle.matches}
 \title{Triangle plot drawing matched triplets.}
 \usage{
-\method{plot}{triangle.matches}(x, sample = 0.05,
-  rows = sample(nrow(tmatch), nrow(tmatch) * sample), line.color = "black",
-  line.alpha = 0.5, point.color = "black", point.size = 3, p, ...)
+\method{plot}{triangle.matches}(
+  x,
+  sample = 0.05,
+  rows = sample(nrow(tmatch), nrow(tmatch) * sample),
+  line.color = "black",
+  line.alpha = 0.5,
+  point.color = "black",
+  point.size = 3,
+  p,
+  ...
+)
 }
 \arguments{
-\item{x}{matched triplets from \code{link{triangle.match}}.}
+\item{x}{matched triplets from [triangle.match()].}
 
 \item{sample}{an number between 0 and 1 representing the percentage of matched
 triplets to draw.}
 
-\item{rows}{an integer vector corresponding to the rows in \code{tmatch} to draw.}
+\item{rows}{an integer vector corresponding to the rows in `tmatch` to draw.}
 
 \item{line.color}{the line color.}
 
@@ -24,25 +32,25 @@ triplets to draw.}
 
 \item{point.size}{point size for matched triplets.}
 
-\item{p}{a ggplot to add the match lines. If NULL, then \code{\link{plot.triangle.psa}}.}
+\item{p}{a ggplot to add the match lines. If NULL, then [plot.triangle.psa()].}
 
-\item{...}{other parameters passed to \code{\link{plot.triangle.psa}}.}
+\item{...}{other parameters passed to [plot.triangle.psa()].}
 }
 \value{
-a \code{ggplot2} graphic.
+a `ggplot2` graphic.
 }
 \description{
-This plot function adds a layer to \code{\link{plot.triangle.psa}} drawing 
-matched triplets. If \code{p} is supplied, this function will simply draw on
-top of the pre-existing plot, otherwise \code{\link{plot.triangle.psa}} will
+This plot function adds a layer to [plot.triangle.psa()] drawing 
+matched triplets. If `p` is supplied, this function will simply draw on
+top of the pre-existing plot, otherwise [plot.triangle.psa()] will
 be called first.
 }
 \details{
-If this function calls \code{\link{plot.triangle.psa}}, it will only draw
+If this function calls [plot.triangle.psa()], it will only draw
 line segments and points for those data rows that were used in the matching
 procedure. That is, data elements not matched will be excluded from the
 figure. To plot all segments and points regardless if used in matching, set
-\code{p = plot(tpsa)}.
+`p = plot(tpsa)`.
 }
 \seealso{
 plot.triangle.psa

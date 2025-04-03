@@ -10,7 +10,7 @@ utils::globalVariables(c('ps','treat','id'))
 #' is not specified, the default will be to use the model that estimates the propensity
 #' scores for the first two groups in the matching order.
 #' 
-#' @param tmatch the results of \code{\link{trimatch}}.
+#' @param tmatch the results of [trimatch()].
 #' @param outcome a vector representing the outcomes.
 #' @param model an integer between 1 and 3 indicating from which model the propensity
 #'        scores will be used.
@@ -21,14 +21,14 @@ utils::globalVariables(c('ps','treat','id'))
 #' @param connections.alpha number between 0 and 1 representing the alpha levels for 
 #'        connection lines.
 #' @param plot.points a \code{ggplot2} function for plotting points. Usually 
-#'        \code{\link{geom_point}} or \code{\link{geom_jitter}}. If \code{NULL} no points
+#'        [ggplot2::geom_point()] or [ggplot2::geom_jitter()]. If `NULL` no points
 #'        will be drawn.
 #' @param points.alpha number between 0 and 1 representing the alpha level for the points.
-#' @param points.palette the color palette to use. See \code{\link{scale_colour_brewer}}
+#' @param points.palette the color palette to use. See [ggplot2::scale_colour_brewer()]
 #'        and \url{http://colorbrewer2.org/} for more information.
-#' @param ... other parameters passed to \code{\link{geom_smooth}} and 
-#'        \code{\link{stat_smooth}}.
-#' @return a \code{ggplot2} figure.
+#' @param ... other parameters passed to [ggplot2::geom_smooth()] and 
+#'        [ggplot2::stat_smooth()].
+#' @return a `ggplot2` figure.
 #' @export
 loess3.plot <- function(tmatch, outcome, model,
 						ylab='Outcome', 

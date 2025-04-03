@@ -7,7 +7,7 @@
 data.frame.to.list(...)
 }
 \arguments{
-\item{...}{other parameters passed to \code{\link{data.frame}}.}
+\item{...}{other parameters passed to [base::data.frame()].}
 }
 \value{
 a data frame.
@@ -31,6 +31,34 @@ a number of columns equal to the length of the longest vector. For vectors with
 length less than this will fill the row with \code{NA}s. Note that this function
 will print a warning if this condition occurs.
 }
+\examples{
+    test1 <- list( c(a='a',b='b',c='c'), c(a='d',b='e',c='f'))
+    as.data.frame(test1)
+    
+    test2 <- list( c('a','b','c'), c(a='d',b='e',c='f'))
+    as.data.frame(test2)
+    
+    test3 <- list('Row1'=c(a='a',b='b',c='c'), 'Row2'=c(var1='d',var2='e',var3='f'))
+    as.data.frame(test3)
+    
+    \dontrun{
+    #This will print a warning.
+    test4 <- list('Row1'=letters[1:5], 'Row2'=letters[1:7], 'Row3'=letters[8:14])
+    as.data.frame(test4)
+    }
+    
+    test5 <- list(letters[1:10], letters[11:20])
+    as.data.frame(test5)
+    
+    \dontrun{
+    #This will throw an error.
+    test6 <- list(list(letters), letters)
+    as.data.frame(test6)
+    }
+}
 \references{
 \url{http://stackoverflow.com/questions/4227223/r-list-to-data-frame}
+}
+\author{
+Jason Bryer \href{mailto:jason@bryer.org}{jason@bryer.org}
 }

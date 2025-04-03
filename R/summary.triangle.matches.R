@@ -8,7 +8,7 @@ utils::globalVariables(c('Outcome','ID','Treatment'))
 #' significant difference (as determined by the value of the \code{p} parameter),
 #' a Pairwise Wilcoxon Rank Sum Test will also be provided.
 #' 
-#' @param object result of \code{\link{trimatch}}.
+#' @param object result of [trimatch()].
 #' @param outcome vector representing the outcome measure.
 #' @param p threshold of the p value to perform a 
 #' @param ... parameters passed to other statistical tests.
@@ -16,8 +16,7 @@ utils::globalVariables(c('Outcome','ID','Treatment'))
 #'        analysis will be conducted as:
 #'        \code{ordering[1] - ordering[2]}, \code{ordering[1] - ordering[3]},
 #'        and \code{ordering[2] - ordering[3]}.
-#' @seealso \code{\link{friedman.test}}, \code{\link{ezANOVA}}, 
-#'        \code{\link{pairwise.wilcox.test}}
+#' @seealso [stats::friedman.test()], [ez::ezANOVA()], [stats::pairwise.wilcox.test()]
 #' @return a trimatch.summary object.
 #' @method summary triangle.matches
 #' @export
@@ -92,13 +91,13 @@ summary.triangle.matches <- function(object, outcome, p=.05,
 	return(results)
 }
 
-#' Prints the results of \code{\link{summary.triangle.matches}}.
+#' Prints the results of [summary.triangle.matches()].
 #' 
 #' This is an S3 generic function to print the results of 
-#' \code{\link{summary.triangle.matches}}.
+#' [summary.triangle.matches()].
 #' 
-#' @param x results of \code{\link{summary.triangle.matches}}.
-#' @param ... multiple results of \code{\link{summary.triangle.matches}}. These
+#' @param x results of [summary.triangle.matches()].
+#' @param ... multiple results of [summary.triangle.matches()]. These
 #'        must be named. For example, \code{"Method 1" = summary(tmath, outcome)}.
 #' @method print trimatch.summary
 #' @export

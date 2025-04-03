@@ -12,7 +12,7 @@ utils::globalVariables(c('Treatment','Covariate','Mean','Strata','ymin','ymax',
 #' a continuous covariate a repeated measures ANOVA will also be performed, printed,
 #' and returned as an attribute named \code{rmanova}.
 #' 
-#' @param x results from \code{\link{trimatch}}.
+#' @param x results from [trimatch()].
 #' @param covar vector of the covariate to check balance of.
 #' @param model an integer between 1 and 3 indicating from which model the 
 #'        propensity scores will be used.
@@ -23,10 +23,10 @@ utils::globalVariables(c('Treatment','Covariate','Mean','Strata','ymin','ymax',
 #' @param label label for the legend.
 #' @param print print the output if the Freidman Rank Sum Test and repeated
 #'        measures ANOVA (for continuous variables).
-#' @param legend.position the position of the legend. See \code{\link{theme}}.
+#' @param legend.position the position of the legend. 
 #' @param x.axis.labels labels for the x-axis.
 #' @param x.axis.angle angle for x-axis labels.
-#' @param ... parameters passed to \code{\link{plot.balance.plots}}.
+#' @param ... parameters passed to [plot.balance.plots()].
 #' @return a \code{ggplot2} figure or a list of \code{ggplot2} figures if \code{covar}
 #'        is a data frame.
 #' @export
@@ -183,11 +183,11 @@ balance.plot <- function(x, covar, model,
 	}
 }
 
-#' Print the results of \code{\link{balance.plot}} for a data frame of covariates.
+#' Print the results of [balance.plot()] for a data frame of covariates.
 #' 
-#' @param x the results of \code{\link{balance.plot}} when a data frame is specified.
-#' @param ... parameters passed to \code{\link{plot.balance.plots}} and
-#'        \code{\link{summary.balance.plots}}.
+#' @param x the results of [balance.plot()] when a data frame is specified.
+#' @param ... parameters passed to [plot.balance.plots()] and
+#'        [summary.balance.plots()].
 #' @method print balance.plots
 #' @export
 print.balance.plots <- function(x, ...) {
@@ -197,13 +197,13 @@ print.balance.plots <- function(x, ...) {
 
 #' Prints a summary table of the test statistics of each balance plot.
 #' 
-#' The \code{\link{balance.plot}} function will create a grid of balance plots
+#' The [balance.plot()] function will create a grid of balance plots
 #' if a data frame is provided. The returned object is a list of \code{ggplot2}
 #' figures with the statistical tests (i.e. Friedmen Rank Sum tests and if a
 #' continuous variable, repeated measures ANOVA as well) saved as attributes.
 #' This function will return a data frame combining all of those results.
 #' 
-#' @param object the results of \code{\link{balance.plot}} when a data frame is specified.
+#' @param object the results of [balance.plot()] when a data frame is specified.
 #' @param ... currently unused.
 #' @return a data frame
 #' @export
@@ -233,7 +233,7 @@ summary.balance.plots <- function(object, ...) {
 
 #' Prints a grid of balance plots.
 #' 
-#' @param x the results of \code{\link{balance.plot}} when a data frame is specified.
+#' @param x the results of [balance.plot()] when a data frame is specified.
 #' @param rows if \code{covar} is a data frame of covariates, the number of
 #'        rows in the grid of figures.
 #' @param cols if \code{covar} is a data frame of covariates, the number of

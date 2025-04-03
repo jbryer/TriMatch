@@ -2,12 +2,12 @@
 % Please edit documentation in R/merge.triangle.psa.R
 \name{merge.triangle.psa}
 \alias{merge.triangle.psa}
-\title{Merges covariate(s) with the results of \code{\link{trips}}.}
+\title{Merges covariate(s) with the results of [trips()].}
 \usage{
 \method{merge}{triangle.psa}(x, y, ...)
 }
 \arguments{
-\item{x}{the result of \code{\link{trips}}}
+\item{x}{the result of [trips()]}
 
 \item{y}{another data frame or vector to merge with.}
 

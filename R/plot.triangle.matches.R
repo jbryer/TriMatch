@@ -2,28 +2,28 @@ utils::globalVariables(c('y','id'))
 
 #' Triangle plot drawing matched triplets.
 #' 
-#' This plot function adds a layer to \code{\link{plot.triangle.psa}} drawing 
-#' matched triplets. If \code{p} is supplied, this function will simply draw on
-#' top of the pre-existing plot, otherwise \code{\link{plot.triangle.psa}} will
+#' This plot function adds a layer to [plot.triangle.psa()] drawing 
+#' matched triplets. If `p` is supplied, this function will simply draw on
+#' top of the pre-existing plot, otherwise [plot.triangle.psa()] will
 #' be called first.
 #' 
-#' If this function calls \code{\link{plot.triangle.psa}}, it will only draw
+#' If this function calls [plot.triangle.psa()], it will only draw
 #' line segments and points for those data rows that were used in the matching
 #' procedure. That is, data elements not matched will be excluded from the
 #' figure. To plot all segments and points regardless if used in matching, set
-#' \code{p = plot(tpsa)}.
+#' `p = plot(tpsa)`.
 #' 
-#' @param x matched triplets from \code{link{triangle.match}}.
+#' @param x matched triplets from [triangle.match()].
 #' @param sample an number between 0 and 1 representing the percentage of matched
 #'        triplets to draw.
-#' @param rows an integer vector corresponding to the rows in \code{tmatch} to draw.
+#' @param rows an integer vector corresponding to the rows in `tmatch` to draw.
 #' @param line.color the line color.
 #' @param line.alpha the alpha for the lines.
 #' @param point.color color of matched triplet points.
 #' @param point.size point size for matched triplets.
-#' @param p a ggplot to add the match lines. If NULL, then \code{\link{plot.triangle.psa}}.
-#' @param ... other parameters passed to \code{\link{plot.triangle.psa}}.
-#' @return a \code{ggplot2} graphic.
+#' @param p a ggplot to add the match lines. If NULL, then [plot.triangle.psa()].
+#' @param ... other parameters passed to [plot.triangle.psa()].
+#' @return a `ggplot2` graphic.
 #' @seealso plot.triangle.psa
 #' @seealso triangle.match
 #' @method plot triangle.matches

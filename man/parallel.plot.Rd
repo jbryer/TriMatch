@@ -7,7 +7,7 @@
 parallel.plot(tmatch, outcome)
 }
 \arguments{
-\item{tmatch}{results from \code{\link{trimatch}}.}
+\item{tmatch}{results from [trimatch()].}
 
 \item{outcome}{vector of the outcome}
 }

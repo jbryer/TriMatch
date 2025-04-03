@@ -4,10 +4,24 @@
 \alias{covariateBalance}
 \title{Calculate covariate effect size differences before and after stratification.}
 \usage{
-covariateBalance(covariates, treatment, propensity, strata = NULL,
-  int = NULL, tree = FALSE, minsize = 2, universal.psd = TRUE,
-  trM = 0, absolute.es = TRUE, trt.value = NULL, use.trt.var = FALSE,
-  verbose = FALSE, xlim = NULL, plot.strata = TRUE, ...)
+covariateBalance(
+  covariates,
+  treatment,
+  propensity,
+  strata = NULL,
+  int = NULL,
+  tree = FALSE,
+  minsize = 2,
+  universal.psd = TRUE,
+  trM = 0,
+  absolute.es = TRUE,
+  trt.value = NULL,
+  use.trt.var = FALSE,
+  verbose = FALSE,
+  xlim = NULL,
+  plot.strata = TRUE,
+  ...
+)
 }
 \arguments{
 \item{covariates}{dataframe of interest}
@@ -53,8 +67,8 @@ variance with be used in effect size calculations.}
 \item{...}{currently unused.}
 }
 \description{
-This function is modified from the \code{\link{cv.bal.psa}} function in the 
-\code{PSAgrpahics} package.
+This function is modified from the [PSAgraphics::cv.bal.psa()] function in the 
+`PSAgrpahics` package.
 }
 \details{
 Note: effect sizes are calculated as treatment 1 - treatment 0, or treatment B - treatment A.

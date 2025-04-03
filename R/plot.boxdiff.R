@@ -4,7 +4,7 @@ utils::globalVariables(c('Treatments','Difference','V1','V2','estimate'))
 #' 
 #' A boxplot of differences between each pair of treatments.
 #' 
-#' @param tmatch the results from \code{\link{trimatch}}.
+#' @param tmatch the results from [trimatch()].
 #' @param out a vector of the outcome measure of interest.
 #' @param plot.mean logical indicating whether the means should be plotted.
 #' @param ordering specify the order for doing the paired analysis, that is

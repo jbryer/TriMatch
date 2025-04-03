@@ -1,0 +1,30 @@
+## <a href='https://github.com/jbryer/TriMatch'><img src='man/figures/TriMatch.png' align="right" width="200" /></a> TriMatch - Propensity score matching for non-binary treatments.
+
+<!-- badges: start -->
+`r badger::badge_cran_release("TriMatch", "orange")`
+`r badger::badge_devel("jbryer/TriMatch", "blue")`
+`r badger::badge_github_actions("jbryer/TriMatch", action = "R-CMD-check")`
+![Downloads](http://cranlogs.r-pkg.org/badges/TriMatch)
+<!-- badges: end -->
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+
+See the Applied Propensity Score Analysis with R book and R package for a general introduction to propensity score methods.
+
+```{r, eval=FALSE}
+# Install from CRAN
+install.packages('TriMatch')
+
+# Or install the package from Github
+remotes::install_github('TriMatch', 'jbryer')
+```
+

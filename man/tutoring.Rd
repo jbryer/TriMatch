@@ -4,7 +4,9 @@
 \name{tutoring}
 \alias{tutoring}
 \title{Results from a study examining the effects of tutoring services on course grades.}
-\format{a data frame with 17 variables.}
+\format{
+a data frame with 17 variables.
+}
 \description{
 \itemize{
 \item \code{treat} Treatment indicator.

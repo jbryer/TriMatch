@@ -20,7 +20,7 @@
 #' @param nstrata the number of strata marks to plot on the edge.
 #' @param method the method to use to estimate the propensity scores. Current options are logistic
 #'        or randomForest.
-#' @param ... other parameters passed to \code{\link{glm}}.
+#' @param ... other parameters passed to [stats::glm()].
 #' @export
 #' @examples
 #' \dontrun{

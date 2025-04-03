@@ -4,7 +4,7 @@ utils::globalVariables(c('Outcome','ID','group1'))
 #' 
 #' Creates a \code{ggplot2} figure of a parallel coordinate plot.
 #' 
-#' @param tmatch results from \code{\link{trimatch}}.
+#' @param tmatch results from [trimatch()].
 #' @param outcome vector of the outcome
 #' @export
 parallel.plot <- function(tmatch, outcome) {

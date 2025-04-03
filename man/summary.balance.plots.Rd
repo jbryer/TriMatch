@@ -7,7 +7,7 @@
 \method{summary}{balance.plots}(object, ...)
 }
 \arguments{
-\item{object}{the results of \code{\link{balance.plot}} when a data frame is specified.}
+\item{object}{the results of [balance.plot()] when a data frame is specified.}
 
 \item{...}{currently unused.}
 }
@@ -15,7 +15,7 @@
 a data frame
 }
 \description{
-The \code{\link{balance.plot}} function will create a grid of balance plots
+The [balance.plot()] function will create a grid of balance plots
 if a data frame is provided. The returned object is a list of \code{ggplot2}
 figures with the statistical tests (i.e. Friedmen Rank Sum tests and if a
 continuous variable, repeated measures ANOVA as well) saved as attributes.

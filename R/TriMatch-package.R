@@ -3,7 +3,6 @@
 #' 
 #' @name TriMatch-package
 #' @aliases TriMatch
-#' @docType package
 #' @title Propensity Score Analysis for Non-Binary Treatments
 #' @author Jason Bryer \email{jason@@bryer.org}
 #' @keywords propensity score analysis psa matching
@@ -22,7 +21,7 @@
 #' @importFrom grid grob editGrob vpPath viewport vpTree grid.layout getGrob gTree
 #'             grobWidth grobHeight pushViewport grid.draw upViewport grid.newpage
 #' @importFrom randomForest randomForest
-NA
+"_PACKAGE"
 
 #' Results from a study examining the effects of tutoring services on course grades.
 #' 

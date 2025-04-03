@@ -4,13 +4,22 @@
 \alias{loess3.plot}
 \title{Loess plot for matched triplets.}
 \usage{
-loess3.plot(tmatch, outcome, model, ylab = "Outcome",
-  plot.connections = FALSE, connections.color = "black",
-  connections.alpha = 0.2, plot.points = geom_point, points.alpha = 0.1,
-  points.palette = "Dark2", ...)
+loess3.plot(
+  tmatch,
+  outcome,
+  model,
+  ylab = "Outcome",
+  plot.connections = FALSE,
+  connections.color = "black",
+  connections.alpha = 0.2,
+  plot.points = geom_point,
+  points.alpha = 0.1,
+  points.palette = "Dark2",
+  ...
+)
 }
 \arguments{
-\item{tmatch}{the results of \code{\link{trimatch}}.}
+\item{tmatch}{the results of [trimatch()].}
 
 \item{outcome}{a vector representing the outcomes.}
 
@@ -28,19 +37,19 @@ each matched triplet.}
 connection lines.}
 
 \item{plot.points}{a \code{ggplot2} function for plotting points. Usually 
-\code{\link{geom_point}} or \code{\link{geom_jitter}}. If \code{NULL} no points
+[ggplot2::geom_point()] or [ggplot2::geom_jitter()]. If `NULL` no points
 will be drawn.}
 
 \item{points.alpha}{number between 0 and 1 representing the alpha level for the points.}
 
-\item{points.palette}{the color palette to use. See \code{\link{scale_colour_brewer}}
+\item{points.palette}{the color palette to use. See [ggplot2::scale_colour_brewer()]
 and \url{http://colorbrewer2.org/} for more information.}
 
-\item{...}{other parameters passed to \code{\link{geom_smooth}} and 
-\code{\link{stat_smooth}}.}
+\item{...}{other parameters passed to [ggplot2::geom_smooth()] and 
+[ggplot2::stat_smooth()].}
 }
 \value{
-a \code{ggplot2} figure.
+a `ggplot2` figure.
 }
 \description{
 This function will create a \code{ggplot2} figure with propensity scores on the

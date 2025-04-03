@@ -29,7 +29,7 @@ data.frame.to.list <- function(...) {
 #' @param row.names a vector equal to \code{length(x)} corresponding to the row names.
 #'        If \code{NULL}, the row names will be set to \code{names(x)}.
 #' @param optional not used.
-#' @param ... other parameters passed to \code{\link{data.frame}}.
+#' @param ... other parameters passed to [base::data.frame()].
 #' @return a data frame.
 #' @method as.data.frame list
 #' @examples

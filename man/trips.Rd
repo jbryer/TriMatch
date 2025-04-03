@@ -4,8 +4,15 @@
 \alias{trips}
 \title{Estimates propensity scores for three groups}
 \usage{
-trips(thedata, treat, formu = ~., groups = unique(treat), nstrata = 5,
-  method = "logistic", ...)
+trips(
+  thedata,
+  treat,
+  formu = ~.,
+  groups = unique(treat),
+  nstrata = 5,
+  method = "logistic",
+  ...
+)
 }
 \arguments{
 \item{thedata}{the data frame.}
@@ -24,7 +31,7 @@ should not be specified and will be modified.}
 \item{method}{the method to use to estimate the propensity scores. Current options are logistic
 or randomForest.}
 
-\item{...}{other parameters passed to \code{\link{glm}}.}
+\item{...}{other parameters passed to [stats::glm()].}
 }
 \description{
 The propensity score is \deqn{e(X)=P({ W }=1|X)}

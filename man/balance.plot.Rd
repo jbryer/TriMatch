@@ -4,13 +4,24 @@
 \alias{balance.plot}
 \title{Balance plot for the given covariate.}
 \usage{
-balance.plot(x, covar, model, nstrata = attr(attr(tmatch, "triangle.psa"),
-  "nstrata"), label = "Covariate", ylab = "", xlab = NULL, se.ratio = 2,
-  print = TRUE, legend.position = "top", x.axis.labels,
-  x.axis.angle = -45, ...)
+balance.plot(
+  x,
+  covar,
+  model,
+  nstrata = attr(attr(tmatch, "triangle.psa"), "nstrata"),
+  label = "Covariate",
+  ylab = "",
+  xlab = NULL,
+  se.ratio = 2,
+  print = TRUE,
+  legend.position = "top",
+  x.axis.labels,
+  x.axis.angle = -45,
+  ...
+)
 }
 \arguments{
-\item{x}{results from \code{\link{trimatch}}.}
+\item{x}{results from [trimatch()].}
 
 \item{covar}{vector of the covariate to check balance of.}
 
@@ -30,13 +41,13 @@ propensity scores will be used.}
 \item{print}{print the output if the Freidman Rank Sum Test and repeated
 measures ANOVA (for continuous variables).}
 
-\item{legend.position}{the position of the legend. See \code{\link{theme}}.}
+\item{legend.position}{the position of the legend.}
 
 \item{x.axis.labels}{labels for the x-axis.}
 
 \item{x.axis.angle}{angle for x-axis labels.}
 
-\item{...}{parameters passed to \code{\link{plot.balance.plots}}.}
+\item{...}{parameters passed to [plot.balance.plots()].}
 }
 \value{
 a \code{ggplot2} figure or a list of \code{ggplot2} figures if \code{covar}

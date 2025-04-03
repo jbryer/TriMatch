@@ -7,12 +7,12 @@
 \method{summary}{triangle.psa}(object, ...)
 }
 \arguments{
-\item{object}{the results of \code{\link{trips}}.}
+\item{object}{the results of [trips()].}
 
 \item{...}{currently unused.}
 }
 \description{
-The \code{\link{trips}} function estimates three separate logistic regression
+The [trips()] function estimates three separate logistic regression
 models for each pair of groups. This function will print a combined table
 of the three summaries.
 }

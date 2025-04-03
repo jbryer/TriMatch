@@ -4,11 +4,16 @@
 \alias{boxdiff.plot}
 \title{Returns a \code{ggplot2} box plot of the differences.}
 \usage{
-boxdiff.plot(tmatch, out, plot.mean = TRUE, ordering = attr(tmatch,
-  "match.order"), ci.width = 0.5)
+boxdiff.plot(
+  tmatch,
+  out,
+  plot.mean = TRUE,
+  ordering = attr(tmatch, "match.order"),
+  ci.width = 0.5
+)
 }
 \arguments{
-\item{tmatch}{the results from \code{\link{trimatch}}.}
+\item{tmatch}{the results from [trimatch()].}
 
 \item{out}{a vector of the outcome measure of interest.}
 

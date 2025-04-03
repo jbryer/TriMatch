@@ -7,7 +7,7 @@
 \method{summary}{unmatched}(object, digits = 3, ...)
 }
 \arguments{
-\item{object}{results of \code{\link{unmatched}}}
+\item{object}{results of [unmatched()].}
 
 \item{digits}{number of digits to print.}
 

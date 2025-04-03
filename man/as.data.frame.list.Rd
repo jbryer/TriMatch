@@ -14,7 +14,7 @@ If \code{NULL}, the row names will be set to \code{names(x)}.}
 
 \item{optional}{not used.}
 
-\item{...}{other parameters passed to \code{\link{data.frame}}.}
+\item{...}{other parameters passed to [base::data.frame()].}
 }
 \value{
 a data frame.

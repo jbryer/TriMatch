@@ -2,19 +2,19 @@
 % Please edit documentation in R/plot.triangle.psa.R
 \name{print.triangle.plot}
 \alias{print.triangle.plot}
-\title{Print method for \code{\link{plot.triangle.psa}}. The primary purpose is to 
+\title{Print method for [plot.triangle.psa()]. The primary purpose is to 
 suppress the "Removed n rows containing missing values" warning printed
-by \code{ggplot2}.}
+by `ggplot2`.}
 \usage{
 \method{print}{triangle.plot}(x, ...)
 }
 \arguments{
-\item{x}{a plot from \code{\link{plot.triangle.psa}}.}
+\item{x}{a plot from [plot.triangle.psa()].}
 
 \item{...}{other parameters passed to ggplot2.}
 }
 \description{
-Print method for \code{\link{plot.triangle.psa}}. The primary purpose is to 
+Print method for [plot.triangle.psa()]. The primary purpose is to 
 suppress the "Removed n rows containing missing values" warning printed
-by \code{ggplot2}.
+by `ggplot2`.
 }

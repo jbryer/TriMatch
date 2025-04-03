@@ -7,7 +7,7 @@
 \method{merge}{triangle.matches}(x, y, ...)
 }
 \arguments{
-\item{x}{the result of \code{\link{trimatch}}}
+\item{x}{the result of [trimatch()]}
 
 \item{y}{another data frame or vector to merge with.}
 

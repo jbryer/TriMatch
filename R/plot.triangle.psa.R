@@ -5,7 +5,7 @@ utils::globalVariables(c('y','treat','name','angle','vjust','hjust','xend','yend
 #' Triangle plot showing the fitted values (propensity scores) for three different
 #' models.
 #' 
-#' @param x the results from \code{\link{trips}}.
+#' @param x the results from [trips()].
 #' @param point.alpha alpha level for points.
 #' @param point.size point size.
 #' @param legend.title title for the legend.
@@ -182,11 +182,11 @@ plot.triangle.psa <- function(x,
 	return(p)
 }
 
-#' Print method for \code{\link{plot.triangle.psa}}. The primary purpose is to 
+#' Print method for [plot.triangle.psa()]. The primary purpose is to 
 #' suppress the "Removed n rows containing missing values" warning printed
-#' by \code{ggplot2}.
+#' by `ggplot2`.
 #' 
-#' @param x a plot from \code{\link{plot.triangle.psa}}.
+#' @param x a plot from [plot.triangle.psa()].
 #' @param ... other parameters passed to ggplot2.
 #' @export
 #' @method print triangle.plot

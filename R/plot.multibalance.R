@@ -2,12 +2,12 @@ utils::globalVariables(c('value','covariate','variable','model','group'))
 
 #' Multiple covariate balance assessment plot.
 #' 
-#' A graphic based upon \code{\link{cv.bal.psa}} function in the \code{PSAgraphics}
+#' A graphic based upon [cv.bal.psa()] function in the `PSAgraphics`
 #' package. This graphic plots the effect sizes for multiple covariates before and
 #' after propensity score adjustment.
 #' 
-#' @param tpsa results of \code{\link{trips}}.
-#' @param tmatch results of \code{\link{trimatch}}.
+#' @param tpsa results of [trips()].
+#' @param tmatch results of [trimatch()].
 #' @param grid if TRUE, then a grid of three plots for each model will be displayed.
 #' @param cols character vector of covariates (i.e. column names) from the original 
 #'        data to include in the plot. By default all covariates used in the
@@ -28,9 +28,9 @@ multibalance.plot <- function(tpsa, tmatch, grid=TRUE, cols) {
 	
 	#Recode factors. First we'll covert logicals and factors with two levels to integers
 	for(i in 1:ncol(covs)) {
-		if(class(covs[,i]) == 'logical') {
+		if(is.logical(covs[,i])) {
 			covs[,i] <- as.integer(covs[,i])
-		} else if(class(covs[,i]) == 'factor' & length(levels(covs[,i])) == 2) {
+		} else if(is.factor(covs[,i]) & length(levels(covs[,i])) == 2) {
 			covs[,i] <- as.integer(covs[,i])
 		}
 	}
