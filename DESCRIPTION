@@ -8,8 +8,8 @@ Authors@R:
            comment = c(ORCID = "0000-0002-2454-0402"))
 Description: Propensity score matching for non-binary treatments.
 License: GPL (>= 2)
-URL: http://jbryer.github.io/TriMatch, http://github.com/jbryer/TriMatch
-BugReports: https://github.com/jbryer/TriMatch/issues
+URL: https://jbryer.github.io/TriMatch/, https://github.com/jbryer/TriMatch/
+BugReports: https://github.com/jbryer/TriMatch/issues/
 Depends:
     ez,
     ggplot2,

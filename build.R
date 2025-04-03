@@ -3,15 +3,21 @@ devtools::document()
 devtools::install(upgrade = 'never')
 devtools::install()
 devtools::install(build_vignettes = TRUE)
-devtools::build()
+devtools::build(args = "--compact-vignettes=both")
 devtools::build_vignettes()
-devtools::check(cran = TRUE)
+devtools::check(cran = TRUE,
+				build_args = c('--compact-vignettes="both"'))
 
 # Build website
 pkgdown::build_site()
 
+tools::resaveRdaFiles('data/')
+
+# need ghostscript installed 
+# brew install ghostscript
+
 # Ready for CRAN?
-devtools::release()
+devtools::release(args = c('--compact-vignettes="both"'))
 
 
 

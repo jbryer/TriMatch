@@ -25,7 +25,7 @@ utils::globalVariables(c('ps','treat','id'))
 #'        will be drawn.
 #' @param points.alpha number between 0 and 1 representing the alpha level for the points.
 #' @param points.palette the color palette to use. See [ggplot2::scale_colour_brewer()]
-#'        and \url{http://colorbrewer2.org/} for more information.
+#'        and \url{https://colorbrewer2.org} for more information.
 #' @param ... other parameters passed to [ggplot2::geom_smooth()] and 
 #'        [ggplot2::stat_smooth()].
 #' @return a `ggplot2` figure.
