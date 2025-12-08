@@ -31,5 +31,5 @@ significant difference (as determined by the value of the \code{p} parameter),
 a Pairwise Wilcoxon Rank Sum Test will also be provided.
 }
 \seealso{
-[stats::friedman.test()], [ez::ezANOVA()], [stats::pairwise.wilcox.test()]
+[stats::friedman.test()], ez::ezANOVA(), [stats::pairwise.wilcox.test()]
 }

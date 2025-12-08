@@ -14,7 +14,6 @@
 #' @import stats
 #' @import gridExtra
 #' @import ggplot2
-#' @import ez
 #' @import reshape2
 #' @importFrom graphics plot
 #' @importFrom scales percent

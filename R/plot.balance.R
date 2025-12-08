@@ -148,7 +148,7 @@ balance.plot <- function(x, covar, model,
 				geom_line(data=df, aes(y=Mean, group=Strata)) +
 				geom_errorbar(data=df, aes(ymin=ymin, ymax=ymax), color='green', width=.5)
 		} else { #Categorical varaible
-			p <- p + geom_bar(aes(fill=factor(Covariate), y=(..count..)/sum(..count..)), 
+			p <- p + geom_bar(aes(fill=factor(Covariate), y=(after_stat(count))/sum(after_stat(count))), 
 							  position='fill')  +
 				scale_fill_hue(label) + ylab('Percent') +
 				scale_y_continuous(labels = percent) +

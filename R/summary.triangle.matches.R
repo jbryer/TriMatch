@@ -16,7 +16,7 @@ utils::globalVariables(c('Outcome','ID','Treatment'))
 #'        analysis will be conducted as:
 #'        \code{ordering[1] - ordering[2]}, \code{ordering[1] - ordering[3]},
 #'        and \code{ordering[2] - ordering[3]}.
-#' @seealso [stats::friedman.test()], [ez::ezANOVA()], [stats::pairwise.wilcox.test()]
+#' @seealso [stats::friedman.test()], ez::ezANOVA(), [stats::pairwise.wilcox.test()]
 #' @return a trimatch.summary object.
 #' @method summary triangle.matches
 #' @export

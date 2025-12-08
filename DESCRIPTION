@@ -1,8 +1,8 @@
 Type: Package
 Package: TriMatch
 Title: Propensity Score Matching of Non-Binary Treatments
-Version: 1.0.0
-Date: 2025-04-03
+Version: 1.0.1
+Date: 2025-12-08
 Authors@R: 
     person("Jason", "Bryer", , "jason@bryer.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2454-0402"))
@@ -11,19 +11,21 @@ License: GPL (>= 2)
 URL: https://jbryer.github.io/TriMatch/, https://github.com/jbryer/TriMatch/
 BugReports: https://github.com/jbryer/TriMatch/issues/
 Depends:
-    ez,
     ggplot2,
     R (>= 3.0),
     reshape2,
     scales
 Imports:
+    car,
     compiler,
     grid,
     gridExtra,
+    plyr,
     PSAgraphics,
     psych,
     randomForest,
-    stats
+    stats,
+    stringr
 Suggests:
     bookdown,
     knitr,
@@ -33,4 +35,4 @@ Suggests:
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

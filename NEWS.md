@@ -1,3 +1,8 @@
+TriMatch 1.0.1
+=========
+
+* Removed dependency to the ez package which will be archived from CRAN.
+
 TriMatch 1.0.0
 =========
 
