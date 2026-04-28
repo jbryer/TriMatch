@@ -1,8 +1,8 @@
 Type: Package
 Package: TriMatch
 Title: Propensity Score Matching of Non-Binary Treatments
-Version: 1.0.1
-Date: 2025-12-08
+Version: 1.0.2
+Date: 2026-04-28
 Authors@R: 
     person("Jason", "Bryer", , "jason@bryer.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2454-0402"))

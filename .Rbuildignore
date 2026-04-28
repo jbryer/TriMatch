@@ -20,3 +20,5 @@ README.Rmd
 private/
 build.R
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$

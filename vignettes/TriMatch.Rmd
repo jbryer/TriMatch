@@ -8,7 +8,7 @@ author:
     email         : "jason.bryer@cuny.edu"
 date: "`r Sys.Date()`"
 abstract: "The use of propensity score methods [@RosenbaumRubin1983] have become popular for estimating causal inferences in observational studies in medical research [@Austin2008] and in the social sciences [@ThoemmesKim2011]. In most cases however, the use of propensity score methods have been confined to a single treatment. Several researchers have suggested using propensity score methods with multiple control groups, or to simply perform two separate analyses, one between treatment one and the control and another between treatment two and control. This paper introduces the TriMatch package for R that provides a method for determining matched triplets. Examples from educational and medical contexts will be discussed."
-keywords: "propensity score analysis, causality, matching"
+# keywords: "propensity score analysis, causality, matching"
 bibliography: "references.bib"
 # output:
 #  bookdown::html_document2: default
