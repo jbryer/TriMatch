@@ -1,3 +1,9 @@
+TriMatch 1.0.2
+=========
+
+* Fix for an issue with building the vignette. Removed keywords in the YAML to resolve the issue. 
+  Will need to revist with a new version of Pandoc as it may be an error with the current version.
+
 TriMatch 1.0.1
 =========
 
